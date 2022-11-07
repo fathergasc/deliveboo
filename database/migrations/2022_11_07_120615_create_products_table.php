@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('image', 255)->nullable();
             $table->boolean('displayed')->default(1);
             $table->string('category', 70)->nullable();
+            $table->foreignId('restaurant_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ class CreateRestaurantsTable extends Migration
             $table->string('address', 80);
             $table->string('slug', 70)->unique();
             $table->string('image', 255)->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }
