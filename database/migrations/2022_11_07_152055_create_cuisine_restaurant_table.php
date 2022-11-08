@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCuisineRestaurantTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    
     public function up()
     {
         Schema::create('cuisine_restaurant', function (Blueprint $table) {

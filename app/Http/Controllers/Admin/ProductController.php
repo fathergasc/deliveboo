@@ -14,7 +14,6 @@ class ProductController extends Controller
 {
     public function index()
     {
-
         //recover authenticated user id
         $id = Auth::id();
 
@@ -62,9 +61,9 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')->with('status', 'Product added!');
     }
 
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return view('admin.products.show', compact('product'));
     }
 
     public function edit($id)
@@ -72,24 +71,11 @@ class ProductController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
