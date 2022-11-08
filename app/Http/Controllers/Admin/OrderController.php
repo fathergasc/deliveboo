@@ -17,18 +17,17 @@ class OrderController extends Controller
 
     public function create()
     {
-        //
+        
     }
 
     public function store(Request $request)
     {
-        //
+        
     }
 
-
-    public function show($id)
+    public function show(Order $order)
     {
-        //
+        return view('admin.orders.show', compact('order'));
     }
 
     public function edit($id)
