@@ -2,6 +2,7 @@
 
 use App\Cuisine;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CuisineSeeder extends Seeder
 {
@@ -12,10 +13,15 @@ class CuisineSeeder extends Seeder
      */
     public function run()
     {
-        App\Cuisine::create([
-            'name' => 'italiana',
-            'slug' => Str::slug('italiana'),
-        ]);
+
+        $cuisines = ['italian', 'french', 'greek', 'japanese', 'chinese'];
+
+        foreach ($cuisines as $cuisine) {
+            $newCuisine = new Cuisine();
+            $newCuisine->name = $cuisine;
+            $newCuisine->slug = Str::slug($cuisine);
+            $newCuisine->save();
+        }
 
     }
 }

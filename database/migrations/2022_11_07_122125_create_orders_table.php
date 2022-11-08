@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('phone', 25);
             $table->string('email', 100);
             $table->string('shipping_address', 255);
-            $table->unsignedDecimal('total_price', 10, 2);
+            $table->unsignedDecimal('total_price', 10, 2)->default(0);
             $table->boolean('paid')->default(0);
             $table->timestamps();
         });
