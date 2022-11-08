@@ -13,7 +13,8 @@
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
+                            
+                            <!-- name input -->
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
@@ -25,6 +26,7 @@
                             </div>
                         </div>
 
+                        <!-- email input -->
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -39,6 +41,8 @@
                             </div>
                         </div>
 
+
+                        <!-- password input -->
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
@@ -53,6 +57,8 @@
                             </div>
                         </div>
 
+
+                        <!-- confirm password input -->
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
@@ -61,7 +67,7 @@
                             </div>
                         </div>
 
-                        <!-- vat number -->
+                        <!-- vat number input -->
                         <div class="form-group row">
                             <label for="vat_number" class="col-md-4 col-form-label text-md-right">Vat Number</label>
 
@@ -89,7 +95,7 @@
                             </div>
                         </div>
 
-                        <!-- address -->
+                        <!-- restaurant address -->
                         <div class="form-group row">
                             <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
 
@@ -103,6 +109,7 @@
                             </div>
                         </div>
 
+                        <!-- submit button -->
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

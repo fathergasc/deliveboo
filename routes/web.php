@@ -2,16 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-
+// authentication routes
 Auth::routes();
 
-// authentication
 Route::middleware('auth')
 ->namespace('Admin')
 ->name('admin.')
 ->prefix('admin')
 ->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('/products', 'ProductController');
 });
 
 // vue
