@@ -18,12 +18,5 @@ class RestaurantSeeder extends Seeder
             'slug' => Str::slug('Da Mario'),
             'user_id' => '1',
         ]);
-
-        App\Restaurant::create([
-            'name' => 'Da Mario 2',
-            'address' => 'via Milano, 24, Roma',
-            'slug' => Str::slug('Da Mario 2'),
-            'user_id' => '1',
-        ]);
     }
 }
