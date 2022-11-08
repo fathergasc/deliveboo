@@ -11,8 +11,24 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
+*/
+
+Auth::routes();
+
+// authentication
+Route::middleware('auth')
+->namespace('Admin')
+->name('admin.')
+->prefix('admin')
+->group(function(){
+    Route::get('/', 'HomeController@index')->name('home');
+});
+
+/* vue
+Route::get('{any?}', function () {
+    return view('guest.home');
+})->where('any', '.*');
+*/
