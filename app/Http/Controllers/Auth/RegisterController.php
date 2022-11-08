@@ -35,24 +35,28 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'vat_number' => ['required', 'string', 'min:11', 'max:11'],
-            'restaurant_name' => ['required'],
-            'address' => ['required']
+            'restaurant_name' => ['required', 'string', 'max:70'],
+            'address' => ['required', 'string', 'max:80']
         ]);
     }
 
     protected function create(array $data)
     {
-        return User::create([
+       $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'vat_number' => $data['vat_number']
         ]);
+
+        //recover user id to assign it to the restaurant
+        $userId = $user->id;
         Restaurant::create([
             'name' => $data['restaurant_name'],
             'address' => $data['address'],
             'slug' => Str::slug($data['restaurant_name']),
-            'user_id' => '2',
+            'user_id' => $userId,
         ]);
+        return $user;
     }
 }

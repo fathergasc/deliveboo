@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
-    protected $fillable = ['name', 'address', 'slug', 'image'];
+    protected $fillable = ['name', 'address', 'slug', 'image', 'user_id'];
 
     public function user() {
         return $this->belongsTo('App\User');
