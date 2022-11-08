@@ -61,12 +61,30 @@
                             </div>
                         </div>
 
-                        <!-- vat number --> 
+                        <!-- vat number -->
                         <div class="form-group row">
                             <label for="vat_number" class="col-md-4 col-form-label text-md-right">Vat Number</label>
 
                             <div class="col-md-6">
-                                <input id="vat_number" type="text" class="form-control" name="vat_number" required autocomplete="new-password">
+                                <input id="vat_number" type="text" class="form-control" name="vat_number" required>
+                            </div>
+                        </div>
+
+                        <!-- restaurant name -->
+                        <div class="form-group row">
+                            <label for="restaurant_name" class="col-md-4 col-form-label text-md-right">Restaurant Name</label>
+
+                            <div class="col-md-6">
+                                <input id="restaurant_name" type="text" class="form-control" name="restaurant_name" required>
+                            </div>
+                        </div>
+
+                        <!-- address -->
+                        <div class="form-group row">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control" name="address" required>
                             </div>
                         </div>
 
