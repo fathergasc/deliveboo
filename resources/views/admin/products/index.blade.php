@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-
+    <a href="{{route('admin.products.create')}}" class="btn btn-secondary my-1">Add Product</a>
         <table class="table table-dark table-striped">
             <thead>
             <tr>
