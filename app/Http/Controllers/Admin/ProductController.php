@@ -5,14 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+use App\Restaurant;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        // all products
-        $products = Product::all();
-    
+
+        //recover authenticated user id
+        $id = Auth::id();
+
+        //get restaurant of authenticated user
+        $userRestaurant = Restaurant::all()->where('user_id', $id)->first();
+        //dd($userRestaurant->id);
+
+        //get all products from the restaurant of the authenticated user
+        $products = Product::all()->where('restaurant_id', $userRestaurant->id);
+
         return view('admin.products.index', compact('products'));
     }
 
