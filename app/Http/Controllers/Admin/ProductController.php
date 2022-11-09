@@ -24,6 +24,7 @@ class ProductController extends Controller
         //get all products from the restaurant of the authenticated user
         $products = Product::all()->where('restaurant_id', $userRestaurant->id);
 
+
         return view('admin.products.index', compact('products'));
     }
 

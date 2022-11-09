@@ -14,7 +14,7 @@
                 <th scope="col">Displayed</th>
                 <th scope="col">Category</th>
                 <th scope="col">Price</th>
-                <!-- <th scope="col">Actions</th> -->
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -27,6 +27,9 @@
                     <td>{{($product->displayed)?'displayed':'not displayed'}}</td>
                     <td>{{$product->category}}</td>
                     <td>{{$product->price}}</td>
+                    <td>
+                        <a class="btn btn-warning m-1" href="{{route('admin.products.show', ['product' => $product->id])}}">Show</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
