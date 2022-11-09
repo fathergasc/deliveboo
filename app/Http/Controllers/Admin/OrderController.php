@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Product;
 use App\Restaurant;
+use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -16,17 +18,19 @@ class OrderController extends Controller
     {
         //recover authenticated user id
         $id = Auth::id();
+        $user = User::find($id);
 
         //get restaurant of authenticated user
-        $userRestaurant = Restaurant::all()->where('user_id', $id)->first();
-        //dd($userRestaurant->id);
+        $restaurant = Restaurant::all()->where('user_id', $id)->first();
+        $products = Product::all()->where('restaurant_id', $restaurant->id);
 
-        //get all products from the restaurant of the authenticated user
-        $products = Product::all()->where('restaurant_id', $userRestaurant->id);
+        $orders = [];
+        foreach($products as $product){
+            foreach($product->orders as $order){
+                $orders[] = $order;
+            }
+        }
 
-
-
-        //$orders = Order::all();
         return view('admin.orders.index', compact('orders'));
     }
 
