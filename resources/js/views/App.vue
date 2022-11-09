@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>App Comp</h1>
+        <h1>welcome to guest view</h1>
     </div>
 </template>
 
