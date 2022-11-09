@@ -67,19 +67,44 @@ class ProductController extends Controller
         return view('admin.products.show', compact('product'));
     }
 
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        // $products = Product::find('id');
+        return view('admin.products.edit', compact('product'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'required|max:100',
+                'description' => 'required',
+                'category' => 'max:70',
+                'price' => 'required|numeric|between:0,9999'
+            ]
+        );
+
+
+        $id = Auth::id();
+
+        $userRestaurant = Restaurant::all()->where('user_id', $id)->first();
+
+        $data = $request->all();
+        $product->update($data);
+
+        $slug = $this->generateSlug($product->name);
+        $product->slug = $slug;
+
+        $product->restaurant_id = $userRestaurant->id;
+        $product->save();
+
+        return redirect()->route('admin.products.index')->with('status', 'Product added!');
     }
 
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('admin.products.index')->with('status', 'Product deleted!');
     }
 
     protected function generateSlug($name) {
