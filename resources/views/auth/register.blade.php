@@ -11,7 +11,11 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
+                        <h5 class="text-center">User Info</h5>
+
                         <div class="form-group row">
+
+
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <!-- name input -->
@@ -81,6 +85,8 @@
                             </div>
                         </div>
 
+                        <h5 class="text-center">Restaurant Info</h5>
+
                         <!-- restaurant name -->
                         <div class="form-group row">
                             <label for="restaurant_name" class="col-md-4 col-form-label text-md-right">Restaurant Name</label>
@@ -109,12 +115,13 @@
                             </div>
                         </div>
 
-                        <!-- cuisine -->
+                        <!-- restaurant cuisine -->
                         <div class="form-group row">
                             <label for="cuisine" class="col-md-4 col-form-label text-md-right">Restaurant cuisine</label>
 
                             <div class="col-md-6">
                                 <select class="form-control @error('cuisine_id') is-invalid @enderror" id="cuisine_id"  name="cuisine_id" required>
+                                    <option {{ (old('cuisine_id') == '')? 'selected':'' }} value="">Chose an option</option>
                                     @foreach ($cuisines as $cuisine )
                                         <option {{(old('cuisine_id') == $cuisine->id)?'selected':''}} value="{{$cuisine->id}}">{{ ucfirst($cuisine->name)}}</option>
                                     @endforeach
