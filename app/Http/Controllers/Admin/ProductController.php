@@ -108,7 +108,7 @@ class ProductController extends Controller
         $product->restaurant_id = $userRestaurant->id;
         $product->save();
 
-        return redirect()->route('admin.products.index')->with('status', 'Product added!');
+        return redirect()->route('admin.products.index')->with('status', 'Product updated!');
     }
 
     public function destroy(Product $product)
