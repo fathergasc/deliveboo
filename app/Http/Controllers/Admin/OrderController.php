@@ -27,7 +27,9 @@ class OrderController extends Controller
         $orders = [];
         foreach($products as $product){
             foreach($product->orders as $order){
-                $orders[] = $order;
+                if(!isset($orders[$order->id] )) {
+                    $orders[] = $order;
+                }
             }
         }
 
