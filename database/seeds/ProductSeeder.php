@@ -15,10 +15,8 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        // Product::truncate();
 
-        $json = Storage::disk('local')->get("json/productsData.json");
-        $products = json_decode($json, true);
+        $products = config('products');
 
         foreach ($products as $product) {
             Product::query()->updateOrCreate([
