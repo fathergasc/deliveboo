@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->unsignedDecimal('price', 8, 2);
             $table->string('image', 255)->nullable();
-            $table->boolean('displayed')->default(1);
+            $table->boolean('displayed')->default(0);
             $table->string('category', 70)->nullable();
             $table->foreignId('restaurant_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();

@@ -55,6 +55,17 @@
             @enderror
         </div>
 
+        <div class="form-group mb-3">
+            <label for="displayed" class="form-label">Display product</label>
+            <select class="form-control @error('displayed') is-invalid @enderror" id="displayed" name="displayed">
+                <option value="0" {{ (old('displayed', $product->displayed ) == 0)? 'selected':'' }}>Hidden</option>
+                <option value="1" {{ (old('displayed', $product->displayed ) == 1)? 'selected':'' }}>Displayed</option>
+            </select>
+            @error('displayed')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

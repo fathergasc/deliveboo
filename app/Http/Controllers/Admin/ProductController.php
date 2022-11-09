@@ -39,7 +39,12 @@ class ProductController extends Controller
                 'name' => 'required|max:100',
                 'description' => 'required',
                 'category' => 'max:70',
-                'price' => 'required|numeric|between:0,9999'
+                'price' => 'required|numeric|between:0,9999',
+                'displayed' => 'required|numeric|between:0,1'
+            ],
+            [
+                'displayed.between' => 'Invalid option for display product. Please select a valid option',
+                'displayed.numeric' => 'Invalid option for display product. Please select a valid option'
             ]
         );
 
@@ -79,7 +84,12 @@ class ProductController extends Controller
                 'name' => 'required|max:100',
                 'description' => 'required',
                 'category' => 'max:70',
-                'price' => 'required|numeric|between:0,9999'
+                'price' => 'required|numeric|between:0,9999',
+                'displayed' => 'required|numeric|between:0,1'
+            ],
+            [
+                'displayed.between' => 'Invalid option for display product. Please select a valid option',
+                'displayed.numeric' => 'Invalid option for display product. Please select a valid option'
             ]
         );
 
@@ -97,7 +107,7 @@ class ProductController extends Controller
         $product->restaurant_id = $userRestaurant->id;
         $product->save();
 
-        return redirect()->route('admin.products.index')->with('status', 'Product added!');
+        return redirect()->route('admin.products.index')->with('status', 'Product updated!');
     }
 
     public function destroy(Product $product)
