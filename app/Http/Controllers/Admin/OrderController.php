@@ -16,22 +16,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        //recover authenticated user id
-        $id = Auth::id();
-        $user = User::find($id);
-
-        //get restaurant of authenticated user
-        $restaurant = Restaurant::all()->where('user_id', $id)->first();
-        $products = Product::all()->where('restaurant_id', $restaurant->id);
-
-        $orders = [];
-        foreach($products as $product){
-            foreach($product->orders as $order){
-                $orders[] = $order;
-            }
-        }
-
-        return view('admin.orders.index', compact('orders'));
+        
     }
 
     public function create()
