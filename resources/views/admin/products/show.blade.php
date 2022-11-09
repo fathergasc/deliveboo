@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <!-- <a href="{{route('admin.products.create')}}" class="btn btn-secondary my-1">Add Product</a> -->
+    <a class="btn btn-primary mb-3" href="{{ route('admin.products.index') }}">Back to products list</a>
         <table class="table table-dark table-striped">
             <thead>
             <tr>
@@ -14,7 +14,6 @@
                 <th scope="col">Displayed</th>
                 <th scope="col">Category</th>
                 <th scope="col">Price</th>
-                <!-- <th scope="col">Actions</th> -->
             </tr>
             </thead>
             <tbody>

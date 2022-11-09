@@ -54,6 +54,14 @@
             @enderror
         </div>
 
+        <div class="form-group mb-3">
+            <label for="displayed" class="form-label">Display product</label>
+            <select class="form-control" id="displayed" name="displayed">
+                <option value="0" {{ (old('displayed') == 0)? 'selected':'' }}>Hidden</option>
+                <option value="1" {{ (old('displayed') == 1)? 'selected':'' }}>Displayed</option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
