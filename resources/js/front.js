@@ -1,4 +1,4 @@
-window.vue = require('vue')
+window.Vue = require('vue')
 
 import App from './views/App';
 
