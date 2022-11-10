@@ -5,8 +5,7 @@
         <table class="table table-dark table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
+                <th scope="col">Customer Name</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Email</th>
                 <th scope="col">Shipping Address</th>
@@ -18,8 +17,7 @@
             <tbody>
                 @foreach ($orders as $order)
                 <tr>
-                    <th scope="row">{{$order->id}}</th>
-                    <td>{{$order->name}}</td>
+                    <th scope="row">{{$order->name}}</th>
                     <td>{{$order->phone}}</td>
                     <td>{{$order->email}}</td>
                     <td>{{$order->shipping_address}}</td>

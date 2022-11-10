@@ -158,6 +158,6 @@ class ProductController extends Controller
         $product->image = null;
         $product->save();
 
-        return redirect()->route('admin.products.edit', ['product' => $product->id])->with('status', 'Product image deleted!');
+        return redirect()->route('admin.products.edit', ['product' => $product->slug])->with('status', 'Product image deleted!');
     }
 }

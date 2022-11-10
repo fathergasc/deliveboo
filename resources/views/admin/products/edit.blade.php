@@ -75,12 +75,18 @@
 
         <div class="form-group mb-3">
             <label for="image">Product Image</label>
-            <input type="file" name="image" id="image" class="form-control-file @error('image') is-invalid @enderror">
+            @if ($product->image)
+                <img class="d-block image-fluid mb-4" src="{{ asset('storage/' . $product->image) }}" alt="">
+            @else
+             <span class="d-block mb-3">No image for product</span>
+            @endif
+
+            <input type="file" name="image" id="image" lang="en" class="form-control-file @error('image') is-invalid @enderror">
             @error('image')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
 
-            <button type="submit" class="btn btn-danger my-4" onclick="event.preventDefault(); document.getElementById('deleteProductImage').submit()">Delete Image</button>
+            <button type="submit" class="btn btn-danger my-4 " {{ ($product->image == null)?'disabled':'' }} onclick="event.preventDefault(); document.getElementById('deleteProductImage').submit()">Delete Image</button>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
