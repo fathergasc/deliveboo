@@ -8,6 +8,7 @@ use App\Product;
 use App\Restaurant;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -40,7 +41,8 @@ class ProductController extends Controller
                 'description' => 'required',
                 'category' => 'max:70',
                 'price' => 'required|numeric|between:0,9999',
-                'displayed' => 'required|numeric|between:0,1'
+                'displayed' => 'required|numeric|between:0,1',
+                'image' => 'nullable|image|max:4000'
             ],
             [
                 'displayed.between' => 'Invalid option for display product. Please select a valid option',
@@ -54,6 +56,12 @@ class ProductController extends Controller
         $userRestaurant = Restaurant::all()->where('user_id', $id)->first();
 
         $data = $request->all();
+
+        if (array_key_exists('image', $data)) {
+            $img_path = Storage::put('product-image', $data['image']);
+            $data['image'] = $img_path;
+            }
+
         $product = new Product();
         $product->fill($data);
         //create a unique slug from product name
@@ -85,7 +93,8 @@ class ProductController extends Controller
                 'description' => 'required',
                 'category' => 'max:70',
                 'price' => 'required|numeric|between:0,9999',
-                'displayed' => 'required|numeric|between:0,1'
+                'displayed' => 'required|numeric|between:0,1',
+                'image' => 'nullable|image|max:4000'
             ],
             [
                 'displayed.between' => 'Invalid option for display product. Please select a valid option',
@@ -99,6 +108,17 @@ class ProductController extends Controller
         $userRestaurant = Restaurant::all()->where('user_id', $id)->first();
 
         $data = $request->all();
+
+        if (array_key_exists('image', $data)) {
+            Storage::delete($product->image);
+            $img_path = Storage::put('product-image', $data['image']);
+            $data['image'] = $img_path;
+        }
+
+        if($product->name !== $data['name']) {
+            $data['slug'] = $this->generateSlug($data['name']);
+        }
+
         $product->update($data);
 
         $slug = $this->generateSlug($product->name);
@@ -116,6 +136,7 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')->with('status', 'Product deleted!');
     }
 
+    //generate unique slug for products
     protected function generateSlug($name) {
         $slug = Str::slug($name, '-');
         $checkProduct = Product::all()->where('slug', $slug)->first();
@@ -127,5 +148,16 @@ class ProductController extends Controller
         }
 
         return $slug;
+    }
+
+    public function deleteProductImage(Product $product) {
+        if ($product->image) {
+            Storage::delete($product->image);
+        };
+
+        $product->image = null;
+        $product->save();
+
+        return redirect()->route('admin.products.edit', ['product' => $product->id])->with('status', 'Product image deleted!');
     }
 }

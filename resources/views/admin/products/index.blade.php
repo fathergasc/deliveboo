@@ -6,10 +6,8 @@
         <table class="table table-dark table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <!-- <th scope="col">Image</th> -->
+                <th scope="col">Image</th>
                 <th scope="col">Name</th>
-                <th scope="col">Slug</th>
                 <th scope="col">Description</th>
                 <th scope="col">Displayed</th>
                 <th scope="col">Category</th>
@@ -20,9 +18,14 @@
             <tbody>
                 @foreach ($products as $product)
                 <tr>
-                    <th scope="row">{{$product->id}}</th>
+                    <th scope="row">
+                        @if ($product->image)
+                            <img class="cover-img-index" src="{{ asset('storage/' . $product->image) }}" alt="">
+                        @else
+                            <img class="cover-img-index" src="{{ asset('img/no_product_image_default.jpg') }}" alt="">
+                        @endif
+                    </th>
                     <td>{{$product->name}}</td>
-                    <td>{{$product->slug}}</td>
                     <td>{{$product->description}}</td>
                     <td>{{($product->displayed)?'displayed':'not displayed'}}</td>
                     <td>{{$product->category}}</td>

@@ -65,6 +65,15 @@
             @enderror
         </div>
 
+        <div class="form-group mb-3">
+            <label for="image">Product Image</label>
+            <input type="file" name="image" id="image" class="form-control-file @error('image') is-invalid @enderror">
+            @error('image')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

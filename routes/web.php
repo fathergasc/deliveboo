@@ -11,8 +11,10 @@ Route::middleware('auth')
 ->prefix('admin')
 ->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
-    Route::resource('/products', 'ProductController');
-    Route::resource('/orders', 'OrderController');
+    Route::resource('products', 'ProductController');
+    Route::resource('orders', 'OrderController');
+
+    Route::delete('products/deleteProductImage/{product}', 'ProductController@deleteProductImage' )->name('products.deleteProductImage');
 });
 
 // vue
