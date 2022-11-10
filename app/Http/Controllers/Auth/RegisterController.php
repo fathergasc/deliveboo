@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Restaurant;
-use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Restaurant;
+use App\User;
+use App\Cuisine;
 
 class RegisterController extends Controller
 {
-
     use RegistersUsers;
 
     protected $redirectTo = RouteServiceProvider::HOME;
@@ -22,6 +22,15 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function showRegistrationForm()
+    {
+        $cuisines = Cuisine::orderBy('name')->get();
+        $data = [
+            'cuisines' => $cuisines
+        ];
+        return view("auth.register")->with($data);
     }
 
     protected function validator(array $data)
@@ -63,4 +72,5 @@ class RegisterController extends Controller
         ));
         return $user;
     }
+
 }
