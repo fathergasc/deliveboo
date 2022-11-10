@@ -74,7 +74,7 @@ export default {
         img {
             height: 9px;
 
-            top: 86px;
+            top: 85px;
             right: 5px;
         }
     }
