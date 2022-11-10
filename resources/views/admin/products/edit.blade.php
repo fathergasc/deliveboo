@@ -12,6 +12,13 @@
         </div>
     @endif
 
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+
+
 
     <form action="{{route('admin.products.update', ['product' => $product->id])}}" method="POST" enctype="multipart/form-data">
 
@@ -66,7 +73,24 @@
             @enderror
         </div>
 
+        <div class="form-group mb-3">
+            <label for="image">Product Image</label>
+            <input type="file" name="image" id="image" class="form-control-file @error('image') is-invalid @enderror">
+            @error('image')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+
+            <button type="submit" class="btn btn-danger my-4" onclick="event.preventDefault(); document.getElementById('deleteProductImage').submit()">Delete Image</button>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    {{-- hidden form to delete an uploaded image, forms can't be inside other forms --}}
+    <form action="{{ route('admin.products.deleteProductImage', ['product' => $product]) }}" method="POST" class="d-none" id="deleteProductImage">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Delete Product Image</button>
     </form>
 </div>
 

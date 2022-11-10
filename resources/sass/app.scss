@@ -15,7 +15,7 @@ main{
     .left{
         width: 15%;
     }
-    
+
     .right{
         width: 85%;
     }
@@ -46,11 +46,19 @@ main{
             margin-bottom: 8px;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
             cursor: pointer;
-        
+
         }
         a{
             padding: 0;
         }
     }
 
+}
+
+
+------- BACKOFFICE ---------
+
+//index images width in back-office
+.cover-img-index {
+    width: 80px;
 }
