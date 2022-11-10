@@ -34,7 +34,7 @@
                         <a class="btn btn-warning m-1" href="{{route('admin.products.show', ['product' => $product->slug])}}">Show</a>
                         <a class="btn btn-primary m-1" href="{{route('admin.products.edit', ['product' => $product->slug])}}">Edit</a>
 
-                        <form class="btn" action="{{route('admin.products.destroy', ['product' => $product->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product?')">
+                        <form class="btn" action="{{route('admin.products.destroy', ['product' => $product->slug])}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger m-1">Delete</button>

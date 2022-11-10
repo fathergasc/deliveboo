@@ -20,7 +20,7 @@
 
 
 
-    <form action="{{route('admin.products.update', ['product' => $product->id])}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('admin.products.update', ['product' => $product->slug])}}" method="POST" enctype="multipart/form-data">
 
         @csrf
         @method('PUT')
