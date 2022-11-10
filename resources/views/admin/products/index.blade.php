@@ -31,8 +31,8 @@
                     <td>{{$product->category}}</td>
                     <td>{{$product->price}}</td>
                     <td>
-                        <a class="btn btn-warning m-1" href="{{route('admin.products.show', ['product' => $product->id])}}">Show</a>
-                        <a class="btn btn-primary m-1" href="{{route('admin.products.edit', ['product' => $product->id])}}">Edit</a>
+                        <a class="btn btn-warning m-1" href="{{route('admin.products.show', ['product' => $product->slug])}}">Show</a>
+                        <a class="btn btn-primary m-1" href="{{route('admin.products.edit', ['product' => $product->slug])}}">Edit</a>
 
                         <form class="btn" action="{{route('admin.products.destroy', ['product' => $product->id])}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product?')">
                             @csrf
