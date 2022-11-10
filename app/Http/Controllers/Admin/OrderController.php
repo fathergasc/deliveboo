@@ -25,13 +25,18 @@ class OrderController extends Controller
         $products = Product::all()->where('restaurant_id', $restaurant->id);
 
         $orders = [];
+        $ordersIds = [];
         foreach($products as $product){
             foreach($product->orders as $order){
-                if(!isset($orders[$order->id] )) {
+                if(!in_array($order->id, $ordersIds)) {
+                    $ordersIds[] = $order->id;
                     $orders[] = $order;
                 }
             }
+
         }
+        //dd($ordersIds);
+        //dd($orders);
 
         return view('admin.orders.index', compact('orders'));
     }
