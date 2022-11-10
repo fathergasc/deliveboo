@@ -16,4 +16,9 @@ class Product extends Model
     public function orders() {
         return $this->belongsToMany('App\Order')->withPivot('quantity');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
