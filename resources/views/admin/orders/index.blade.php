@@ -11,6 +11,8 @@
                 <th scope="col">Shipping Address</th>
                 <th scope="col">Products</th>
                 <th scope="col">Total Price</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
                 <th scope="col">Paid</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -29,6 +31,8 @@
                         @endforeach
                     </td>
                     <td>{{$order->total_price}}</td>
+                    <td>{{$order->created_at->format('d-m-Y')}}</td>
+                    <td>{{$order->created_at->format('H:i')}}</td>
                     <td>{{($order->paid)?'paid':'not paid'}}</td>
                     <td><a class="btn btn-warning m-1" href="{{route('admin.orders.show', ['order' => $order->id])}}">Show</a></td>
                 </tr>
