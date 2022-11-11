@@ -10,6 +10,8 @@
                 <th scope="col">Email</th>
                 <th scope="col">Shipping Address</th>
                 <th scope="col">Total Price</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
                 <th scope="col">Paid</th>
             </tr>
             </thead>
@@ -20,6 +22,8 @@
                     <td>{{$order->email}}</td>
                     <td>{{$order->shipping_address}}</td>
                     <td>{{$order->total_price}}</td>
+                    <td>{{$order->created_at->format('d-m-Y')}}</td>
+                    <td>{{$order->created_at->format('H:i')}}</td>
                     <td>{{($order->paid)?'paid':'not paid'}}</td>
                 </tr>
             </tbody>
