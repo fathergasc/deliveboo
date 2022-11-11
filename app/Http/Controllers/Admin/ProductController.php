@@ -76,17 +76,23 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $this->protectProductRoutes($product);
+
         return view('admin.products.show', compact('product'));
     }
 
     public function edit(Product $product)
     {
+
+        $this->protectProductRoutes($product);
+
         // $products = Product::find('id');
         return view('admin.products.edit', compact('product'));
     }
 
     public function update(Request $request, Product $product)
     {
+
         $request->validate(
             [
                 'name' => 'required|max:100',
@@ -132,9 +138,14 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        $this->protectProductRoutes($product);
+
         $product->delete();
         return redirect()->route('admin.products.index')->with('status', 'Product deleted!');
     }
+
+
+    //CUSTOM FUNCTIONS
 
     //generate unique slug for products
     protected function generateSlug($name) {
@@ -159,5 +170,16 @@ class ProductController extends Controller
         $product->save();
 
         return redirect()->route('admin.products.edit', ['product' => $product->slug])->with('status', 'Product image deleted!');
+    }
+
+    public function protectProductRoutes($product) {
+        //recover authenticated user id
+        $id = Auth::id();
+        //get restaurant of authenticated user
+        $userRestaurant = Restaurant::all()->where('user_id', $id)->first();
+
+        if($product->restaurant_id != $userRestaurant->id) {
+            abort(403, "Unauthorized access");
+        }
     }
 }

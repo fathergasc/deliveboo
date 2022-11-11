@@ -33,11 +33,8 @@ class OrderController extends Controller
                     $orders[] = $order;
                 }
             }
-
         }
-        //dd($ordersIds);
-        //dd($orders);
-
+        
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -53,6 +50,8 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        $this->protectOrderRoutes($order);
+
         return view('admin.orders.show', compact('order'));
     }
 
@@ -69,5 +68,29 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function protectOrderRoutes($order) {
+        //recover authenticated user id
+        $id = Auth::id();
+        //get restaurant of authenticated user
+        $restaurant = Restaurant::all()->where('user_id', $id)->first();
+        $products = Product::all()->where('restaurant_id', $restaurant->id);
+
+        $orders = [];
+        $ordersIds = [];
+        foreach($products as $product){
+            foreach($product->orders as $order){
+                if(!in_array($order->id, $ordersIds)) {
+                    $ordersIds[] = $order->id;
+                    $orders[] = $order;
+                }
+            }
+        }
+
+        if(!in_array($order->id, $ordersIds )) {
+            abort(403, "Unauthorized access");
+        }
     }
 }

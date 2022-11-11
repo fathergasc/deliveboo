@@ -12,6 +12,7 @@
                 <th scope="col">Products</th>
                 <th scope="col">Total Price</th>
                 <th scope="col">Paid</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -29,6 +30,7 @@
                     </td>
                     <td>{{$order->total_price}}</td>
                     <td>{{($order->paid)?'paid':'not paid'}}</td>
+                    <td><a class="btn btn-warning m-1" href="{{route('admin.orders.show', ['order' => $order->id])}}">Show</a></td>
                 </tr>
                 @endforeach
             </tbody>

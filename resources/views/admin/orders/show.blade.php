@@ -5,7 +5,6 @@
         <table class="table table-dark table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Email</th>
@@ -16,8 +15,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">{{$order->id}}</th>
-                    <td>{{$order->name}}</td>
+                    <th scope="row">{{$order->name}}</th>
                     <td>{{$order->phone}}</td>
                     <td>{{$order->email}}</td>
                     <td>{{$order->shipping_address}}</td>
