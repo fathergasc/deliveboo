@@ -22,7 +22,7 @@
         <div class="form-group mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{old('name')}}"
-            required max="100">
+            required maxlength="100">
 
             @error('name')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -42,7 +42,7 @@
         <div class="form-group mb-3">
             <label for="category" class="form-label">Category</label>
             <input type="text" class="form-control @error('category') is-invalid @enderror" id="category" name="category" value="{{old('category')}}"
-            max="70">
+            maxlength="70">
 
             @error('category')
                 <div class="invalid-feedback">{{ $message }}</div>

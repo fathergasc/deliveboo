@@ -49574,7 +49574,31 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    email: "",
+    password: "",
+    passwordConfirm: ""
+  },
+  methods: {
+    submitCheck: function submitCheck(event) {
+      this.isEmailValid();
+      this.isPasswordValid(event);
+    },
+    isEmailValid: function isEmailValid() {
+      var emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+      if (!emailCheck.test(this.email)) {
+        return;
+      }
+    },
+    isPasswordValid: function isPasswordValid(event) {
+      if (this.password != this.passwordConfirm) {
+        console.log('psw diverse');
+        event.preventDefault();
+        return;
+      }
+    }
+  }
 });
 
 /***/ }),

@@ -95,6 +95,19 @@
 
 console.log('test');
 
+//valida email
+//valida psw e check
+
+var submit = document.getElementById('submit');
+var email = document.getElementById('email');
+console.log(submit);
+console.log(email);
+/*submit.addEventListener('click', event => {
+    event.preventDefault();
+
+    console.log(email.value)
+})*/
+
 /***/ }),
 
 /***/ 2:

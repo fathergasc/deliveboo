@@ -29,4 +29,28 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    data: {
+        email: "",
+        password: "",
+        passwordConfirm: ""
+    },
+    methods: {
+        submitCheck(event) {
+            this.isEmailValid();
+            this.isPasswordValid(event);
+        },
+        isEmailValid() {
+            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+            if (!emailCheck.test(this.email)) {
+                return;
+            }
+        },
+        isPasswordValid(event) {
+            if (this.password != this.passwordConfirm) {
+                console.log('psw diverse')
+                event.preventDefault();
+                return;
+            }
+        }
+    }
 });
