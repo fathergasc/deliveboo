@@ -13,6 +13,7 @@ Route::middleware('auth')
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('products', 'ProductController');
     Route::resource('orders', 'OrderController');
+    Route::resource('restaurants', 'RestaurantController');
 
     Route::delete('products/deleteProductImage/{product}', 'ProductController@deleteProductImage' )->name('products.deleteProductImage');
 });
