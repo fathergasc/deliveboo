@@ -18,8 +18,23 @@
                 @if($restaurant->image)
                 <img alt="" title="" class="img-circle img-thumbnail isTooltip" src="{{ asset('storage/' . $restaurant->image) }}">
                 @else
-                <img alt="" title="" class="img-circle img-thumbnail isTooltip" src="https://dummyimage.com/300x300/ccc/000.png&text=No+picture">
+                <img alt="" title="" class="img-circle img-thumbnail isTooltip" src="{{ asset('img/restaurant-picture-default.png') }}">
                 @endif
+
+                <form action="{{route('admin.restaurants.update', ['restaurant' => $restaurant->slug])}}" method="POST" enctype="multipart/form-data">
+
+                    @csrf
+                    @method('PUT')
+
+                    <label for="image">Restaurant Image</label>
+                    <input type="file" name="image" id="image" class="form-control-file mb-3 @error('image') is-invalid @enderror"
+                    accept="image/*">
+                    @error('image')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
 
             </div>
             <div class="col-md-6">
