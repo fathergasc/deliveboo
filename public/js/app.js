@@ -49574,7 +49574,31 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    email: "",
+    password: "",
+    passwordConfirm: ""
+  },
+  methods: {
+    submitCheck: function submitCheck(event) {
+      this.isEmailValid();
+      this.isPasswordValid(event);
+    },
+    isEmailValid: function isEmailValid() {
+      var emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+      if (!emailCheck.test(this.email)) {
+        return;
+      }
+    },
+    isPasswordValid: function isPasswordValid(event) {
+      if (this.password != this.passwordConfirm) {
+        console.log('psw diverse');
+        event.preventDefault();
+        return;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -49715,8 +49739,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\quagl\Desktop\Boolean\deliveboo\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\quagl\Desktop\Boolean\deliveboo\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\marco\Desktop\Dev\Boolean\Project Work\deliveboo\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\marco\Desktop\Dev\Boolean\Project Work\deliveboo\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
