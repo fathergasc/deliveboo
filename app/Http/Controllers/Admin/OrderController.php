@@ -34,7 +34,7 @@ class OrderController extends Controller
                 }
             }
         }
-        
+
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -50,7 +50,8 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $this->protectOrderRoutes($order);
+        //calls the view function in OrderPolicy
+        $this->authorize('view', $order);
 
         return view('admin.orders.show', compact('order'));
     }
@@ -71,12 +72,13 @@ class OrderController extends Controller
     }
 
 
+    //function to protect order routes without a Policy - not in use
     public function protectOrderRoutes($order) {
         //recover authenticated user id
         $id = Auth::id();
         //get restaurant of authenticated user
-        $restaurant = Restaurant::all()->where('user_id', $id)->first();
-        $products = Product::all()->where('restaurant_id', $restaurant->id);
+        $userRestaurant = Restaurant::all()->where('user_id', $id)->first();
+        $products = Product::all()->where('restaurant_id', $userRestaurant->id);
 
         $orders = [];
         $ordersIds = [];

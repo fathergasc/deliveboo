@@ -76,22 +76,24 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $this->protectProductRoutes($product);
+        //calls the view function in ProductPolicy
+        $this->authorize('view', $product);
 
         return view('admin.products.show', compact('product'));
     }
 
     public function edit(Product $product)
     {
+        //calls the update function in ProductPolicy
+        $this->authorize('update', $product);
 
-        $this->protectProductRoutes($product);
-
-        // $products = Product::find('id');
         return view('admin.products.edit', compact('product'));
     }
 
     public function update(Request $request, Product $product)
     {
+        //calls the update function in ProductPolicy
+        $this->authorize('update', $product);
 
         $request->validate(
             [
@@ -138,7 +140,8 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        $this->protectProductRoutes($product);
+        //calls the delete function in ProductPolicy
+        $this->authorize('delete', $product);
 
         $product->delete();
         return redirect()->route('admin.products.index')->with('status', 'Product deleted!');
@@ -172,6 +175,7 @@ class ProductController extends Controller
         return redirect()->route('admin.products.edit', ['product' => $product->slug])->with('status', 'Product image deleted!');
     }
 
+    //function to protect routes without a Policy - not in use
     public function protectProductRoutes($product) {
         //recover authenticated user id
         $id = Auth::id();
