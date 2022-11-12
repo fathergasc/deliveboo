@@ -10982,3 +10982,9 @@ main .right {
   width: 80px;
 }
 
+.inf-content {
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
+}
+

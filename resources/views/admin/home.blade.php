@@ -112,13 +112,22 @@
                                 {{ $restaurant->address }}
                             </td>
                         </tr>
+
+                        <tr>
+                            <td>
+                                <b>
+                                    Cuisines
+                                </b>
+                            </td>
+                            <td>
+                                @foreach($cuisines as $cuisine)
+                                    {{$cuisine->name}}
+                                @endforeach
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-
             </div>
-
-
-
     </div>
     </div>
 

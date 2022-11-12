@@ -128,9 +128,8 @@
                             <label for="cuisine" class="col-md-4 col-form-label text-md-right">Restaurant cuisine</label>
 
                             <div class="col-md-6">
-                                <select class="form-control @error('cuisine_id') is-invalid @enderror" id="cuisine_id"  name="cuisine_id" 
-                                required>
-                                    <option {{ (old('cuisine_id') == '')? 'selected':'' }} value="">Chose an option</option>
+                                <select class="form-control cuisines @error('cuisine_id') is-invalid @enderror" name="cuisines[]" 
+                                multiple="multiple" required>
                                     @foreach ($cuisines as $cuisine )
                                         <option {{(old('cuisine_id') == $cuisine->id)?'selected':''}} value="{{$cuisine->id}}">{{ ucfirst($cuisine->name)}}</option>
                                     @endforeach
@@ -158,4 +157,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('.cuisines').select2({
+            placeholder: 'Select an option'
+        });
+    });
+</script>
 @endsection

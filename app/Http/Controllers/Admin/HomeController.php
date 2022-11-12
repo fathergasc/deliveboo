@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+// default
 use App\Http\Controllers\Controller;
-use App\Restaurant;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+
+// models
+use App\Restaurant;
+use App\Cuisine;
 
 class HomeController extends Controller
 {
@@ -17,9 +21,9 @@ class HomeController extends Controller
 
         //get restaurant of authenticated user
         $restaurant = Restaurant::all()->where('user_id', $id)->first();
-        //dd($userRestaurant->id);
+        $cuisines = $restaurant->cuisines->all();
 
-        return view('admin.home', compact('restaurant'));
+        return view('admin.home', compact('restaurant', 'cuisines'));
     }
 
 }

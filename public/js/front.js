@@ -18990,7 +18990,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\marco\Desktop\Dev\Boolean\Project Work\deliveboo\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! /Users/kevinbaly/Desktop/deliveboo-git/deliveboo/resources/js/front.js */"./resources/js/front.js");
 
 
 /***/ })

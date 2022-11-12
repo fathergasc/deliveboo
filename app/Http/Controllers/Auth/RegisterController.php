@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
+// default
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+// imported
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+
+// models
 use App\Restaurant;
 use App\User;
 use App\Cuisine;
@@ -41,13 +46,14 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'vat_number' => ['required', 'string', 'min:11', 'max:11', 'unique:users'],
             'restaurant_name' => ['required', 'string', 'max:70'],
-            'address' => ['required', 'string', 'max:80'],
-            'cuisine_id' => ['required', 'numeric', 'exists:cuisines,id']
+            'address' => ['required', 'string', 'max:80']
+            //'cuisine_id' => ['required', 'numeric', 'exists:cuisines,id']
         ]);
     }
 
     protected function create(array $data)
     {
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -64,13 +70,9 @@ class RegisterController extends Controller
             'user_id' => $userId,
         ]);
 
-        //recover restaurant id and the cuisine_id to assign them to the cuisine_restaurant table
-        $restaurantId = $restaurant->id;
-
-        DB::table('cuisine_restaurant')->insert(array(
-            array('cuisine_id' => $data['cuisine_id'], 'restaurant_id' => $restaurantId),
-        ));
+        $restaurant->cuisines()->attach($data['cuisines']); 
         return $user;
+        
     }
 
 }
