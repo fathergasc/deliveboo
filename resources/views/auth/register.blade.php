@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
-                
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -78,7 +78,7 @@
                             <label for="vat_number" class="col-md-4 col-form-label text-md-right">Vat Number</label>
 
                             <div class="col-md-6">
-                                <input id="vat_number" type="text" class="form-control @error('vat_number') is-invalid @enderror" name="vat_number" value="{{ old('vat_number') }}" 
+                                <input id="vat_number" type="text" class="form-control @error('vat_number') is-invalid @enderror" name="vat_number" value="{{ old('vat_number') }}"
                                 required min="11" max="11">
 
                                 @error('vat_number')
@@ -96,7 +96,7 @@
                             <label for="restaurant_name" class="col-md-4 col-form-label text-md-right">Restaurant Name</label>
 
                             <div class="col-md-6">
-                                <input id="restaurant_name" type="text" class="form-control @error('restaurant_name') is-invalid @enderror" name="restaurant_name" value="{{ old('restaurant_name') }}" 
+                                <input id="restaurant_name" type="text" class="form-control @error('restaurant_name') is-invalid @enderror" name="restaurant_name" value="{{ old('restaurant_name') }}"
                                 required maxlength="70">
 
                                 @error('restaurant_name')
@@ -112,7 +112,7 @@
                             <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" 
+                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}"
                                 required maxlength="80">
 
                                 @error('address')
@@ -128,10 +128,10 @@
                             <label for="cuisine" class="col-md-4 col-form-label text-md-right">Restaurant cuisine</label>
 
                             <div class="col-md-6">
-                                <select class="form-control cuisines @error('cuisine_id') is-invalid @enderror" name="cuisines[]" 
+                                <select class="form-control cuisines @error('cuisine') is-invalid @enderror" name="cuisines[]"
                                 multiple="multiple" required>
                                     @foreach ($cuisines as $cuisine )
-                                        <option {{(old('cuisine_id') == $cuisine->id)?'selected':''}} value="{{$cuisine->id}}">{{ ucfirst($cuisine->name)}}</option>
+                                        <option {{(old('cuisine') == $cuisine->id)?'selected':''}} value="{{$cuisine->id}}">{{ ucfirst($cuisine->name)}}</option>
                                     @endforeach
                                 </select>
 

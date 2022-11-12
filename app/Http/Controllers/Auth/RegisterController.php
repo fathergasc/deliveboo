@@ -46,8 +46,8 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'vat_number' => ['required', 'string', 'min:11', 'max:11', 'unique:users'],
             'restaurant_name' => ['required', 'string', 'max:70'],
-            'address' => ['required', 'string', 'max:80']
-            //'cuisine_id' => ['required', 'numeric', 'exists:cuisines,id']
+            'address' => ['required', 'string', 'max:80'],
+            'cuisine' => ['required', 'numeric', 'exists:cuisines,id']
         ]);
     }
 
@@ -70,9 +70,9 @@ class RegisterController extends Controller
             'user_id' => $userId,
         ]);
 
-        $restaurant->cuisines()->attach($data['cuisines']); 
+        $restaurant->cuisines()->attach($data['cuisines']);
         return $user;
-        
+
     }
 
 }
