@@ -16,85 +16,26 @@ class RestaurantController extends Controller
      */
     public function index()
     {
+        $data = request()->all();
 
-        $restaurants = Restaurant::with('cuisines')->get();
+        if (array_key_exists('cuisines', $data)) {
+            $restaurants = Restaurant::select('id', 'name', 'address', 'slug', 'image', 'user_id')
+                ->with('cuisines')
+                ->join('cuisine_restaurant', 'restaurants.id', '=', 'cuisine_restaurant.restaurant_id')
+                ->whereIn('cuisine_restaurant.cuisine_id', $data['cuisines'])
+                ->distinct() //prevents showing the same restaurant twice
+                ->get();
+        } else {
+            $restaurants = Restaurant::with('cuisines')->get();
+        }
+
         return response()->json(
             [
                 'success' => true,
                 'results' => $restaurants
             ]
         );
-        /*
-        $data = request()->all();
-
-        if(array_key_exists('cuisine', $data)) {
-            $cuisines = Cuisine::find($data['cuisine']);
-            $restaurants = $cuisines->restaurants->all();
-        } else {
-            $restaurants = Restaurant::with('cuisines')->get();
-        }
-        return response()->json([
-            'success' => true,
-            'results' => $restaurants
-        ]);
-
-        /*$data = request()->all();
-        if(array_key_exists('cuisines', $data)) {
-            $restaurants = Restaurant::with('cuisines')->where('cuisines->id', $data['cuisines'])->get();
-        } else {
-            $restaurants = Restaurant::with('cuisines')->get();
-        }
-
-        return response()->json(
-            [
-                'success' => true,
-                'results' => $restaurants,
-            ]
-            );
-            */
-
-        /*
-            $data = request()->all();
-            if(array_key_exists('cuisines', $data)) {
-                $restaurants = Restaurant::with('cuisines')->get();
-
-                $restaurants = $restaurants->cuisines->get()->pivot->cuisine_id
-                //$restaurants = Restaurant::with('cuisines')->pivot->cuisine_id->where('cuisines_id', $data['cuisines'])->get();
-            }  else {
-                $restaurants = Restaurant::with('cuisines')->get();
-            }
-            return response()->json(
-                [
-                    'success' => true,
-                    'results' => $restaurants,
-                ]
-                );
-
-                */
     }
-
-    public function filterRestaurants()
-    {
-        $data = request()->all();
-
-        //if(array_key_exists('cuisines', $data)) {
-        $restaurants = Restaurant::select('name', 'address', 'slug', 'image', 'id')
-            ->join('cuisine_restaurant', 'restaurant.id', '=', 'cuisine_restaurant.restaurant_id')
-            ->whereIn('cuisine_restaurant.cuisine_id', $data['cuisines'])
-            ->with('cuisines')
-            ->get();
-        //}
-
-
-        return response()->json(
-            [
-                'success' => true,
-                'results' => $restaurants,
-            ]
-        );
-    }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -123,9 +64,14 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $restaurant = Restaurant::where('slug', $slug)->with('products')->first();
+
+        return response()->json([
+            'success' => true,
+            'results' => $restaurant,
+        ]);
     }
 
     /**
