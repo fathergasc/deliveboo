@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <h2>{{restaurant.name}}</h2>
+        <h2>Restaurant: {{restaurant.name}}</h2>
+        <h3>Menu:</h3>
         <ul>
             <li v-for="(product, index) in restaurant.products" :key="index">{{product.name}}</li>
         </ul>

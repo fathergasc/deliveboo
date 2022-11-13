@@ -14,7 +14,7 @@ class CuisineSeeder extends Seeder
     public function run()
     {
 
-        $cuisines = ['italian', 'french', 'greek', 'japanese', 'chinese'];
+        $cuisines = ['italian', 'french', 'greek', 'japanese', 'chinese', 'indian', 'mexican'];
 
         foreach ($cuisines as $cuisine) {
             $newCuisine = new Cuisine();

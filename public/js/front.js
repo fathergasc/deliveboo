@@ -2295,7 +2295,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("ul", _vm._l(_vm.restaurant.products, function (product, index) {
+  }, [_c("h2", [_vm._v("Restaurant: " + _vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("h3", [_vm._v("Menu:")]), _vm._v(" "), _c("ul", _vm._l(_vm.restaurant.products, function (product, index) {
     return _c("li", {
       key: index
     }, [_vm._v(_vm._s(product.name))]);
