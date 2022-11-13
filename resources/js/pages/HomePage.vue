@@ -1,6 +1,21 @@
 <template>
     <div>
         <main>
+            <section>
+                <div class="container">
+                    <h3>Categories</h3>
+                    <div v-for="(cuisine, index) in cuisines" :key="index">
+                        <label class="text-uppercase" :for="cuisine.id">{{cuisine.name}}</label>
+                        <input type="checkbox" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
+                    </div>
+                </div>
+                <div class="container">
+                    <h3>Restaurants</h3>
+                    <div v-for="(restaurant, indexB) in restaurants" :key="indexB">
+                        <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}">{{restaurant.name}}</router-link>
+                    </div>
+                </div>
+            </section>
             <section class="container-md position-relative">
                 <div id="food-truck-container" class="position-absolute">
                     <img src="/assets/img/food-truck edit.png" alt="Food truck">
@@ -19,7 +34,36 @@
 
 <script>
 export default {
-    name: 'MyMain'
+    name: 'MyMain',
+    data() {
+        return {
+            cuisines: [],
+            selectedCuisines: [],
+            restaurants: []
+        }
+    },
+    methods: {
+        getCuisines() {
+            axios.get('/api/cuisines')
+            .then((response) =>{
+                this.cuisines = response.data.results;
+            })
+        },
+        getFilteredRestaurants() {
+            axios.get('/api/restaurants', {
+                params: {
+                    cuisines: this.selectedCuisines
+                }
+            })
+            .then((response) => {
+                this.restaurants = response.data.results;
+            })
+        }
+    },
+    mounted() {
+        this.getCuisines();
+        this.getFilteredRestaurants();
+    }
 }
 </script>
 
