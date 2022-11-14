@@ -125,17 +125,17 @@
 
                         <!-- restaurant cuisine -->
                         <div class="form-group row">
-                            <label for="cuisine" class="col-md-4 col-form-label text-md-right">Restaurant cuisine</label>
+                            <label for="cuisines" class="col-md-4 col-form-label text-md-right">Restaurant cuisine</label>
 
                             <div class="col-md-6">
-                                <select class="form-control cuisines @error('cuisine') is-invalid @enderror" name="cuisines[]"
+                                <select class="form-control cuisines @error('cuisines') is-invalid @enderror" name="cuisines[]"
                                 multiple="multiple" required>
                                     @foreach ($cuisines as $cuisine )
-                                        <option {{(old('cuisine') == $cuisine->id)?'selected':''}} value="{{$cuisine->id}}">{{ ucfirst($cuisine->name)}}</option>
+                                        <option {{(old('cuisines') == $cuisine->id)?'selected':''}} value="{{$cuisine->id}}">{{ ucfirst($cuisine->name)}}</option>
                                     @endforeach
                                 </select>
 
-                                @error('cuisine')
+                                @error('cuisines')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
