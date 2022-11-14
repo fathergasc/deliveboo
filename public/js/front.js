@@ -2147,12 +2147,17 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_c("main", [_c("section", {
     staticClass: "container-md position-relative"
+  }, [_c("div", {
+    staticClass: "position-relative",
+    attrs: {
+      id: "search-container"
+    }
   }, [_c("h3", [_vm._v("Categories")]), _vm._v(" "), _c("div", {
-    staticClass: "row justify-content-center"
+    staticClass: "row justify-content-center my_special-bg-color"
   }, _vm._l(_vm.cuisines, function (cuisine, index) {
     return _c("div", {
       key: index,
-      staticClass: "col-3 d-flex justify-content-center align-items-center"
+      staticClass: "col-3 d-flex justify-content-center align-items-center py-2"
     }, [_c("input", {
       directives: [{
         name: "model",
@@ -2209,7 +2214,7 @@ var render = function render() {
         }
       }
     }, [_vm._v(_vm._s(restaurant.name))])], 1);
-  }), _vm._v(" "), _vm._m(0)], 2)])]);
+  })], 2), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -2255,6 +2260,42 @@ var staticRenderFns = [function () {
       src: "/assets/img/shopping-cart-edit.png"
     }
   })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "ferris-wheel-container"
+  }, [_c("div", {
+    staticClass: "circle"
+  }, [_c("ul", {
+    staticClass: "borders"
+  }, [_c("li"), _vm._v(" "), _c("li"), _vm._v(" "), _c("li"), _vm._v(" "), _c("li"), _vm._v(" "), _c("li"), _vm._v(" "), _c("li")]), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cab"
+  }), _vm._v(" "), _c("div")]), _vm._v(" "), _c("div", {
+    staticClass: "std"
+  })]);
 }];
 render._withStripped = true;
 
@@ -2376,7 +2417,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "main[data-v-04c29797] {\n  height: calc(100vh - 70px);\n  background-color: beige;\n}\nsection[data-v-04c29797] {\n  height: 100%;\n  overflow-x: hidden;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  aspect-ratio: 1/1;\n  max-width: 90px;\n  max-height: 90px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-image: url(\"/assets/img/hand-drawn-food-doodle_edit.png\");\n  background-size: 100%;\n  background-repeat: no-repeat;\n  filter: grayscale(100%);\n}\n.my_checkbox-label[data-v-04c29797] {\n  margin-bottom: 0px;\n  background-color: rgba(255, 255, 255, 0.8);\n  padding: 2px 4px;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 5px solid #0367a6;\n  outline-offset: 5px;\n  filter: grayscale(0%);\n}\n#food-truck-container[data-v-04c29797] {\n  bottom: 0px;\n  left: -84px;\n}\n#food-truck-container img[data-v-04c29797] {\n  height: 280px;\n}\n#truck-door-container[data-v-04c29797] {\n  width: 43px;\n  height: 96.5px;\n  bottom: 51px;\n  left: 250px;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  background-color: #cd181f;\n  box-shadow: inset 0px 0px 0px 1px #000000;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door img[data-v-04c29797] {\n  height: 6px;\n  top: 60px;\n  right: 3px;\n}\n#truck-door-window[data-v-04c29797] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: #0ca49b;\n  box-shadow: 0px 0px 0px 2px #000000;\n  top: 16px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n#truck-door-container:hover #truck-door[data-v-04c29797] {\n  animation: open-door-04c29797 1.5s ease forwards;\n}\n@keyframes open-door-04c29797 {\n0% {\n    -webkit-transform: perspective(600) rotateY(0deg);\n    transform-origin: 0% 50%;\n}\n100% {\n    -webkit-transform: perspective(600) rotateY(-180deg);\n    transform-origin: 0% 50%;\n}\n}\n#main-cart[data-v-04c29797] {\n  top: -7px;\n  left: 290px;\n  transform: rotate(-2deg);\n}\n#main-cart img[data-v-04c29797] {\n  height: 80px;\n}", ""]);
+exports.push([module.i, "main[data-v-04c29797] {\n  height: calc(100vh - 70px);\n  background-color: beige;\n}\nsection[data-v-04c29797] {\n  height: 100%;\n  overflow-x: hidden;\n}\n#search-container[data-v-04c29797] {\n  width: 100%;\n  z-index: 103;\n}\n.my_special-bg-color[data-v-04c29797] {\n  background-color: rgba(255, 255, 255, 0.4);\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  aspect-ratio: 1/1;\n  max-width: 90px;\n  max-height: 90px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-image: url(\"/assets/img/hand-drawn-food-doodle_edit.png\");\n  background-size: 100%;\n  background-repeat: no-repeat;\n  filter: grayscale(100%);\n}\n.my_checkbox-label[data-v-04c29797] {\n  margin-bottom: 0px;\n  background-color: rgba(255, 255, 255, 0.8);\n  padding: 2px 4px;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 5px solid #0367a6;\n  outline-offset: 5px;\n  filter: grayscale(0%);\n}\n.my_checkbox:checked .ferris-wheel-container[data-v-04c29797] {\n  filter: grayscale(100%);\n}\n\n/*** START FOOD TRUCK ***/\n#food-truck-container[data-v-04c29797] {\n  bottom: 0px;\n  left: -84px;\n  z-index: 102;\n}\n#food-truck-container img[data-v-04c29797] {\n  height: 280px;\n}\n#truck-door-container[data-v-04c29797] {\n  width: 43px;\n  height: 96.5px;\n  bottom: 51px;\n  left: 250px;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  background-color: #cd181f;\n  box-shadow: inset 0px 0px 0px 1px #000000;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door img[data-v-04c29797] {\n  height: 6px;\n  top: 60px;\n  right: 3px;\n}\n#truck-door-window[data-v-04c29797] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: #0ca49b;\n  box-shadow: 0px 0px 0px 2px #000000;\n  top: 16px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n#truck-door-container:hover #truck-door[data-v-04c29797] {\n  animation: open-door-04c29797 1.5s ease forwards;\n}\n@keyframes open-door-04c29797 {\n0% {\n    -webkit-transform: perspective(600) rotateY(0deg);\n    transform-origin: 0% 50%;\n}\n100% {\n    -webkit-transform: perspective(600) rotateY(-180deg);\n    transform-origin: 0% 50%;\n}\n}\n#main-cart[data-v-04c29797] {\n  top: -7px;\n  left: 290px;\n  transform: rotate(-2deg);\n}\n#main-cart img[data-v-04c29797] {\n  height: 80px;\n}\n\n/*** END FOOD TRUCK ***/\n/*** START FERRIS WHEEL ***/\n.ferris-wheel-container[data-v-04c29797] {\n  height: 500px;\n  width: 500px;\n  position: absolute;\n  overflow: hidden;\n  bottom: 20px;\n  right: -156px;\n  z-index: 101;\n}\n.ferris-wheel-container *[data-v-04c29797] {\n  position: absolute;\n  box-sizing: border-box;\n}\n*[data-v-04c29797]::before,\n*[data-v-04c29797]::after {\n  content: \"\";\n  position: absolute;\n}\n.circle[data-v-04c29797],\n.borders[data-v-04c29797]::before {\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.circle[data-v-04c29797],\n.borders[data-v-04c29797],\n.borders[data-v-04c29797]::before {\n  border-radius: 50%;\n}\n.circle[data-v-04c29797] {\n  top: 200px;\n  height: 350px;\n  width: 350px;\n  animation: circle-04c29797 60s linear infinite;\n}\n@keyframes circle-04c29797 {\nto {\n    transform: translate(-50%, -50%) rotate(360deg);\n}\n}\n.borders[data-v-04c29797] {\n  padding: 0;\n  list-style: none;\n  margin: 0;\n  height: 100%;\n  width: 100%;\n  z-index: 5;\n  border: 3px solid #1c8fab;\n}\n.borders[data-v-04c29797]::before {\n  height: 50px;\n  width: 50px;\n  background-color: #7dc3dd;\n  border: 10px solid #1c8fab;\n  z-index: 555;\n}\n.borders li[data-v-04c29797] {\n  top: 50%;\n  transform: translateY(-50%);\n  height: 2px;\n  width: 100%;\n  background-color: #7dc3dd;\n}\n.borders li[data-v-04c29797]:nth-of-type(2) {\n  transform: rotate(30deg);\n}\n.borders li[data-v-04c29797]:nth-of-type(3) {\n  transform: rotate(60deg);\n}\n.borders li[data-v-04c29797]:nth-of-type(4) {\n  transform: rotate(90deg);\n}\n.borders li[data-v-04c29797]:nth-of-type(5) {\n  transform: rotate(120deg);\n}\n.borders li[data-v-04c29797]:nth-of-type(6) {\n  transform: rotate(150deg);\n}\n.cab[data-v-04c29797] {\n  height: 40px;\n  width: 40px;\n  transform-origin: top center;\n  background-image: url(\"/assets/img/food-main-logo_edit.png\");\n  background-size: 100%;\n  background-repeat: no-repeat;\n  animation: cab-one-04c29797 60s linear infinite reverse;\n}\n.cab[data-v-04c29797]:nth-of-type(1) {\n  top: 175px;\n  left: -19px;\n}\n.cab[data-v-04c29797]:nth-of-type(2) {\n  top: 91px;\n  left: 4px;\n}\n.cab[data-v-04c29797]:nth-of-type(3) {\n  top: 26px;\n  left: 68px;\n}\n.cab[data-v-04c29797]:nth-of-type(4) {\n  top: 1px;\n  left: 155px;\n}\n.cab[data-v-04c29797]:nth-of-type(5) {\n  top: 26px;\n  left: 245px;\n}\n.cab[data-v-04c29797]:nth-of-type(6) {\n  top: 90px;\n  left: 307px;\n}\n.cab[data-v-04c29797]:nth-of-type(7) {\n  top: 175px;\n  left: 329px;\n}\n.cab[data-v-04c29797]:nth-of-type(8) {\n  top: 263px;\n  left: 306px;\n}\n.cab[data-v-04c29797]:nth-of-type(9) {\n  top: 327px;\n  left: 243px;\n}\n.cab[data-v-04c29797]:nth-of-type(10) {\n  top: 349px;\n  left: 156px;\n}\n.cab[data-v-04c29797]:nth-of-type(11) {\n  top: 328px;\n  left: 69px;\n}\n.cab[data-v-04c29797]:nth-of-type(12) {\n  top: 265px;\n  left: 4px;\n}\n@keyframes cab-one-04c29797 {\n100% {\n    transform: rotate(360deg);\n}\n}\n.cab[data-v-04c29797]::before {\n  height: 6px;\n  width: 6px;\n  top: -3px;\n  left: 50%;\n  background-color: black;\n  transform: translateX(-50%);\n  border-radius: 50%;\n}\n.std[data-v-04c29797] {\n  height: 30px;\n  width: 350px;\n  border-radius: 30px 30px 0 0;\n  background-color: #1d90ac;\n  top: 470px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.std[data-v-04c29797]::before,\n.std[data-v-04c29797]::after {\n  height: 290px;\n  width: 12px;\n  background-color: #1d90ac;\n  bottom: 0;\n  transform-origin: bottom center;\n}\n.std[data-v-04c29797]::before {\n  left: 60px;\n  transform: rotate(20deg);\n}\n.std[data-v-04c29797]::after {\n  right: 60px;\n  transform: rotate(-20deg);\n}\n\n/*** END FERRIS WHEEL ***/", ""]);
 
 // exports
 
