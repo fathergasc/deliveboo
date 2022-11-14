@@ -1,22 +1,25 @@
 <template>
     <div>
         <main>
-            <section>
-                <div class="container">
-                    <h3>Categories</h3>
-                    <div v-for="(cuisine, index) in cuisines" :key="index">
-                        <label class="text-uppercase" :for="cuisine.id">{{cuisine.name}}</label>
-                        <input type="checkbox" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
-                    </div>
-                </div>
-                <div class="container">
-                    <h3>Restaurants</h3>
-                    <div v-for="(restaurant, indexB) in restaurants" :key="indexB">
-                        <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}">{{restaurant.name}}</router-link>
-                    </div>
-                </div>
-            </section>
             <section class="container-md position-relative">
+
+                <h3>Categories</h3>
+
+                <div class="row justify-content-center">
+                    <div class="col-3 d-flex justify-content-center align-items-center" v-for="(cuisine, index) in cuisines" :key="index">
+                        <input type="checkbox" class="my_checkbox" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
+                        <label class="my_checkbox-label position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
+                    </div>
+                </div>
+
+
+                <h3>Restaurants</h3>
+                <div v-for="(restaurant, indexB) in restaurants" :key="indexB">
+                    <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}">{{restaurant.name}}</router-link>
+                </div>
+
+
+
                 <div id="food-truck-container" class="position-absolute">
                     <img src="/assets/img/food-truck edit.png" alt="Food truck">
 
@@ -69,7 +72,7 @@ export default {
 
 <style scoped lang="scss">
     main {
-        height: calc(100vh - 80px);
+        height: calc(100vh - 70px);
         background-color: beige;
     }
 
@@ -78,24 +81,52 @@ export default {
         overflow-x: hidden;
     }
 
+    .my_checkbox {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        max-width: 90px;
+        max-height: 90px;
+        appearance: none;
+        background-image: url('/assets/img/hand-drawn-food-doodle_edit.png');
+        background-size: 100%;
+        background-repeat: no-repeat;
+        filter: grayscale(100%);
+    }
+
+    .my_checkbox-label {
+        margin-bottom: 0px;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 2px 4px;
+    }
+
+    .my_checkbox:checked {
+        outline: 5px solid #0367a6;
+        outline-offset: 5px;
+        filter: grayscale(0%);
+    }
+
+
+
+
+
     #food-truck-container {
-        bottom: 50px;
-        left: -175px;
+        bottom: 0px;
+        left: -84px;
 
         img {
-            height: 400px;
+            height: 280px;
         }
     }
 
     #truck-door-container {
-        width: 63px;
-        height: 138px;
+        width: 43px;
+        height: 96.5px;
 
-        bottom: 73px;
-        left: 356.8px;
+        bottom: 51px;
+        left: 250px;
 
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
     }
@@ -106,8 +137,8 @@ export default {
         background-color: #cd181f;
         box-shadow: inset 0px 0px 0px 1px #000000;
 
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
 
@@ -116,21 +147,21 @@ export default {
         //backface-visibility: hidden;
 
         img {
-            height: 9px;
+            height: 6px;
 
-            top: 85px;
-            right: 5px;
+            top: 60px;
+            right: 3px;
         }
     }
 
     #truck-door-window {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         background-color: #0ca49b;
         box-shadow: 0px 0px 0px 2px #000000;
 
-        top: 20px;
+        top: 15px;
         left: 50%;
         transform: translateX(-50%);
     }

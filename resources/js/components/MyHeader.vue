@@ -17,7 +17,7 @@ export default {
 <style scoped lang="scss">
     header {
         background-color: aqua;
-        height: 80px;
+        height: 70px;
     }
 
 </style>

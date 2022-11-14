@@ -2145,23 +2145,22 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("main", [_c("section", [_c("div", {
-    staticClass: "container"
-  }, [_c("h3", [_vm._v("Categories")]), _vm._v(" "), _vm._l(_vm.cuisines, function (cuisine, index) {
+  return _c("div", [_c("main", [_c("section", {
+    staticClass: "container-md position-relative"
+  }, [_c("h3", [_vm._v("Categories")]), _vm._v(" "), _c("div", {
+    staticClass: "row justify-content-center"
+  }, _vm._l(_vm.cuisines, function (cuisine, index) {
     return _c("div", {
-      key: index
-    }, [_c("label", {
-      staticClass: "text-uppercase",
-      attrs: {
-        "for": cuisine.id
-      }
-    }, [_vm._v(_vm._s(cuisine.name))]), _vm._v(" "), _c("input", {
+      key: index,
+      staticClass: "col-3 d-flex justify-content-center align-items-center"
+    }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
         value: _vm.selectedCuisines,
         expression: "selectedCuisines"
       }],
+      staticClass: "my_checkbox",
       attrs: {
         type: "checkbox",
         name: cuisine.name,
@@ -2191,10 +2190,13 @@ var render = function render() {
           return _vm.getFilteredRestaurants();
         }]
       }
-    })]);
-  })], 2), _vm._v(" "), _c("div", {
-    staticClass: "container"
-  }, [_c("h3", [_vm._v("Restaurants")]), _vm._v(" "), _vm._l(_vm.restaurants, function (restaurant, indexB) {
+    }), _vm._v(" "), _c("label", {
+      staticClass: "my_checkbox-label position-absolute",
+      attrs: {
+        "for": cuisine.id
+      }
+    }, [_vm._v(_vm._s(cuisine.name))])]);
+  }), 0), _vm._v(" "), _c("h3", [_vm._v("Restaurants")]), _vm._v(" "), _vm._l(_vm.restaurants, function (restaurant, indexB) {
     return _c("div", {
       key: indexB
     }, [_c("router-link", {
@@ -2207,14 +2209,12 @@ var render = function render() {
         }
       }
     }, [_vm._v(_vm._s(restaurant.name))])], 1);
-  })], 2)]), _vm._v(" "), _vm._m(0)])]);
+  }), _vm._v(" "), _vm._m(0)], 2)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("section", {
-    staticClass: "container-md position-relative"
-  }, [_c("div", {
+  return _c("div", {
     staticClass: "position-absolute",
     attrs: {
       id: "food-truck-container"
@@ -2244,7 +2244,7 @@ var staticRenderFns = [function () {
     attrs: {
       src: "/assets/img/food-truck-door-handle.png"
     }
-  })])])])]);
+  })])])]);
 }];
 render._withStripped = true;
 
@@ -2347,7 +2347,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "header[data-v-a4c8a778] {\n  background-color: aqua;\n  height: 80px;\n}", ""]);
+exports.push([module.i, "header[data-v-a4c8a778] {\n  background-color: aqua;\n  height: 70px;\n}", ""]);
 
 // exports
 
@@ -2366,7 +2366,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "main[data-v-04c29797] {\n  height: calc(100vh - 80px);\n  background-color: beige;\n}\nsection[data-v-04c29797] {\n  height: 100%;\n  overflow-x: hidden;\n}\n#food-truck-container[data-v-04c29797] {\n  bottom: 50px;\n  left: -175px;\n}\n#food-truck-container img[data-v-04c29797] {\n  height: 400px;\n}\n#truck-door-container[data-v-04c29797] {\n  width: 63px;\n  height: 138px;\n  bottom: 73px;\n  left: 356.8px;\n  border-top-left-radius: 15px;\n  border-top-right-radius: 15px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  background-color: #cd181f;\n  box-shadow: inset 0px 0px 0px 1px #000000;\n  border-top-left-radius: 15px;\n  border-top-right-radius: 15px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door img[data-v-04c29797] {\n  height: 9px;\n  top: 85px;\n  right: 5px;\n}\n#truck-door-window[data-v-04c29797] {\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n  background-color: #0ca49b;\n  box-shadow: 0px 0px 0px 2px #000000;\n  top: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n#truck-door-container:hover #truck-door[data-v-04c29797] {\n  animation: open-door-04c29797 1.5s ease forwards;\n}\n@keyframes open-door-04c29797 {\n0% {\n    -webkit-transform: perspective(600) rotateY(0deg);\n    transform-origin: 0% 50%;\n}\n100% {\n    -webkit-transform: perspective(600) rotateY(-180deg);\n    transform-origin: 0% 50%;\n}\n}", ""]);
+exports.push([module.i, "main[data-v-04c29797] {\n  height: calc(100vh - 70px);\n  background-color: beige;\n}\nsection[data-v-04c29797] {\n  height: 100%;\n  overflow-x: hidden;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  aspect-ratio: 1/1;\n  max-width: 90px;\n  max-height: 90px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-image: url(\"/assets/img/hand-drawn-food-doodle_edit.png\");\n  background-size: 100%;\n  background-repeat: no-repeat;\n  filter: grayscale(100%);\n}\n.my_checkbox-label[data-v-04c29797] {\n  margin-bottom: 0px;\n  background-color: rgba(255, 255, 255, 0.8);\n  padding: 2px 4px;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 5px solid #0367a6;\n  outline-offset: 5px;\n  filter: grayscale(0%);\n}\n#food-truck-container[data-v-04c29797] {\n  bottom: 0px;\n  left: -84px;\n}\n#food-truck-container img[data-v-04c29797] {\n  height: 280px;\n}\n#truck-door-container[data-v-04c29797] {\n  width: 43px;\n  height: 96.5px;\n  bottom: 51px;\n  left: 250px;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  background-color: #cd181f;\n  box-shadow: inset 0px 0px 0px 1px #000000;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door img[data-v-04c29797] {\n  height: 6px;\n  top: 60px;\n  right: 3px;\n}\n#truck-door-window[data-v-04c29797] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: #0ca49b;\n  box-shadow: 0px 0px 0px 2px #000000;\n  top: 15px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n#truck-door-container:hover #truck-door[data-v-04c29797] {\n  animation: open-door-04c29797 1.5s ease forwards;\n}\n@keyframes open-door-04c29797 {\n0% {\n    -webkit-transform: perspective(600) rotateY(0deg);\n    transform-origin: 0% 50%;\n}\n100% {\n    -webkit-transform: perspective(600) rotateY(-180deg);\n    transform-origin: 0% 50%;\n}\n}", ""]);
 
 // exports
 
