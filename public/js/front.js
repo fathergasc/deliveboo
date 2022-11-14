@@ -2244,7 +2244,17 @@ var staticRenderFns = [function () {
     attrs: {
       src: "/assets/img/food-truck-door-handle.png"
     }
-  })])])]);
+  })])]), _vm._v(" "), _c("a", {
+    staticClass: "position-absolute",
+    attrs: {
+      href: "#",
+      id: "main-cart"
+    }
+  }, [_c("img", {
+    attrs: {
+      src: "/assets/img/shopping-cart-edit.png"
+    }
+  })])]);
 }];
 render._withStripped = true;
 
@@ -2366,7 +2376,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "main[data-v-04c29797] {\n  height: calc(100vh - 70px);\n  background-color: beige;\n}\nsection[data-v-04c29797] {\n  height: 100%;\n  overflow-x: hidden;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  aspect-ratio: 1/1;\n  max-width: 90px;\n  max-height: 90px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-image: url(\"/assets/img/hand-drawn-food-doodle_edit.png\");\n  background-size: 100%;\n  background-repeat: no-repeat;\n  filter: grayscale(100%);\n}\n.my_checkbox-label[data-v-04c29797] {\n  margin-bottom: 0px;\n  background-color: rgba(255, 255, 255, 0.8);\n  padding: 2px 4px;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 5px solid #0367a6;\n  outline-offset: 5px;\n  filter: grayscale(0%);\n}\n#food-truck-container[data-v-04c29797] {\n  bottom: 0px;\n  left: -84px;\n}\n#food-truck-container img[data-v-04c29797] {\n  height: 280px;\n}\n#truck-door-container[data-v-04c29797] {\n  width: 43px;\n  height: 96.5px;\n  bottom: 51px;\n  left: 250px;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  background-color: #cd181f;\n  box-shadow: inset 0px 0px 0px 1px #000000;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door img[data-v-04c29797] {\n  height: 6px;\n  top: 60px;\n  right: 3px;\n}\n#truck-door-window[data-v-04c29797] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: #0ca49b;\n  box-shadow: 0px 0px 0px 2px #000000;\n  top: 15px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n#truck-door-container:hover #truck-door[data-v-04c29797] {\n  animation: open-door-04c29797 1.5s ease forwards;\n}\n@keyframes open-door-04c29797 {\n0% {\n    -webkit-transform: perspective(600) rotateY(0deg);\n    transform-origin: 0% 50%;\n}\n100% {\n    -webkit-transform: perspective(600) rotateY(-180deg);\n    transform-origin: 0% 50%;\n}\n}", ""]);
+exports.push([module.i, "main[data-v-04c29797] {\n  height: calc(100vh - 70px);\n  background-color: beige;\n}\nsection[data-v-04c29797] {\n  height: 100%;\n  overflow-x: hidden;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  aspect-ratio: 1/1;\n  max-width: 90px;\n  max-height: 90px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-image: url(\"/assets/img/hand-drawn-food-doodle_edit.png\");\n  background-size: 100%;\n  background-repeat: no-repeat;\n  filter: grayscale(100%);\n}\n.my_checkbox-label[data-v-04c29797] {\n  margin-bottom: 0px;\n  background-color: rgba(255, 255, 255, 0.8);\n  padding: 2px 4px;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 5px solid #0367a6;\n  outline-offset: 5px;\n  filter: grayscale(0%);\n}\n#food-truck-container[data-v-04c29797] {\n  bottom: 0px;\n  left: -84px;\n}\n#food-truck-container img[data-v-04c29797] {\n  height: 280px;\n}\n#truck-door-container[data-v-04c29797] {\n  width: 43px;\n  height: 96.5px;\n  bottom: 51px;\n  left: 250px;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  background-color: #cd181f;\n  box-shadow: inset 0px 0px 0px 1px #000000;\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n}\n#truck-door img[data-v-04c29797] {\n  height: 6px;\n  top: 60px;\n  right: 3px;\n}\n#truck-door-window[data-v-04c29797] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: #0ca49b;\n  box-shadow: 0px 0px 0px 2px #000000;\n  top: 16px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n#truck-door-container:hover #truck-door[data-v-04c29797] {\n  animation: open-door-04c29797 1.5s ease forwards;\n}\n@keyframes open-door-04c29797 {\n0% {\n    -webkit-transform: perspective(600) rotateY(0deg);\n    transform-origin: 0% 50%;\n}\n100% {\n    -webkit-transform: perspective(600) rotateY(-180deg);\n    transform-origin: 0% 50%;\n}\n}\n#main-cart[data-v-04c29797] {\n  top: -7px;\n  left: 290px;\n  transform: rotate(-2deg);\n}\n#main-cart img[data-v-04c29797] {\n  height: 80px;\n}", ""]);
 
 // exports
 

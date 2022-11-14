@@ -29,6 +29,10 @@
                             <img src="/assets/img/food-truck-door-handle.png" class="position-absolute">
                         </div>
                     </div>
+
+                    <a href="#" id="main-cart" class="position-absolute">
+                        <img src="/assets/img/shopping-cart-edit.png">
+                    </a>
                 </div>
             </section>
         </main>
@@ -161,7 +165,7 @@ export default {
         background-color: #0ca49b;
         box-shadow: 0px 0px 0px 2px #000000;
 
-        top: 15px;
+        top: 16px;
         left: 50%;
         transform: translateX(-50%);
     }
@@ -178,6 +182,16 @@ export default {
         100% {
             -webkit-transform: perspective(600) rotateY(-180deg);
             transform-origin: 0% 50%;
+        }
+    }
+
+    #main-cart {
+        top: -7px;
+        left: 290px;
+        transform: rotate(-2deg);
+
+        img {
+            height: 80px;
         }
     }
 
