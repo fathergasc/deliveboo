@@ -4,15 +4,15 @@
             <section class="container-md position-relative">
 
                 <div id="search-container" class="position-relative">
-                    <h3>Categories</h3>
+                    <h3 class="pt-2">Categories</h3>
                     <div class="row justify-content-center my_special-bg-color">
                         <div class="col-3 d-flex justify-content-center align-items-center py-2" v-for="(cuisine, index) in cuisines" :key="index">
                             <input type="checkbox" class="my_checkbox" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
-                            <label class="my_checkbox-label position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
+                            <label class="my_checkbox-label text-capitalize position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
                         </div>
                     </div>
 
-                    <h3>Restaurants</h3>
+                    <h3 class="pt-2">Restaurants</h3>
                     <div v-for="(restaurant, indexB) in restaurants" :key="indexB">
                         <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}">{{restaurant.name}}</router-link>
                     </div>
@@ -139,7 +139,7 @@ export default {
     .my_checkbox-label {
         margin-bottom: 0px;
         background-color: rgba(255, 255, 255, 0.8);
-        padding: 2px 4px;
+        padding: 3px 6px;
     }
 
     .my_checkbox:checked {
