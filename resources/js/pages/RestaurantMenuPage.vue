@@ -1,10 +1,52 @@
 <template>
-    <div class="container">
-        <h2>Restaurant: {{restaurant.name}}</h2>
-        <h3>Menu:</h3>
-        <ul>
-            <li v-for="(product, index) in restaurant.products" :key="index">{{product.name}}</li>
-        </ul>
+    <div>
+
+        <section class="container-md text-center">
+            <div class="row">
+                <div class="col-4 offset-4">
+                    <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
+                </div>
+
+                <div class="col-4 offset-4">
+                    <h2>{{restaurant.name}}</h2>
+                </div>
+
+                <div class="col-12">
+                    <h3>Menu</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
+                        v-for="(product, index) in restaurant.products" :key="index">
+                            {{product.name}}
+                        <div>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-primary" @click="productDecrement(index)" :disabled="liveProductCounter[index].productCounter <= 0">-</button>
+                                <div class="my_product-counter">{{liveProductCounter[index].productCounter}}</div>
+                                <button type="button" class="btn btn-primary" @click="productIncrement(index)">+</button>
+                            </div>
+                            <button class="btn btn-primary" @click="addProductToCart(index)" :disabled="liveProductCounter[index].productCounter <= 0">Add</button>
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-12">
+                    <h3>Cart</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
+                        v-for="(product, index) in liveCart" :key="index">
+                            {{product.name}}
+                        <div class="d-flex">
+                            <div class="my_product-counter">{{product.productCounter}}</div>
+                            <button type="button" class="btn btn-primary" @click="delProductFromCart(index)">Del</button>
+                        </div>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary">Pay</button>
+                </div>
+            </div>
+        </section>
+
+
         <router-link :to="{name: 'home'}">Back</router-link>
     </div>
 
@@ -15,24 +57,60 @@ export default {
     name: 'RestaurantMenuPage',
     data() {
         return {
-            restaurant: null,
+            restaurant: [],
+            liveProductCounter: [],
+            liveCart: []
         }
     },
     methods: {
-        getRestaurantSlug() {
+        getRestaurant() {
             const slug = this.$route.params.slug;
             axios.get('/api/restaurants/' + slug)
             .then((response)=>{
                 this.restaurant = response.data.results;
+
+                for (let i = 0; i < this.restaurant.products.length; i++) {
+                    let newProductCounter = {
+                        productId: i,
+                        productCounter: 0
+                    };
+
+                    this.liveProductCounter.push(newProductCounter);
+                }
             })
+        },
+        productIncrement(index) {
+            this.liveProductCounter[index].productCounter++;
+        },
+        productDecrement(index) {
+            this.liveProductCounter[index].productCounter--;
+        },
+        addProductToCart(index) {
+            if (this.liveCart.includes(this.restaurant.products[index])) {
+                console.log('aooo è deoppio')
+
+                this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
+            } else {
+                this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
+                this.liveCart.push(this.restaurant.products[index]);
+            }
+
+            this.liveProductCounter[index].productCounter = 0;
+        },
+        delProductFromCart(index) {
+            this.liveCart.splice(this.restaurant.products[index], 1);
+
+            this.liveProductCounter[index].productCounter = 0;
         }
     },
     mounted() {
-        this.getRestaurantSlug();
+        this.getRestaurant();
     }
 }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+    .my_product-counter {
+        background-color: pink;
+    }
 </style>
