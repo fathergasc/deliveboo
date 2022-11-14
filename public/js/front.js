@@ -2015,7 +2015,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       restaurant: [],
-      liveProductCounter: 0,
+      liveProductCounter: [],
       liveCart: []
     };
   },
@@ -2026,30 +2026,37 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/restaurants/' + slug).then(function (response) {
         _this.restaurant = response.data.results;
         for (var i = 0; i < _this.restaurant.products.length; i++) {
-          _this.restaurant.products[i].productCounter = 0;
+          var newProductCounter = {
+            productId: i,
+            productCounter: 0
+          };
+          _this.liveProductCounter.push(newProductCounter);
         }
-        console.log(_this.restaurant.products[0].productCounter);
       });
     },
     productIncrement: function productIncrement(index) {
-      this.restaurant.products[index].productCounter++;
-      //this.restaurant.products[index].productCounter = productCounter;
-      console.log(this.restaurant.products[index].productCounter);
+      this.liveProductCounter[index].productCounter++;
     },
     productDecrement: function productDecrement(index) {
-      this.restaurant.products[index].productCounter--;
-      console.log(this.restaurant.products[index].productCounter);
+      this.liveProductCounter[index].productCounter--;
     },
     addProductToCart: function addProductToCart(index) {
-      this.liveCart.push(this.restaurant.products[index]);
-      console.log(this.liveCart);
+      if (this.liveCart.includes(this.restaurant.products[index])) {
+        console.log('aooo è deoppio');
+        this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
+      } else {
+        this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
+        this.liveCart.push(this.restaurant.products[index]);
+      }
+      this.liveProductCounter[index].productCounter = 0;
+    },
+    delProductFromCart: function delProductFromCart(index) {
+      this.liveCart.splice(this.restaurant.products[index], 1);
+      this.liveProductCounter[index].productCounter = 0;
     }
   },
   mounted: function mounted() {
     this.getRestaurant();
-  },
-  computed: {
-    showProductCounter: function showProductCounter() {}
   }
 });
 
@@ -2416,7 +2423,7 @@ var render = function render() {
       staticClass: "btn btn-primary",
       attrs: {
         type: "button",
-        disabled: product.productCounter <= 0
+        disabled: _vm.liveProductCounter[index].productCounter <= 0
       },
       on: {
         click: function click($event) {
@@ -2425,7 +2432,7 @@ var render = function render() {
       }
     }, [_vm._v("-")]), _vm._v(" "), _c("div", {
       staticClass: "my_product-counter"
-    }, [_vm._v(_vm._s(_vm.liveProductCounter))]), _vm._v(" "), _c("button", {
+    }, [_vm._v(_vm._s(_vm.liveProductCounter[index].productCounter))]), _vm._v(" "), _c("button", {
       staticClass: "btn btn-primary",
       attrs: {
         type: "button"
@@ -2437,6 +2444,9 @@ var render = function render() {
       }
     }, [_vm._v("+")])]), _vm._v(" "), _c("button", {
       staticClass: "btn btn-primary",
+      attrs: {
+        disabled: _vm.liveProductCounter[index].productCounter <= 0
+      },
       on: {
         click: function click($event) {
           return _vm.addProductToCart(index);
@@ -2462,7 +2472,7 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
-          return _vm.productIncrement(index);
+          return _vm.delProductFromCart(index);
         }
       }
     }, [_vm._v("Del")])])]);

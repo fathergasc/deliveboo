@@ -19,11 +19,11 @@
                             {{product.name}}
                         <div>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-primary" @click="productDecrement(index)" :disabled="product.productCounter<=0">-</button>
-                                <div class="my_product-counter">{{liveProductCounter}}</div>
+                                <button type="button" class="btn btn-primary" @click="productDecrement(index)" :disabled="liveProductCounter[index].productCounter <= 0">-</button>
+                                <div class="my_product-counter">{{liveProductCounter[index].productCounter}}</div>
                                 <button type="button" class="btn btn-primary" @click="productIncrement(index)">+</button>
                             </div>
-                            <button class="btn btn-primary" @click="addProductToCart(index)">Add</button>
+                            <button class="btn btn-primary" @click="addProductToCart(index)" :disabled="liveProductCounter[index].productCounter <= 0">Add</button>
                         </div>
                         </li>
                     </ul>
@@ -37,7 +37,7 @@
                             {{product.name}}
                         <div class="d-flex">
                             <div class="my_product-counter">{{product.productCounter}}</div>
-                            <button type="button" class="btn btn-primary" @click="productIncrement(index)">Del</button>
+                            <button type="button" class="btn btn-primary" @click="delProductFromCart(index)">Del</button>
                         </div>
                         </li>
                     </ul>
@@ -58,7 +58,7 @@ export default {
     data() {
         return {
             restaurant: [],
-            liveProductCounter: 0,
+            liveProductCounter: [],
             liveCart: []
         }
     },
@@ -70,32 +70,41 @@ export default {
                 this.restaurant = response.data.results;
 
                 for (let i = 0; i < this.restaurant.products.length; i++) {
-                    this.restaurant.products[i].productCounter = 0;
+                    let newProductCounter = {
+                        productId: i,
+                        productCounter: 0
+                    };
+
+                    this.liveProductCounter.push(newProductCounter);
                 }
-                console.log(this.restaurant.products[0].productCounter)
             })
         },
         productIncrement(index) {
-            this.restaurant.products[index].productCounter++;
-            //this.restaurant.products[index].productCounter = productCounter;
-            console.log(this.restaurant.products[index].productCounter)
+            this.liveProductCounter[index].productCounter++;
         },
         productDecrement(index) {
-            this.restaurant.products[index].productCounter--;
-            console.log(this.restaurant.products[index].productCounter)
+            this.liveProductCounter[index].productCounter--;
         },
         addProductToCart(index) {
-            this.liveCart.push(this.restaurant.products[index]);
-            console.log(this.liveCart)
+            if (this.liveCart.includes(this.restaurant.products[index])) {
+                console.log('aooo è deoppio')
+
+                this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
+            } else {
+                this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
+                this.liveCart.push(this.restaurant.products[index]);
+            }
+
+            this.liveProductCounter[index].productCounter = 0;
+        },
+        delProductFromCart(index) {
+            this.liveCart.splice(this.restaurant.products[index], 1);
+
+            this.liveProductCounter[index].productCounter = 0;
         }
     },
     mounted() {
         this.getRestaurant();
-    },
-    computed: {
-        showProductCounter() {
-
-        }
     }
 }
 </script>
