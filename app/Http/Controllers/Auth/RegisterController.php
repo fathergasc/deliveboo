@@ -63,10 +63,12 @@ class RegisterController extends Controller
 
         //recover user id to assign it to the restaurant
         $userId = $user->id;
+        $slug = $this->generateSlug($data['restaurant_name']);
+
         $restaurant = Restaurant::create([
             'name' => $data['restaurant_name'],
             'address' => $data['address'],
-            'slug' => Str::slug($data['restaurant_name']),
+            'slug' => $slug,
             'user_id' => $userId,
         ]);
 
@@ -75,4 +77,17 @@ class RegisterController extends Controller
 
     }
 
+    protected function generateSlug($name) {
+        $slug = Str::slug($name, '-');
+        $checkRestaurant = Restaurant::all()->where('slug', $slug)->first();
+        $counter = 1;
+        while($checkRestaurant) {
+            $slug = Str::slug($name . '-' . $counter, '-');
+            $counter++;
+            $checkRestaurant = Restaurant::all()->where('slug', $slug)->first();
+        }
+        return $slug;
+    }
+
 }
+
