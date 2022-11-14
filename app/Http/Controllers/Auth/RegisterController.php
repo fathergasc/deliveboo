@@ -47,7 +47,7 @@ class RegisterController extends Controller
             'vat_number' => ['required', 'string', 'min:11', 'max:11', 'unique:users'],
             'restaurant_name' => ['required', 'string', 'max:70'],
             'address' => ['required', 'string', 'max:80'],
-            'cuisine' => ['numeric', 'exists:cuisines,id']
+            'cuisines' => ['required', 'array', 'exists:cuisines,id']
         ]);
     }
 
