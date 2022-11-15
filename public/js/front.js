@@ -1957,6 +1957,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MyMain',
   data: function data() {
     return {
+      isCuisineLoading: true,
+      isRestaurantLoading: true,
       cuisines: [],
       selectedCuisines: [],
       restaurants: []
@@ -1967,6 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       axios.get('/api/cuisines').then(function (response) {
         _this.cuisines = response.data.results;
+        _this.isCuisineLoading = false;
       });
     },
     getFilteredRestaurants: function getFilteredRestaurants() {
@@ -1977,6 +1980,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (response) {
         _this2.restaurants = response.data.results;
+        _this2.isRestaurantLoading = false;
       });
     }
   },
@@ -2014,6 +2018,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'RestaurantMenuPage',
   data: function data() {
     return {
+      isMenuLoading: true,
       restaurant: [],
       liveProductCounter: [],
       liveCart: [],
@@ -2033,6 +2038,7 @@ __webpack_require__.r(__webpack_exports__);
           };
           _this.liveProductCounter.push(newProductCounter);
         }
+        _this.isMenuLoading = false;
       });
     },
     productIncrement: function productIncrement(index) {
@@ -2056,19 +2062,23 @@ __webpack_require__.r(__webpack_exports__);
       this.liveProductCounter[index].productCounter = 0;
     },
     userInfoHandle: function userInfoHandle(event) {
-      event.preventDefault();
       if (this.showUserInfo == false) {
         this.showUserInfo = true;
       } else {
         this.showUserInfo = false;
       }
 
-      //ADD VALIDATE FRONT & BACK
-      /*
-      let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+      //////////////////////////////////ADD VALIDATE BACKEND
+
+      var emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
       if (!emailCheck.test(this.email)) {
-          return;
-      }*/
+        event.preventDefault();
+        return;
+      }
+
+      /////////////////////////////////////////////////////////////////////////
+      ///////////////////////////// DELETE THIS when you are ready to send data
+      event.preventDefault();
     }
   },
   mounted: function mounted() {
@@ -2213,7 +2223,14 @@ var render = function render() {
     staticClass: "pt-2"
   }, [_vm._v("Categories")]), _vm._v(" "), _c("div", {
     staticClass: "row justify-content-center my_special-bg-color"
-  }, _vm._l(_vm.cuisines, function (cuisine, index) {
+  }, [_vm.isCuisineLoading ? _c("div", {
+    staticClass: "spinner-border text-primary",
+    attrs: {
+      role: "status"
+    }
+  }, [_c("span", {
+    staticClass: "sr-only"
+  }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.cuisines, function (cuisine, index) {
     return _c("div", {
       key: index,
       staticClass: "col-3 d-flex justify-content-center align-items-center position-relative py-2"
@@ -2260,11 +2277,18 @@ var render = function render() {
         "for": cuisine.id
       }
     }, [_vm._v(_vm._s(cuisine.name))])]);
-  }), 0), _vm._v(" "), _c("h3", {
+  })], 2), _vm._v(" "), _c("h3", {
     staticClass: "pt-2"
   }, [_vm._v("Restaurants")]), _vm._v(" "), _c("div", {
     staticClass: "row justify-content-center my_special-bg-color"
-  }, _vm._l(_vm.restaurants, function (restaurant, index) {
+  }, [_vm.isRestaurantLoading ? _c("div", {
+    staticClass: "spinner-border text-primary",
+    attrs: {
+      role: "status"
+    }
+  }, [_c("span", {
+    staticClass: "sr-only"
+  }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.restaurants, function (restaurant, index) {
     return _c("div", {
       key: index,
       staticClass: "col-3 py-2"
@@ -2287,7 +2311,7 @@ var render = function render() {
     }), _vm._v(" "), _c("div", {
       staticClass: "my_restaurant-label text-capitalize position-absolute"
     }, [_vm._v(_vm._s(restaurant.name))])])], 1);
-  }), 0)]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])])]);
+  })], 2)]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -2430,8 +2454,8 @@ var render = function render() {
       alt: _vm.restaurant.name
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "col-4 offset-4"
-  }, [_c("h2", [_vm._v(_vm._s(_vm.restaurant.name))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-4 offset-4 pt-2"
+  }, [_c("h2", [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.restaurant.cuisine))])]), _vm._v(" "), _c("div", {
     staticClass: "col-12"
   }, [_c("router-link", {
     staticClass: "btn btn-secondary",
@@ -2442,7 +2466,14 @@ var render = function render() {
     }
   }, [_vm._v("Back")]), _vm._v(" "), _c("h3", {
     staticClass: "mt-2"
-  }, [_vm._v("Menu")]), _vm._v(" "), _c("ul", {
+  }, [_vm._v("Menu")]), _vm._v(" "), _vm.isMenuLoading ? _c("div", {
+    staticClass: "spinner-border text-primary",
+    attrs: {
+      role: "status"
+    }
+  }, [_c("span", {
+    staticClass: "sr-only"
+  }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _c("ul", {
     staticClass: "list-group"
   }, _vm._l(_vm.restaurant.products, function (product, index) {
     return _c("li", {
@@ -2534,7 +2565,10 @@ var staticRenderFns = [function () {
     attrs: {
       type: "text",
       id: "inputName",
-      placeholder: "Name"
+      placeholder: "Name",
+      required: "",
+      minlength: "1",
+      maxlength: "50"
     }
   })]);
 }, function () {
@@ -2547,7 +2581,10 @@ var staticRenderFns = [function () {
     attrs: {
       type: "text",
       id: "inputAdress",
-      placeholder: "Address"
+      placeholder: "Address",
+      required: "",
+      minlength: "1",
+      maxlength: "150"
     }
   })]);
 }, function () {
@@ -2560,7 +2597,8 @@ var staticRenderFns = [function () {
     attrs: {
       type: "email",
       id: "inputEmail",
-      placeholder: "Email"
+      placeholder: "Email",
+      required: ""
     }
   })]);
 }];

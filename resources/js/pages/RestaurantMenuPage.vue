@@ -6,14 +6,20 @@
                     <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
                 </div>
 
-                <div class="col-4 offset-4">
+                <div class="col-4 offset-4 pt-2">
                     <h2>{{restaurant.name}}</h2>
+                    <div>{{restaurant.cuisine}}</div>
                 </div>
 
                 <div class="col-12">
                     <router-link :to="{name: 'home'}" class="btn btn-secondary">Back</router-link>
 
                     <h3 class="mt-2">Menu</h3>
+
+                    <div v-if="isMenuLoading" class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in restaurant.products" :key="index">
@@ -43,17 +49,19 @@
                         </li>
                     </ul>
 
-
                     <form>
                         <div v-if="showUserInfo">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="inputName" placeholder="Name">
+                                <input type="text" class="form-control" id="inputName" placeholder="Name"
+                                required minlength="1" maxlength="50">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="inputAdress" placeholder="Address">
+                                <input type="text" class="form-control" id="inputAdress" placeholder="Address"
+                                required minlength="1" maxlength="150">
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email"
+                                required>
                             </div>
                         </div>
 
@@ -70,6 +78,7 @@ export default {
     name: 'RestaurantMenuPage',
     data() {
         return {
+            isMenuLoading: true,
             restaurant: [],
             liveProductCounter: [],
             liveCart: [],
@@ -91,6 +100,8 @@ export default {
 
                     this.liveProductCounter.push(newProductCounter);
                 }
+
+                this.isMenuLoading = false;
             })
         },
         productIncrement(index) {
@@ -117,20 +128,23 @@ export default {
             this.liveProductCounter[index].productCounter = 0;
         },
         userInfoHandle(event) {
-            event.preventDefault();
-
             if (this.showUserInfo == false) {
                 this.showUserInfo = true;
             } else {
                 this.showUserInfo = false;
             }
 
-            //ADD VALIDATE FRONT & BACK
-            /*
+            //////////////////////////////////ADD VALIDATE BACKEND
+
             let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
             if (!emailCheck.test(this.email)) {
+                event.preventDefault();
                 return;
-            }*/
+            }
+
+            /////////////////////////////////////////////////////////////////////////
+            ///////////////////////////// DELETE THIS when you are ready to send data
+            event.preventDefault();
         }
     },
     mounted() {

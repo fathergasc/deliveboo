@@ -5,7 +5,12 @@
 
                 <div id="search-container" class="position-relative">
                     <h3 class="pt-2">Categories</h3>
+
                     <div class="row justify-content-center my_special-bg-color">
+                        <div v-if="isCuisineLoading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
                         <div class="col-3 d-flex justify-content-center align-items-center position-relative py-2" v-for="(cuisine, index) in cuisines" :key="index">
                             <input type="checkbox" class="my_checkbox pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
                             <label class="my_cuisine-label text-capitalize pointer position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
@@ -14,6 +19,10 @@
 
                     <h3 class="pt-2">Restaurants</h3>
                     <div class="row justify-content-center my_special-bg-color">
+                        <div v-if="isRestaurantLoading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
                         <div class="col-3 py-2" v-for="(restaurant, index) in restaurants" :key="index">
                             <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
                             class="my_restaurant d-flex justify-content-center align-items-center position-relative">
@@ -79,6 +88,8 @@ export default {
     name: 'MyMain',
     data() {
         return {
+            isCuisineLoading: true,
+            isRestaurantLoading: true,
             cuisines: [],
             selectedCuisines: [],
             restaurants: []
@@ -89,6 +100,8 @@ export default {
             axios.get('/api/cuisines')
             .then((response) =>{
                 this.cuisines = response.data.results;
+
+                this.isCuisineLoading = false;
             })
         },
         getFilteredRestaurants() {
@@ -99,6 +112,8 @@ export default {
             })
             .then((response) => {
                 this.restaurants = response.data.results;
+
+                this.isRestaurantLoading = false;
             })
         }
     },
