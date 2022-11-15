@@ -24,13 +24,14 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in restaurant.products" :key="index">
                             {{product.name}}
-                        <div>
-                            <div class="btn-group" role="group" aria-label="Basic example">
+                        <div class="d-flex align-items-center">
+                            <div>{{formatPrice(product.price)}}</div>
+                            <div class="btn-group ml-3" role="group" aria-label="Basic example">
                                 <button type="button" class="btn btn-primary" @click="productDecrement(index)" :disabled="liveProductCounter[index].productCounter <= 0">-</button>
                                 <div class="d-flex align-items-center px-2 border border-primary">{{liveProductCounter[index].productCounter}}</div>
                                 <button type="button" class="btn btn-primary" @click="productIncrement(index)">+</button>
                             </div>
-                            <button class="btn btn-warning ml-1" @click="addProductToCart(index)" :disabled="liveProductCounter[index].productCounter <= 0">Add</button>
+                            <button class="btn btn-warning ml-3" @click="addProductToCart(index), getTotalAmount()" :disabled="liveProductCounter[index].productCounter <= 0">Add</button>
                         </div>
                         </li>
                     </ul>
@@ -38,35 +39,38 @@
 
                 <div class="col-12">
                     <h2 class="mt-2">Cart</h2>
-                    <p v-if="liveCart.length == 0" class="font-italic">Nothing to see here, just add your food.</p>
+                    <p v-if="liveCart.length == 0" class="font-italic mb-2">Nothing to see here, just add your food.</p>
 
-                    <ul class="list-group" :class="liveCart.length > 0 ? 'mb-3' : ''">
+                    <ul class="list-group" :class="liveCart.length > 0 ? 'mb-2' : ''">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in liveCart" :key="index">
                             {{product.name}}
-                            <div class="d-flex">
-                                <div class="d-flex align-items-center px-2 border border-primary rounded">{{product.productCounter}}</div>
-                                <button type="button" class="btn btn-danger ml-3" @click="delProductFromCart(index)">Del</button>
+                            <div class="d-flex align-items-center">
+                                <div>{{formatPrice(getPartialAmount(index))}}</div>
+                                <div class="d-flex align-items-center px-2 ml-3 border border-primary rounded">{{product.productCounter}}</div>
+                                <button type="button" class="btn btn-danger ml-3" @click="delProductFromCart(index), getTotalAmount()">Del</button>
                             </div>
                         </li>
                     </ul>
 
                     <form>
                         <div v-if="showUserInfo">
-                            <p>Where to deliver?</p>
-                            <div class="form-group">
+                            <p class="mb-2">Where to deliver?</p>
+                            <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputName" placeholder="Name"
                                 v-model="userName" required minlength="1" maxlength="50">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputAdress" placeholder="Address"
                                 v-model="userAddress" required minlength="1" maxlength="150">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email"
                                 v-model="userEmail" required>
                             </div>
                         </div>
+
+                        <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
 
                         <button type="submit" class="btn btn-success" @click="userInfoHandle">Order Now</button>
                     </form>
@@ -88,7 +92,8 @@ export default {
             showUserInfo: false,
             userName: "",
             userAddress: "",
-            userEmail: ""
+            userEmail: "",
+            totalAmount: 0
         }
     },
     methods: {
@@ -149,6 +154,29 @@ export default {
             /////////////////////////////////////////////////////////////////////////
             ///////////////////////////// DELETE THIS when you are ready to send data
             event.preventDefault();
+        },
+        getPartialAmount(index) {
+            let partialAmount = 0;
+
+            partialAmount = this.liveCart[index].price * this.liveCart[index].productCounter;
+
+            return partialAmount;
+        },
+        getTotalAmount() {
+            this.totalAmount = 0;
+
+            for (let i = 0; i < this.liveCart.length; i++) {
+                this.totalAmount = this.totalAmount + (this.liveCart[i].price * this.liveCart[i].productCounter);
+            }
+
+            return this.totalAmount;
+        },
+        formatPrice(value) {
+            const dollars = new Intl.NumberFormat(`en-US`, {
+                currency: `USD`,
+                style: 'currency',
+            }).format(value);
+            return dollars;
         }
     },
     mounted() {
