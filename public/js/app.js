@@ -49582,8 +49582,9 @@ var app = new Vue({
   },
   methods: {
     submitCheck: function submitCheck(event) {
-      this.isEmailValid();
-      this.isPasswordValid(event);
+      ///////////////////////////// NOT WORKING
+      /*this.isEmailValid();
+      this.isPasswordValid(event);*/
     },
     isEmailValid: function isEmailValid() {
       var emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
@@ -49593,7 +49594,7 @@ var app = new Vue({
     },
     isPasswordValid: function isPasswordValid(event) {
       if (this.password != this.passwordConfirm) {
-        event.preventDefault();
+        //event.preventDefault();
         return;
       }
     }

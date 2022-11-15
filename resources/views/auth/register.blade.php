@@ -146,7 +146,7 @@
                         <!-- submit button -->
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" @click="submitCheck">
+                                <button type="submit" class="btn btn-primary" id="submit-btn" @click="submitCheck">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -159,7 +159,7 @@
 </div>
 @endsection
 
-@section('scripts')
+@section('script')
 <script>
     $(document).ready(function() {
         $('.cuisines').select2({
