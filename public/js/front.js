@@ -2025,7 +2025,8 @@ __webpack_require__.r(__webpack_exports__);
       showUserInfo: false,
       userName: "",
       userAddress: "",
-      userEmail: ""
+      userEmail: "",
+      totalAmount: 0
     };
   },
   methods: {
@@ -2081,6 +2082,25 @@ __webpack_require__.r(__webpack_exports__);
       /////////////////////////////////////////////////////////////////////////
       ///////////////////////////// DELETE THIS when you are ready to send data
       event.preventDefault();
+    },
+    getPartialAmount: function getPartialAmount(index) {
+      var partialAmount = 0;
+      partialAmount = this.liveCart[index].price * this.liveCart[index].productCounter;
+      return partialAmount;
+    },
+    getTotalAmount: function getTotalAmount() {
+      this.totalAmount = 0;
+      for (var i = 0; i < this.liveCart.length; i++) {
+        this.totalAmount = this.totalAmount + this.liveCart[i].price * this.liveCart[i].productCounter;
+      }
+      return this.totalAmount;
+    },
+    formatPrice: function formatPrice(value) {
+      var dollars = new Intl.NumberFormat("en-US", {
+        currency: "USD",
+        style: 'currency'
+      }).format(value);
+      return dollars;
     }
   },
   mounted: function mounted() {
@@ -2481,8 +2501,10 @@ var render = function render() {
     return _c("li", {
       key: index,
       staticClass: "list-group-item d-flex justify-content-between align-items-center text-capitalize"
-    }, [_vm._v("\n                        " + _vm._s(product.name) + "\n                    "), _c("div", [_c("div", {
-      staticClass: "btn-group",
+    }, [_vm._v("\n                        " + _vm._s(product.name) + "\n                    "), _c("div", {
+      staticClass: "d-flex align-items-center"
+    }, [_c("div", [_vm._v(_vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("div", {
+      staticClass: "btn-group ml-3",
       attrs: {
         role: "group",
         "aria-label": "Basic example"
@@ -2511,13 +2533,13 @@ var render = function render() {
         }
       }
     }, [_vm._v("+")])]), _vm._v(" "), _c("button", {
-      staticClass: "btn btn-warning ml-1",
+      staticClass: "btn btn-warning ml-3",
       attrs: {
         disabled: _vm.liveProductCounter[index].productCounter <= 0
       },
       on: {
         click: function click($event) {
-          return _vm.addProductToCart(index);
+          _vm.addProductToCart(index), _vm.getTotalAmount();
         }
       }
     }, [_vm._v("Add")])])]);
@@ -2526,18 +2548,18 @@ var render = function render() {
   }, [_c("h2", {
     staticClass: "mt-2"
   }, [_vm._v("Cart")]), _vm._v(" "), _vm.liveCart.length == 0 ? _c("p", {
-    staticClass: "font-italic"
+    staticClass: "font-italic mb-2"
   }, [_vm._v("Nothing to see here, just add your food.")]) : _vm._e(), _vm._v(" "), _c("ul", {
     staticClass: "list-group",
-    "class": _vm.liveCart.length > 0 ? "mb-3" : ""
+    "class": _vm.liveCart.length > 0 ? "mb-2" : ""
   }, _vm._l(_vm.liveCart, function (product, index) {
     return _c("li", {
       key: index,
       staticClass: "list-group-item d-flex justify-content-between align-items-center text-capitalize"
     }, [_vm._v("\n                        " + _vm._s(product.name) + "\n                        "), _c("div", {
-      staticClass: "d-flex"
-    }, [_c("div", {
-      staticClass: "d-flex align-items-center px-2 border border-primary rounded"
+      staticClass: "d-flex align-items-center"
+    }, [_c("div", [_vm._v(_vm._s(_vm.formatPrice(_vm.getPartialAmount(index))))]), _vm._v(" "), _c("div", {
+      staticClass: "d-flex align-items-center px-2 ml-3 border border-primary rounded"
     }, [_vm._v(_vm._s(product.productCounter))]), _vm._v(" "), _c("button", {
       staticClass: "btn btn-danger ml-3",
       attrs: {
@@ -2545,12 +2567,14 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
-          return _vm.delProductFromCart(index);
+          _vm.delProductFromCart(index), _vm.getTotalAmount();
         }
       }
     }, [_vm._v("Del")])])]);
-  }), 0), _vm._v(" "), _c("form", [_vm.showUserInfo ? _c("div", [_c("p", [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
-    staticClass: "form-group"
+  }), 0), _vm._v(" "), _c("form", [_vm.showUserInfo ? _c("div", [_c("p", {
+    staticClass: "mb-2"
+  }, [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group mb-2"
   }, [_c("input", {
     directives: [{
       name: "model",
@@ -2577,7 +2601,7 @@ var render = function render() {
       }
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "form-group"
+    staticClass: "form-group mb-2"
   }, [_c("input", {
     directives: [{
       name: "model",
@@ -2604,7 +2628,7 @@ var render = function render() {
       }
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "form-group"
+    staticClass: "form-group mb-2"
   }, [_c("input", {
     directives: [{
       name: "model",
@@ -2628,7 +2652,9 @@ var render = function render() {
         _vm.userEmail = $event.target.value;
       }
     }
-  })])]) : _vm._e(), _vm._v(" "), _c("button", {
+  })])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "mb-2"
+  }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     attrs: {
       type: "submit"
