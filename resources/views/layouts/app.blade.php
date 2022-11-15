@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -32,27 +32,5 @@
     </div>
 
     @yield('script')
-
-    <!-- ***ALERT!!! Vue App is not working in backend, this is a copy about validation form in app.js -->
-    <script>
-        console.log('test')
-
-        const email = document.getElementById('email');
-        const password = document.getElementById('password');
-        const passwordConfirm = document.getElementById('password-confirm');
-
-        let submitBtn = document.getElementById('submit-btn');
-
-        submitBtn.addEventListener('click', event => {
-            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-            if (!emailCheck.test(email.value)) {
-                return;
-            }
-            if (password.value != passwordConfirm.value) {
-                //event.preventDefault();
-                return;
-            }
-        });
-    </script>
 </body>
 </html>

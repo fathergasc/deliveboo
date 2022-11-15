@@ -154,6 +154,18 @@ export default {
             /////////////////////////////////////////////////////////////////////////
             ///////////////////////////// DELETE THIS when you are ready to send data
             event.preventDefault();
+
+            /*axios.post('/api', {
+                name: this.userName,
+                phone: 00000,
+                email: this.userEmail,
+                shipping_address: this.userAddress,
+                total_price: this.totalAmount
+            })
+            .then((response)=>{
+                console.log(response)
+            });*/
+
         },
         getPartialAmount(index) {
             let partialAmount = 0;
