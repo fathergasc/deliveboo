@@ -1,7 +1,6 @@
 <template>
     <div>
-
-        <section class="container-md text-center">
+        <section class="container-md text-center py-3">
             <div class="row">
                 <div class="col-4 offset-4">
                     <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
@@ -14,7 +13,7 @@
                 <div class="col-12">
                     <router-link :to="{name: 'home'}" class="btn btn-secondary">Back</router-link>
 
-                    <h3>Menu</h3>
+                    <h3 class="mt-2">Menu</h3>
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in restaurant.products" :key="index">
@@ -32,15 +31,15 @@
                 </div>
 
                 <div class="col-12">
-                    <h3>Cart</h3>
-                    <ul class="list-group">
+                    <h2 class="mt-2">Cart</h2>
+                    <ul class="list-group" :class="liveCart.length > 0 ? 'mb-3' : ''">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in liveCart" :key="index">
                             {{product.name}}
-                        <div class="d-flex">
-                            <div class="d-flex align-items-center px-2 border border-primary rounded">{{product.productCounter}}</div>
-                            <button type="button" class="btn btn-danger ml-3" @click="delProductFromCart(index)">Del</button>
-                        </div>
+                            <div class="d-flex">
+                                <div class="d-flex align-items-center px-2 border border-primary rounded">{{product.productCounter}}</div>
+                                <button type="button" class="btn btn-danger ml-3" @click="delProductFromCart(index)">Del</button>
+                            </div>
                         </li>
                     </ul>
 
@@ -48,16 +47,13 @@
                     <form>
                         <div v-if="showUserInfo">
                             <div class="form-group">
-                                <label for="inputName">Name</label>
-                                <input type="text" class="form-control" id="inputName">
+                                <input type="text" class="form-control" id="inputName" placeholder="Name">
                             </div>
                             <div class="form-group">
-                                <label for="inputAddress">Address</label>
-                                <input type="text" class="form-control" id="inputAdress">
+                                <input type="text" class="form-control" id="inputAdress" placeholder="Address">
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail">Email</label>
-                                <input type="email" class="form-control" id="inputEmail">
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
                             </div>
                         </div>
 
@@ -67,7 +63,6 @@
             </div>
         </section>
     </div>
-
 </template>
 
 <script>
@@ -130,14 +125,10 @@ export default {
                 this.showUserInfo = false;
             }
 
-
+            //ADD VALIDATE FRONT & BACK
             /*
             let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
             if (!emailCheck.test(this.email)) {
-                return;
-            }
-            if (this.password != this.passwordConfirm) {
-                event.preventDefault();
                 return;
             }*/
         }
