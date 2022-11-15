@@ -30,6 +30,29 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('script')
+
+    <!-- ***ALERT!!! Vue App is not working in backend, this is a copy about validation form in app.js -->
+    <script>
+        console.log('test')
+
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const passwordConfirm = document.getElementById('password-confirm');
+
+        let submitBtn = document.getElementById('submit-btn');
+
+        submitBtn.addEventListener('click', event => {
+            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+            if (!emailCheck.test(email.value)) {
+                return;
+            }
+            if (password.value != passwordConfirm.value) {
+                //event.preventDefault();
+                return;
+            }
+        });
+    </script>
 </body>
 </html>
-@yield('scripts')

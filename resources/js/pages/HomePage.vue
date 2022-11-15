@@ -5,16 +5,31 @@
 
                 <div id="search-container" class="position-relative">
                     <h3 class="pt-2">Categories</h3>
+
                     <div class="row justify-content-center my_special-bg-color">
-                        <div class="col-3 d-flex justify-content-center align-items-center py-2" v-for="(cuisine, index) in cuisines" :key="index">
-                            <input type="checkbox" class="my_checkbox" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
-                            <label class="my_checkbox-label text-capitalize position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
+                        <div v-if="isCuisineLoading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="col-3 d-flex justify-content-center align-items-center position-relative py-2" v-for="(cuisine, index) in cuisines" :key="index">
+                            <input type="checkbox" class="my_checkbox pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
+                            <label class="my_cuisine-label text-capitalize font-weight-bold pointer position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
                         </div>
                     </div>
 
                     <h3 class="pt-2">Restaurants</h3>
-                    <div v-for="(restaurant, indexB) in restaurants" :key="indexB">
-                        <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}">{{restaurant.name}}</router-link>
+                    <div class="row justify-content-center my_special-bg-color">
+                        <div v-if="isRestaurantLoading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="col-3 py-2" v-for="(restaurant, index) in restaurants" :key="index">
+                            <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
+                            class="my_restaurant d-flex justify-content-center align-items-center position-relative">
+                                <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
+                                <div class="my_restaurant-label text-capitalize font-weight-bold position-absolute">{{restaurant.name}}</div>
+                            </router-link>
+                        </div>
                     </div>
                 </div>
 
@@ -73,6 +88,8 @@ export default {
     name: 'MyMain',
     data() {
         return {
+            isCuisineLoading: true,
+            isRestaurantLoading: true,
             cuisines: [],
             selectedCuisines: [],
             restaurants: []
@@ -83,6 +100,8 @@ export default {
             axios.get('/api/cuisines')
             .then((response) =>{
                 this.cuisines = response.data.results;
+
+                this.isCuisineLoading = false;
             })
         },
         getFilteredRestaurants() {
@@ -93,6 +112,8 @@ export default {
             })
             .then((response) => {
                 this.restaurants = response.data.results;
+
+                this.isRestaurantLoading = false;
             })
         }
     },
@@ -136,9 +157,11 @@ export default {
         filter: grayscale(100%);
     }
 
-    .my_checkbox-label {
+    .my_cuisine-label,
+    .my_restaurant-label {
         margin-bottom: 0px;
         background-color: rgba(255, 255, 255, 0.8);
+        color: black;
         padding: 3px 6px;
     }
 
@@ -150,6 +173,16 @@ export default {
         .ferris-wheel-container {
             filter: grayscale(100%);
         }
+    }
+
+    .my_restaurant {
+        aspect-ratio: 1 / 1;
+        max-width: 90px;
+        max-height: 90px;
+    }
+
+    .pointer {
+        cursor: pointer;
     }
 
     /*** START FOOD TRUCK ***/
@@ -229,9 +262,8 @@ export default {
     }
 
     #main-cart {
-        top: -7px;
-        left: 290px;
-        transform: rotate(-2deg);
+        bottom: 4px;
+        left: 300px;
 
         img {
             height: 80px;
