@@ -56,15 +56,15 @@
                             <p>Where to deliver?</p>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="inputName" placeholder="Name"
-                                required minlength="1" maxlength="50">
+                                v-model="userName" required minlength="1" maxlength="50">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="inputAdress" placeholder="Address"
-                                required minlength="1" maxlength="150">
+                                v-model="userAddress" required minlength="1" maxlength="150">
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email"
-                                required>
+                                v-model="userEmail" required>
                             </div>
                         </div>
 
@@ -85,7 +85,10 @@ export default {
             restaurant: [],
             liveProductCounter: [],
             liveCart: [],
-            showUserInfo: false
+            showUserInfo: false,
+            userName: "",
+            userAddress: "",
+            userEmail: ""
         }
     },
     methods: {

@@ -2022,7 +2022,10 @@ __webpack_require__.r(__webpack_exports__);
       restaurant: [],
       liveProductCounter: [],
       liveCart: [],
-      showUserInfo: false
+      showUserInfo: false,
+      userName: "",
+      userAddress: "",
+      userEmail: ""
     };
   },
   methods: {
@@ -2546,7 +2549,86 @@ var render = function render() {
         }
       }
     }, [_vm._v("Del")])])]);
-  }), 0), _vm._v(" "), _c("form", [_vm.showUserInfo ? _c("div", [_c("p", [_vm._v("Where to deliver?")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)]) : _vm._e(), _vm._v(" "), _c("button", {
+  }), 0), _vm._v(" "), _c("form", [_vm.showUserInfo ? _c("div", [_c("p", [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.userName,
+      expression: "userName"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "inputName",
+      placeholder: "Name",
+      required: "",
+      minlength: "1",
+      maxlength: "50"
+    },
+    domProps: {
+      value: _vm.userName
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.userName = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.userAddress,
+      expression: "userAddress"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "inputAdress",
+      placeholder: "Address",
+      required: "",
+      minlength: "1",
+      maxlength: "150"
+    },
+    domProps: {
+      value: _vm.userAddress
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.userAddress = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.userEmail,
+      expression: "userEmail"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "email",
+      id: "inputEmail",
+      placeholder: "Email",
+      required: ""
+    },
+    domProps: {
+      value: _vm.userEmail
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.userEmail = $event.target.value;
+      }
+    }
+  })])]) : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     attrs: {
       type: "submit"
@@ -2556,53 +2638,7 @@ var render = function render() {
     }
   }, [_vm._v("Order Now")])])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group"
-  }, [_c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "inputName",
-      placeholder: "Name",
-      required: "",
-      minlength: "1",
-      maxlength: "50"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group"
-  }, [_c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "inputAdress",
-      placeholder: "Address",
-      required: "",
-      minlength: "1",
-      maxlength: "150"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group"
-  }, [_c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "email",
-      id: "inputEmail",
-      placeholder: "Email",
-      required: ""
-    }
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
