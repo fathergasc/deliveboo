@@ -16,7 +16,8 @@ class HomeController extends Controller
 {
     public function index(){
 
-        //recover authenticated user id
+        
+        // recover authenticated user id
         $id = Auth::id();
 
         //get restaurant of authenticated user
