@@ -12,6 +12,8 @@
                 </div>
 
                 <div class="col-12">
+                    <router-link :to="{name: 'home'}" class="btn btn-secondary">Back</router-link>
+
                     <h3>Menu</h3>
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
@@ -20,10 +22,10 @@
                         <div>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type="button" class="btn btn-primary" @click="productDecrement(index)" :disabled="liveProductCounter[index].productCounter <= 0">-</button>
-                                <div class="my_product-counter">{{liveProductCounter[index].productCounter}}</div>
+                                <div class="d-flex align-items-center px-2 border border-primary">{{liveProductCounter[index].productCounter}}</div>
                                 <button type="button" class="btn btn-primary" @click="productIncrement(index)">+</button>
                             </div>
-                            <button class="btn btn-primary" @click="addProductToCart(index)" :disabled="liveProductCounter[index].productCounter <= 0">Add</button>
+                            <button class="btn btn-primary ml-1" @click="addProductToCart(index)" :disabled="liveProductCounter[index].productCounter <= 0">Add</button>
                         </div>
                         </li>
                     </ul>
@@ -36,18 +38,34 @@
                         v-for="(product, index) in liveCart" :key="index">
                             {{product.name}}
                         <div class="d-flex">
-                            <div class="my_product-counter">{{product.productCounter}}</div>
-                            <button type="button" class="btn btn-primary" @click="delProductFromCart(index)">Del</button>
+                            <div class="d-flex align-items-center px-2 border border-primary rounded">{{product.productCounter}}</div>
+                            <button type="button" class="btn btn-danger ml-3" @click="delProductFromCart(index)">Del</button>
                         </div>
                         </li>
                     </ul>
-                    <button class="btn btn-primary">Pay</button>
+
+
+                    <form>
+                        <div v-if="showUserInfo">
+                            <div class="form-group">
+                                <label for="inputName">Name</label>
+                                <input type="text" class="form-control" id="inputName">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAddress">Address</label>
+                                <input type="text" class="form-control" id="inputAdress">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" class="form-control" id="inputEmail">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" @click="userInfoHandle">Order Now</button>
+                    </form>
                 </div>
             </div>
         </section>
-
-
-        <router-link :to="{name: 'home'}">Back</router-link>
     </div>
 
 </template>
@@ -59,7 +77,8 @@ export default {
         return {
             restaurant: [],
             liveProductCounter: [],
-            liveCart: []
+            liveCart: [],
+            showUserInfo: false
         }
     },
     methods: {
@@ -101,6 +120,26 @@ export default {
             this.liveCart.splice(this.restaurant.products[index], 1);
 
             this.liveProductCounter[index].productCounter = 0;
+        },
+        userInfoHandle(event) {
+            event.preventDefault();
+
+            if (this.showUserInfo == false) {
+                this.showUserInfo = true;
+            } else {
+                this.showUserInfo = false;
+            }
+
+
+            /*
+            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+            if (!emailCheck.test(this.email)) {
+                return;
+            }
+            if (this.password != this.passwordConfirm) {
+                event.preventDefault();
+                return;
+            }*/
         }
     },
     mounted() {
@@ -110,7 +149,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .my_product-counter {
-        background-color: pink;
-    }
+
 </style>

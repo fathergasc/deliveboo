@@ -47,7 +47,6 @@ const app = new Vue({
         },
         isPasswordValid(event) {
             if (this.password != this.passwordConfirm) {
-                console.log('psw diverse')
                 event.preventDefault();
                 return;
             }

@@ -49593,7 +49593,6 @@ var app = new Vue({
     },
     isPasswordValid: function isPasswordValid(event) {
       if (this.password != this.passwordConfirm) {
-        console.log('psw diverse');
         event.preventDefault();
         return;
       }
