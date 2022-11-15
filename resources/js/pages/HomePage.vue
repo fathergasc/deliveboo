@@ -13,7 +13,7 @@
 
                         <div class="col-3 d-flex justify-content-center align-items-center position-relative py-2" v-for="(cuisine, index) in cuisines" :key="index">
                             <input type="checkbox" class="my_checkbox pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
-                            <label class="my_cuisine-label text-capitalize pointer position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
+                            <label class="my_cuisine-label text-capitalize font-weight-bold pointer position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@
                             <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
                             class="my_restaurant d-flex justify-content-center align-items-center position-relative">
                                 <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
-                                <div class="my_restaurant-label text-capitalize position-absolute">{{restaurant.name}}</div>
+                                <div class="my_restaurant-label text-capitalize font-weight-bold position-absolute">{{restaurant.name}}</div>
                             </router-link>
                         </div>
                     </div>

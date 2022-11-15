@@ -2049,7 +2049,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     addProductToCart: function addProductToCart(index) {
       if (this.liveCart.includes(this.restaurant.products[index])) {
-        console.log('aooo è deoppio');
         this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
       } else {
         this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
@@ -2058,7 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
       this.liveProductCounter[index].productCounter = 0;
     },
     delProductFromCart: function delProductFromCart(index) {
-      this.liveCart.splice(this.restaurant.products[index], 1);
+      this.liveCart.splice(index, 1);
       this.liveProductCounter[index].productCounter = 0;
     },
     userInfoHandle: function userInfoHandle(event) {
@@ -2272,7 +2271,7 @@ var render = function render() {
         }]
       }
     }), _vm._v(" "), _c("label", {
-      staticClass: "my_cuisine-label text-capitalize pointer position-absolute",
+      staticClass: "my_cuisine-label text-capitalize font-weight-bold pointer position-absolute",
       attrs: {
         "for": cuisine.id
       }
@@ -2309,7 +2308,7 @@ var render = function render() {
         alt: restaurant.name
       }
     }), _vm._v(" "), _c("div", {
-      staticClass: "my_restaurant-label text-capitalize position-absolute"
+      staticClass: "my_restaurant-label text-capitalize font-weight-bold position-absolute"
     }, [_vm._v(_vm._s(restaurant.name))])])], 1);
   })], 2)]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])])]);
 };
@@ -2509,7 +2508,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("+")])]), _vm._v(" "), _c("button", {
-      staticClass: "btn btn-primary ml-1",
+      staticClass: "btn btn-warning ml-1",
       attrs: {
         disabled: _vm.liveProductCounter[index].productCounter <= 0
       },
@@ -2523,7 +2522,9 @@ var render = function render() {
     staticClass: "col-12"
   }, [_c("h2", {
     staticClass: "mt-2"
-  }, [_vm._v("Cart")]), _vm._v(" "), _c("ul", {
+  }, [_vm._v("Cart")]), _vm._v(" "), _vm.liveCart.length == 0 ? _c("p", {
+    staticClass: "font-italic"
+  }, [_vm._v("Nothing to see here, just add your food.")]) : _vm._e(), _vm._v(" "), _c("ul", {
     staticClass: "list-group",
     "class": _vm.liveCart.length > 0 ? "mb-3" : ""
   }, _vm._l(_vm.liveCart, function (product, index) {
@@ -2545,8 +2546,8 @@ var render = function render() {
         }
       }
     }, [_vm._v("Del")])])]);
-  }), 0), _vm._v(" "), _c("form", [_vm.showUserInfo ? _c("div", [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)]) : _vm._e(), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary",
+  }), 0), _vm._v(" "), _c("form", [_vm.showUserInfo ? _c("div", [_c("p", [_vm._v("Where to deliver?")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)]) : _vm._e(), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-success",
     attrs: {
       type: "submit"
     },

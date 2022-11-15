@@ -30,7 +30,7 @@
                                 <div class="d-flex align-items-center px-2 border border-primary">{{liveProductCounter[index].productCounter}}</div>
                                 <button type="button" class="btn btn-primary" @click="productIncrement(index)">+</button>
                             </div>
-                            <button class="btn btn-primary ml-1" @click="addProductToCart(index)" :disabled="liveProductCounter[index].productCounter <= 0">Add</button>
+                            <button class="btn btn-warning ml-1" @click="addProductToCart(index)" :disabled="liveProductCounter[index].productCounter <= 0">Add</button>
                         </div>
                         </li>
                     </ul>
@@ -38,6 +38,8 @@
 
                 <div class="col-12">
                     <h2 class="mt-2">Cart</h2>
+                    <p v-if="liveCart.length == 0" class="font-italic">Nothing to see here, just add your food.</p>
+
                     <ul class="list-group" :class="liveCart.length > 0 ? 'mb-3' : ''">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in liveCart" :key="index">
@@ -51,6 +53,7 @@
 
                     <form>
                         <div v-if="showUserInfo">
+                            <p>Where to deliver?</p>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="inputName" placeholder="Name"
                                 required minlength="1" maxlength="50">
@@ -65,7 +68,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" @click="userInfoHandle">Order Now</button>
+                        <button type="submit" class="btn btn-success" @click="userInfoHandle">Order Now</button>
                     </form>
                 </div>
             </div>
@@ -112,8 +115,6 @@ export default {
         },
         addProductToCart(index) {
             if (this.liveCart.includes(this.restaurant.products[index])) {
-                console.log('aooo è deoppio')
-
                 this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
             } else {
                 this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
@@ -123,7 +124,7 @@ export default {
             this.liveProductCounter[index].productCounter = 0;
         },
         delProductFromCart(index) {
-            this.liveCart.splice(this.restaurant.products[index], 1);
+            this.liveCart.splice(index, 1);
 
             this.liveProductCounter[index].productCounter = 0;
         },
