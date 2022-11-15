@@ -2083,7 +2083,7 @@ __webpack_require__.r(__webpack_exports__);
       ///////////////////////////// DELETE THIS when you are ready to send data
       event.preventDefault();
 
-      /*axios.post('/api', {
+      /*axios.post('/api/order', {
           name: this.userName,
           phone: 00000,
           email: this.userEmail,
