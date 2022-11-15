@@ -159,7 +159,6 @@
 </div>
 @endsection
 
-<!-- ***CHECK THIS!!! -->
 @section('script')
 <script>
     $(document).ready(function() {
