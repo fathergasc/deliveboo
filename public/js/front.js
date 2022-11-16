@@ -2025,6 +2025,7 @@ __webpack_require__.r(__webpack_exports__);
       showUserInfo: false,
       userName: "",
       userAddress: "",
+      userNumber: "",
       userEmail: "",
       totalAmount: 0
     };
@@ -2071,28 +2072,27 @@ __webpack_require__.r(__webpack_exports__);
         this.showUserInfo = false;
       }
 
-      //////////////////////////////////ADD VALIDATE BACKEND
+      //////////////////////////////////ADD VALIDATE (& backend)
 
-      var emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+      /*let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
       if (!emailCheck.test(this.email)) {
-        event.preventDefault();
-        return;
-      }
+          event.preventDefault();
+          return;
+      }*/
 
       /////////////////////////////////////////////////////////////////////////
       ///////////////////////////// DELETE THIS when you are ready to send data
-      event.preventDefault();
+      //event.preventDefault();
 
-      /*axios.post('/api/order', {
-          name: this.userName,
-          phone: 00000,
-          email: this.userEmail,
-          shipping_address: this.userAddress,
-          total_price: this.totalAmount
-      })
-      .then((response)=>{
-          console.log(response)
-      });*/
+      axios.post('/api/order', {
+        name: this.userName,
+        phone: this.userNumber,
+        email: this.userEmail,
+        shipping_address: this.userAddress,
+        total_price: this.totalAmount
+      }).then(function (response) {
+        console.log(response);
+      });
     },
     getPartialAmount: function getPartialAmount(index) {
       var partialAmount = 0;
@@ -2636,6 +2636,33 @@ var render = function render() {
       input: function input($event) {
         if ($event.target.composing) return;
         _vm.userAddress = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group mb-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.userNumber,
+      expression: "userNumber"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "number",
+      id: "inputNumber",
+      placeholder: "Phone",
+      required: "",
+      min: "1",
+      max: "20"
+    },
+    domProps: {
+      value: _vm.userNumber
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.userNumber = $event.target.value;
       }
     }
   })]), _vm._v(" "), _c("div", {

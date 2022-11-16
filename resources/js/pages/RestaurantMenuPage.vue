@@ -65,6 +65,10 @@
                                 v-model="userAddress" required minlength="1" maxlength="150">
                             </div>
                             <div class="form-group mb-2">
+                                <input type="number" class="form-control" id="inputNumber" placeholder="Phone"
+                                v-model="userNumber" required min="1" max="20">
+                            </div>
+                            <div class="form-group mb-2">
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email"
                                 v-model="userEmail" required>
                             </div>
@@ -92,6 +96,7 @@ export default {
             showUserInfo: false,
             userName: "",
             userAddress: "",
+            userNumber: "",
             userEmail: "",
             totalAmount: 0
         }
@@ -143,29 +148,28 @@ export default {
                 this.showUserInfo = false;
             }
 
-            //////////////////////////////////ADD VALIDATE BACKEND
+            //////////////////////////////////ADD VALIDATE (& backend)
 
-            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+            /*let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
             if (!emailCheck.test(this.email)) {
                 event.preventDefault();
                 return;
-            }
+            }*/
 
             /////////////////////////////////////////////////////////////////////////
             ///////////////////////////// DELETE THIS when you are ready to send data
-            event.preventDefault();
+            //event.preventDefault();
 
-            /*axios.post('/api/order', {
+            axios.post('/api/order', {
                 name: this.userName,
-                phone: 00000,
+                phone: this.userNumber,
                 email: this.userEmail,
                 shipping_address: this.userAddress,
                 total_price: this.totalAmount
             })
             .then((response)=>{
                 console.log(response)
-            });*/
-
+            });
         },
         getPartialAmount(index) {
             let partialAmount = 0;

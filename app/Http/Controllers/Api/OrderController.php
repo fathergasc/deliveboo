@@ -9,8 +9,9 @@ use App\Order;
 class OrderController extends Controller
 {
     public function orderHandle(Request $request) {
-        ///////////CHECK request decode
-        $data = json_decode($request);
+        ///// ADD VALIDATE E PAYCHECK /////
+
+        $data = $request->json()->all();
 
         $order = new Order;
         $order->fill($data);
