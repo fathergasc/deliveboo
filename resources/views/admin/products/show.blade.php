@@ -24,9 +24,6 @@
                 <div class="text-primary">Name:</div>
                 <h1 class="text-left font-weight-bold text-capitalize mb-4">{{$product->name}}</h1>
 
-                <div class="text-primary">slug:</div>
-                <h5 class="text-left mb-3">{{ $product->slug }}</h5>
-
                 <div class="text-primary">Category:</div>
                 <h5 class="text-left mb-3 text-capitalize">{{ $product->category }}</h5>
 

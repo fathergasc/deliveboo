@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            Deliveboo
         </a>
 
         @if (Auth::check())
