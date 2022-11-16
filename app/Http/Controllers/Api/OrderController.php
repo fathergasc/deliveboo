@@ -5,13 +5,32 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Order;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public function orderHandle(Request $request) {
+    public function orderHandle(Request $request)
+    {
         ///// ADD VALIDATE E PAYCHECK /////
 
         $data = $request->json()->all();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3|max:50',
+            'phone' => 'required|numeric|digits_between:9,15',
+            'email' => 'required|email',
+            'shipping_address' => 'required|string|min:8|max:40',
+            //'total_price' => 'required|numeric|min:0.1',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json (
+                [
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ]
+                );
+        }
 
         $order = new Order;
 
