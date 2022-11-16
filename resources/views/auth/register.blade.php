@@ -129,7 +129,7 @@
 
                             <div class="col-md-6">
                                 <select class="form-control cuisines @error('cuisines') is-invalid @enderror" name="cuisines[]"
-                                multiple="multiple" required>
+                                required>
                                     @foreach ($cuisines as $cuisine )
                                         <option {{(old('cuisines') == $cuisine->id)?'selected':''}} value="{{$cuisine->id}}">{{ ucfirst($cuisine->name)}}</option>
                                     @endforeach
@@ -157,14 +157,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-<script>
-    $(document).ready(function() {
-        $('.cuisines').select2({
-            placeholder: 'Select an option'
-        });
-    });
-</script>
 @endsection
