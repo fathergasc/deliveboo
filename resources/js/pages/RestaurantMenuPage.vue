@@ -54,7 +54,7 @@
                     </ul>
 
                     <form>
-                        <div v-if="showUserInfo">
+                        <div>
                             <p class="mb-2">Where to deliver?</p>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputName" placeholder="Name"
@@ -142,17 +142,17 @@ export default {
             this.liveProductCounter[index].productCounter = 0;
         },
         userInfoHandle(event) {
-            if (this.showUserInfo == false) {
+            /*if (this.showUserInfo == false) {
                 this.showUserInfo = true;
             } else {
                 this.showUserInfo = false;
-            }
+            }*/
 
             //////////////////////////////////ADD VALIDATE (& backend)
 
             /*let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
             if (!emailCheck.test(this.email)) {
-                event.preventDefault();
+                //event.preventDefault();
                 return;
             }*/
 
@@ -165,7 +165,8 @@ export default {
                 phone: this.userNumber,
                 email: this.userEmail,
                 shipping_address: this.userAddress,
-                total_price: this.totalAmount
+                total_price: this.totalAmount,
+                liveCart: this.liveCart
             })
             .then((response)=>{
                 console.log(response)
