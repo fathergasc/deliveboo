@@ -61,7 +61,7 @@
                                 v-model="userName" required maxlength="50">
                             </div>
                             <div class="form-group mb-2">
-                                <input type="text" class="form-control" id="inputAdress" placeholder="Address"
+                                <input type="text" class="form-control" id="inputAddress" placeholder="Address"
                                 v-model="userAddress" required maxlength="150">
                             </div>
                             <div class="form-group mb-2">
@@ -98,7 +98,8 @@ export default {
             userAddress: "",
             userNumber: "",
             userEmail: "",
-            totalAmount: 0
+            totalAmount: 0,
+            errors: {},
         }
     },
     methods: {
