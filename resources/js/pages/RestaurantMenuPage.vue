@@ -58,15 +58,15 @@
                             <p class="mb-2">Where to deliver?</p>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputName" placeholder="Name"
-                                v-model="userName" required minlength="1" maxlength="50">
+                                v-model="userName" required maxlength="50">
                             </div>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputAdress" placeholder="Address"
-                                v-model="userAddress" required minlength="1" maxlength="150">
+                                v-model="userAddress" required maxlength="150">
                             </div>
                             <div class="form-group mb-2">
-                                <input type="number" class="form-control" id="inputNumber" placeholder="Phone"
-                                v-model="userNumber" required min="1" max="20">
+                                <input type="text" class="form-control" id="inputNumber" placeholder="Phone"
+                                v-model="userNumber" required maxlength="20">
                             </div>
                             <div class="form-group mb-2">
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email"

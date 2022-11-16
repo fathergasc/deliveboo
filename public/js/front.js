@@ -2600,7 +2600,6 @@ var render = function render() {
       id: "inputName",
       placeholder: "Name",
       required: "",
-      minlength: "1",
       maxlength: "50"
     },
     domProps: {
@@ -2627,7 +2626,6 @@ var render = function render() {
       id: "inputAdress",
       placeholder: "Address",
       required: "",
-      minlength: "1",
       maxlength: "150"
     },
     domProps: {
@@ -2650,12 +2648,11 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "number",
+      type: "text",
       id: "inputNumber",
       placeholder: "Phone",
       required: "",
-      min: "1",
-      max: "20"
+      maxlength: "20"
     },
     domProps: {
       value: _vm.userNumber
