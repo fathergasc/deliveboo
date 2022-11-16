@@ -2066,17 +2066,17 @@ __webpack_require__.r(__webpack_exports__);
       this.liveProductCounter[index].productCounter = 0;
     },
     userInfoHandle: function userInfoHandle(event) {
-      if (this.showUserInfo == false) {
-        this.showUserInfo = true;
+      /*if (this.showUserInfo == false) {
+          this.showUserInfo = true;
       } else {
-        this.showUserInfo = false;
-      }
+          this.showUserInfo = false;
+      }*/
 
       //////////////////////////////////ADD VALIDATE (& backend)
 
       /*let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
       if (!emailCheck.test(this.email)) {
-          event.preventDefault();
+          //event.preventDefault();
           return;
       }*/
 
@@ -2089,7 +2089,8 @@ __webpack_require__.r(__webpack_exports__);
         phone: this.userNumber,
         email: this.userEmail,
         shipping_address: this.userAddress,
-        total_price: this.totalAmount
+        total_price: this.totalAmount,
+        liveCart: this.liveCart
       }).then(function (response) {
         console.log(response);
       });
@@ -2582,7 +2583,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("Del")])])]);
-  }), 0), _vm._v(" "), _c("form", [_vm.showUserInfo ? _c("div", [_c("p", {
+  }), 0), _vm._v(" "), _c("form", [_c("div", [_c("p", {
     staticClass: "mb-2"
   }, [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
     staticClass: "form-group mb-2"
@@ -2690,7 +2691,7 @@ var render = function render() {
         _vm.userEmail = $event.target.value;
       }
     }
-  })])]) : _vm._e(), _vm._v(" "), _c("div", {
+  })])]), _vm._v(" "), _c("div", {
     staticClass: "mb-2"
   }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
