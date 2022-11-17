@@ -13,20 +13,23 @@
 
 <div class="container">
     <div class="panel-body inf-content">
-        <div class="row">
-            <div class="col-md-4">
-                @if($restaurant->image)
-                <img alt="" title="" class="img-circle img-thumbnail isTooltip" src="{{ asset('storage/' . $restaurant->image) }}">
-                @else
-                <img alt="" title="" class="img-circle img-thumbnail isTooltip" src="{{ asset('img/restaurant-picture-default.png') }}">
-                @endif
+        <div class="row justify-content-center">
+            <div class="col-md-4 m-3">
+                <div class="restaurant-img-wrapper">
+                    @if($restaurant->image)
+                    <img alt="" title="" class="img-circle img-thumbnail isTooltip" src="{{ asset('storage/' . $restaurant->image) }}">
+                    @else
+                    <img alt="" title="" class="img-circle img-thumbnail isTooltip" src="{{ asset('img/restaurant-picture-default.png') }}">
+                    @endif
+                </div>
+
 
                 <form action="{{route('admin.restaurants.update', ['restaurant' => $restaurant->slug])}}" method="POST" enctype="multipart/form-data">
 
                     @csrf
                     @method('PUT')
 
-                    <label for="image">Restaurant Image</label>
+                    <label class="mt-1" for="image">Restaurant Image</label>
                     <input type="file" name="image" id="image" class="form-control-file mb-3 @error('image') is-invalid @enderror"
                     accept="image/*">
                     @error('image')
@@ -37,8 +40,8 @@
                 </form>
 
             </div>
-            <div class="col-md-6">
-                <strong>Information</strong><br>
+            <div class="col-md-6 p-3">
+                <strong class="pl-1 mt-2">INFORMATION</strong><br>
                 <div class="table-responsive">
                 <table class="table table-user-information">
                     <tbody>
@@ -88,7 +91,7 @@
                 </table>
                 </div>
 
-                <strong>Your Restaurant</strong><br>
+                <strong class="pl-1">YOUR RESTAURANT</strong><br>
                 <div class="table-responsive">
                 <table class="table table-user-information">
                     <tbody>
@@ -121,7 +124,7 @@
                             </td>
                             <td>
                                 @foreach($cuisines as $cuisine)
-                                    {{$cuisine->name}}
+                                    {{ucfirst($cuisine->name)}};
                                 @endforeach
                             </td>
                         </tr>
