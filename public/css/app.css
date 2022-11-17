@@ -10988,3 +10988,17 @@ main .right {
   box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
 }
 
+.restaurant-img-wrapper {
+  height: 300px;
+  width: 300px;
+}
+
+.restaurant-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
