@@ -47,7 +47,7 @@ class RegisterController extends Controller
             'vat_number' => ['required', 'string', 'min:11', 'max:11', 'unique:users'],
             'restaurant_name' => ['required', 'string', 'max:70'],
             'address' => ['required', 'string', 'max:80'],
-            'cuisines' => ['required', 'array', 'exists:cuisines,id']
+            'cuisines' => ['required', 'exists:cuisines,id']
         ]);
     }
 
@@ -74,20 +74,18 @@ class RegisterController extends Controller
 
         $restaurant->cuisines()->attach($data['cuisines']);
         return $user;
-
     }
 
-    protected function generateSlug($name) {
+    protected function generateSlug($name)
+    {
         $slug = Str::slug($name, '-');
         $checkRestaurant = Restaurant::all()->where('slug', $slug)->first();
         $counter = 1;
-        while($checkRestaurant) {
+        while ($checkRestaurant) {
             $slug = Str::slug($name . '-' . $counter, '-');
             $counter++;
             $checkRestaurant = Restaurant::all()->where('slug', $slug)->first();
         }
         return $slug;
     }
-
 }
-
