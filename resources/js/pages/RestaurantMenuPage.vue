@@ -54,7 +54,7 @@
                     </ul>
 
                     <form>
-                        <div>
+                        <!--<div>
                             <p class="mb-2">Where to deliver?</p>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputName" placeholder="Name"
@@ -72,12 +72,14 @@
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email"
                                 v-model="userEmail" required>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
 
-                        <button type="submit" class="btn btn-success" @click="userInfoHandle" :disabled="isCartEmpty">Order Now</button>
+                        
                     </form>
+
+                    <button type="submit" class="btn btn-success" @click="userInfoHandle" :disabled="isCartEmpty">Order Now</button>
                 </div>
             </div>
         </section>
@@ -165,16 +167,16 @@ export default {
             localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
         },
         userInfoHandle() {
-            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+            /*let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
             if (!emailCheck.test(this.email)) {
                 return;
-            }
+            }*/
 
             axios.post('/api/order', {
-                name: this.userName,
-                phone: this.userNumber,
-                email: this.userEmail,
-                shipping_address: this.userAddress,
+                name: 'this.userName',
+                phone: '12345',
+                email: 'email@this.user',
+                shipping_address: 'this.userAddress',
                 total_price: this.totalAmount,
                 liveCart: this.liveCart
             })

@@ -17,10 +17,10 @@ class OrderController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
-            'phone' => 'required|numeric|digits_between:9,15',
+            'phone' => 'required|numeric|digits_between:5,25',
             'email' => 'required|email',
             'shipping_address' => 'required|string|min:8|max:40',
-            //'total_price' => 'required|numeric|min:0.1',
+            'total_price' => 'required|numeric|min:0.1',
         ]);
 
         if($validator->fails()) {

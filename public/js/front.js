@@ -2145,15 +2145,16 @@ __webpack_require__.r(__webpack_exports__);
       localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
     },
     userInfoHandle: function userInfoHandle() {
-      var emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+      /*let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
       if (!emailCheck.test(this.email)) {
-        return;
-      }
+          return;
+      }*/
+
       axios.post('/api/order', {
-        name: this.userName,
-        phone: this.userNumber,
-        email: this.userEmail,
-        shipping_address: this.userAddress,
+        name: 'this.userName',
+        phone: '12345',
+        email: 'email@this.user',
+        shipping_address: 'this.userAddress',
         total_price: this.totalAmount,
         liveCart: this.liveCart
       }).then(function (response) {
@@ -2839,114 +2840,9 @@ var render = function render() {
         }
       }
     }, [_vm._v("Del")])])]);
-  }), 0), _vm._v(" "), _c("form", [_c("div", [_c("p", {
+  }), 0), _vm._v(" "), _c("form", [_c("div", {
     staticClass: "mb-2"
-  }, [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
-    staticClass: "form-group mb-2"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.userName,
-      expression: "userName"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "inputName",
-      placeholder: "Name",
-      required: "",
-      maxlength: "50"
-    },
-    domProps: {
-      value: _vm.userName
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.userName = $event.target.value;
-      }
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "form-group mb-2"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.userAddress,
-      expression: "userAddress"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "inputAddress",
-      placeholder: "Address",
-      required: "",
-      maxlength: "150"
-    },
-    domProps: {
-      value: _vm.userAddress
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.userAddress = $event.target.value;
-      }
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "form-group mb-2"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.userNumber,
-      expression: "userNumber"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "inputNumber",
-      placeholder: "Phone",
-      required: "",
-      maxlength: "20"
-    },
-    domProps: {
-      value: _vm.userNumber
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.userNumber = $event.target.value;
-      }
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "form-group mb-2"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.userEmail,
-      expression: "userEmail"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "email",
-      id: "inputEmail",
-      placeholder: "Email",
-      required: ""
-    },
-    domProps: {
-      value: _vm.userEmail
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.userEmail = $event.target.value;
-      }
-    }
-  })])]), _vm._v(" "), _c("div", {
-    staticClass: "mb-2"
-  }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))])]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     attrs: {
       type: "submit",
@@ -2955,7 +2851,7 @@ var render = function render() {
     on: {
       click: _vm.userInfoHandle
     }
-  }, [_vm._v("Order Now")])])])])])]);
+  }, [_vm._v("Order Now")])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
