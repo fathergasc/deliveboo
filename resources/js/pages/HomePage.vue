@@ -23,9 +23,9 @@
                             <span class="sr-only">Loading...</span>
                         </div>
 
-                        <div class="col-3 py-2" v-for="(restaurant, index) in restaurants" :key="index">
+                        <div class="col-3 d-flex justify-content-center align-items-center position-relative py-2" v-for="(restaurant, index) in restaurants" :key="index">
                             <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
-                            class="my_restaurant d-flex justify-content-center align-items-center position-relative">
+                            class="my_restaurant">
                                 <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
                                 <div class="my_restaurant-label text-capitalize font-weight-bold position-absolute">{{restaurant.name}}</div>
                             </router-link>
@@ -179,6 +179,12 @@ export default {
         aspect-ratio: 1 / 1;
         max-width: 90px;
         max-height: 90px;
+    }
+
+    .my_restaurant-label {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .pointer {
