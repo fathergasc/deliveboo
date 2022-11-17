@@ -1,7 +1,7 @@
 <template>
     <div>
         <main>
-            <section class="container-md position-relative">
+            <section id="main-section" class="container-md position-relative">
 
                 <div id="search-container" class="position-relative">
                     <h3 class="pt-2">Categories</h3>
@@ -44,11 +44,12 @@
                         </div>
                     </div>
 
-                    <a href="#" id="main-cart" class="position-absolute">
+                    <div id="main-cart" class="position-absolute pointer" @click="getLiveCart">
                         <img src="/assets/img/shopping-cart-edit.png">
-                    </a>
+                    </div>
                 </div>
 
+                <div class="park-floor position-absolute"></div>
 
                 <div class="ferris-wheel-container">
                     <div class="circle">
@@ -77,10 +78,54 @@
                 </div>
                 <div class="std"></div>
                 </div>
-
             </section>
 
-            <section class="container-md py-2">
+            <section class="container-md py-2" v-if="liveCart.length != 0">
+                <div class="my-2 d-flex align-items-center">
+                    <h2 class="mb-0">Cart</h2>
+                    <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary mx-4">Update order</router-link>
+                    <h4 class="mb-0">{{liveCartRestaurant.name}}</h4>
+                </div>
+
+                <ul class="list-group mb-2">
+                    <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
+                    v-for="(product, index) in liveCart" :key="index">
+                        {{product.name}}
+                        <div class="d-flex align-items-center">
+                            <div>{{formatPrice(getPartialAmount(index))}}</div>
+                            <div class="d-flex align-items-center px-2 ml-3 border border-primary rounded">{{product.productCounter}}</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <form>
+                    <div>
+                        <p class="mb-2">Where to deliver?</p>
+                        <div class="form-group mb-2">
+                            <input type="text" class="form-control" id="inputName" placeholder="Name"
+                            v-model="userName" required maxlength="50">
+                        </div>
+                        <div class="form-group mb-2">
+                            <input type="text" class="form-control" id="inputAddress" placeholder="Address"
+                            v-model="userAddress" required maxlength="150">
+                        </div>
+                        <div class="form-group mb-2">
+                            <input type="text" class="form-control" id="inputNumber" placeholder="Phone"
+                            v-model="userNumber" required maxlength="20">
+                        </div>
+                        <div class="form-group mb-2">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email"
+                            v-model="userEmail" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
+
+                    <button type="submit" class="btn btn-success" @click="userInfoHandle">Order Now</button>
+                </form>
+            </section>
+
+            <section class="container-md py-4">
                 <div class="row">
                     <div class="col-12">
                         <img class="img-fluid" src="/assets/img/super-french-fries_edit.png" alt="DeliveBoo">
@@ -106,7 +151,14 @@ export default {
             isRestaurantLoading: true,
             cuisines: [],
             selectedCuisines: [],
-            restaurants: []
+            restaurants: [],
+            liveCart: [],
+            liveCartRestaurant: "",
+            userName: "",
+            userAddress: "",
+            userNumber: "",
+            userEmail: "",
+            totalAmount: 0
         }
     },
     methods: {
@@ -129,6 +181,58 @@ export default {
 
                 this.isRestaurantLoading = false;
             })
+        },
+        getLiveCart() {
+            this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+
+            for (let i = 0; i < this.restaurants.length; i++) {
+                if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
+                    this.liveCartRestaurant = this.restaurants[i];
+                }
+            }
+
+            this.getTotalAmount();
+        },
+                userInfoHandle() {
+            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+            if (!emailCheck.test(this.email)) {
+                return;
+            }
+
+            axios.post('/api/order', {
+                name: this.userName,
+                phone: this.userNumber,
+                email: this.userEmail,
+                shipping_address: this.userAddress,
+                total_price: this.totalAmount,
+                liveCart: this.liveCart
+            })
+            .then((response)=>{
+                console.log(response)
+            });
+        },
+        getPartialAmount(index) {
+            let partialAmount = 0;
+
+            partialAmount = this.liveCart[index].price * this.liveCart[index].productCounter;
+
+            return partialAmount;
+        },
+        getTotalAmount() {
+            this.totalAmount = 0;
+
+            for (let i = 0; i < this.liveCart.length; i++) {
+                this.totalAmount = this.totalAmount + (this.liveCart[i].price * this.liveCart[i].productCounter);
+            }
+
+            return this.totalAmount;
+        },
+        formatPrice(value) {
+            const dollars = new Intl.NumberFormat(`en-US`, {
+                currency: `USD`,
+                style: 'currency',
+            }).format(value);
+            return dollars;
         }
     },
     mounted() {
@@ -143,14 +247,14 @@ export default {
         background-color: beige;
     }
 
-    section {
-        height: 100%;
+    #main-section {
+        height: calc(100vh - 70px);
         overflow-x: hidden;
     }
 
     #search-container {
         width: 100%;
-        height: calc(100vh - 70px);
+        
 
         z-index: 103;
 
@@ -287,7 +391,7 @@ export default {
 
     #main-cart {
         bottom: 4px;
-        left: 300px;
+        left: 295px;
 
         img {
             height: 80px;
@@ -295,6 +399,15 @@ export default {
     }
 
     /*** END FOOD TRUCK ***/
+
+    .park-floor {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 25px;
+        background-color: rgb(70, 70, 70);
+        z-index: 100;
+    }
 
     /*** START FERRIS WHEEL ***/
 

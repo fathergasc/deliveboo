@@ -127,7 +127,9 @@ export default {
             this.liveProductCounter[index].productCounter--;
         },
         addProductToCart(index) {
-            this.isCartEmpty = false;
+            if (this.isCartEmpty == true) {
+                this.isCartEmpty = false;
+            }
 
             if (this.liveCart.includes(this.restaurant.products[index])) {
                 this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
@@ -137,6 +139,8 @@ export default {
             }
 
             this.liveProductCounter[index].productCounter = 0;
+
+            localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
         },
         delProductFromCart(index) {
             if (this.liveCart.length == 1) {
@@ -146,6 +150,8 @@ export default {
             this.liveCart.splice(index, 1);
 
             this.liveProductCounter[index].productCounter = 0;
+
+            localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
         },
         userInfoHandle() {
             let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;

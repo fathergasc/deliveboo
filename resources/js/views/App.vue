@@ -17,6 +17,9 @@ export default {
         MyHeader,
         MyMain,
         MyFooter
+    },
+    mounted() {
+        localStorage.clear();
     }
 }
 </script>
