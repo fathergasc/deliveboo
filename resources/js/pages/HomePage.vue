@@ -13,7 +13,7 @@
 
                         <div class="col-3 d-flex justify-content-center align-items-center position-relative py-2" v-for="(cuisine, index) in cuisines" :key="index">
                             <input type="checkbox" class="my_checkbox pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
-                            <label class="my_cuisine-label text-capitalize font-weight-bold pointer position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
+                            <label class="my_cuisine-label text-capitalize font-weight-bold text-center pointer position-absolute" :for="cuisine.id">{{cuisine.name}}</label>
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@
                             <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
                             class="my_restaurant">
                                 <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
-                                <div class="my_restaurant-label text-capitalize font-weight-bold position-absolute">{{restaurant.name}}</div>
+                                <div class="my_restaurant-label text-capitalize font-weight-bold text-center position-absolute">{{restaurant.name}}</div>
                             </router-link>
                         </div>
                     </div>
@@ -79,6 +79,20 @@
                 </div>
 
             </section>
+
+            <section class="container-md py-2">
+                <div class="row">
+                    <div class="col-12">
+                        <img class="img-fluid" src="/assets/img/super-french-fries_edit.png" alt="DeliveBoo">
+                    </div>
+                    <div class="col-12">
+                        <div class="slogan-container position-relative">
+                            <img class="img-fluid" src="/assets/img/cloud-comic.png" alt="If you can eat it, we can deliver it!">
+                            <div class="my_main-slogan text-center position-absolute">If you can eat it, we can deliver it!</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 </template>
@@ -126,7 +140,6 @@ export default {
 
 <style scoped lang="scss">
     main {
-        height: calc(100vh - 70px);
         background-color: beige;
     }
 
@@ -137,8 +150,14 @@ export default {
 
     #search-container {
         width: 100%;
+        height: calc(100vh - 70px);
 
         z-index: 103;
+
+        div {
+            max-height: 212px;
+            overflow-y: auto;
+        }
     }
 
     .my_special-bg-color {
@@ -160,6 +179,9 @@ export default {
     .my_cuisine-label,
     .my_restaurant-label {
         margin-bottom: 0px;
+
+        max-width: 90px;
+        max-height: 90px;
         background-color: rgba(255, 255, 255, 0.8);
         color: black;
         padding: 3px 6px;
@@ -227,10 +249,6 @@ export default {
         border-top-right-radius: 10px;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
-
-        ////////////////////CARD FLIP HIDDEN HANDLE
-        //transform-style: preserve-3d;
-        //backface-visibility: hidden;
 
         img {
             height: 6px;
@@ -427,4 +445,13 @@ export default {
     }
 
     /*** END FERRIS WHEEL ***/
+
+    /*** START SLOGAN ***/
+
+    .my_main-slogan {
+        font-size: 28px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 </style>
