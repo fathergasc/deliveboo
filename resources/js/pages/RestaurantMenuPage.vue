@@ -53,20 +53,20 @@
                         </li>
                     </ul>
 
-                    <form>
+                    <form @submit="orderHandle">
                         <div>
                             <p class="mb-2">Where to deliver?</p>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputName" placeholder="Name"
-                                v-model="userName" required maxlength="50">
+                                v-model="userName" required minlength="3" maxlength="50">
                             </div>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputAddress" placeholder="Address"
-                                v-model="userAddress" required maxlength="150">
+                                v-model="userAddress" required minlength="3" maxlength="50">
                             </div>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputNumber" placeholder="Phone"
-                                v-model="userNumber" required maxlength="20">
+                                v-model="userNumber" required minlength="5" maxlength="25">
                             </div>
                             <div class="form-group mb-2">
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email"
@@ -76,7 +76,7 @@
 
                         <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
 
-                        <button type="submit" class="btn btn-success" @click="userInfoHandle" :disabled="isCartEmpty">Order Now</button>
+                        <button type="submit" class="btn btn-success" :disabled="isCartEmpty">Order Now</button>
                     </form>
                 </div>
             </div>
@@ -119,16 +119,9 @@ export default {
 
                 this.isMenuLoading = false;
 
-                if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-                    return;
-                } else {
-                    let checkMyCart = JSON.parse(localStorage.getItem('myLiveCart'));
-                    if (this.restaurant.id == checkMyCart[0].restaurant_id) {
-                        this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
-                    } else {
-                        return;
-                    }
-                }
+                this.getLiveCart();
+
+                console.log(this.liveCart)
             })
         },
         productIncrement(index) {
@@ -137,10 +130,31 @@ export default {
         productDecrement(index) {
             this.liveProductCounter[index].productCounter--;
         },
+        getLiveCart() {
+            if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
+                return;
+            } else {
+                this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+            }
+
+            this.getTotalAmount();
+        },
         addProductToCart(index) {
+            ////////////////////////////////////////////////////
+            //TO DO: 
+
+            // ADD CHECK CARRELLO ID PRODOTTO quando esiste local
+            //check button order con carrello pieno da local
+
             if (this.isCartEmpty == true) {
                 this.isCartEmpty = false;
             }
+
+            /*for (let i = 0; i < this.restaurants.length; i++) {
+                if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
+                    this.liveCartRestaurant = this.restaurants[i];
+                }
+            }*/
 
             if (this.liveCart.includes(this.restaurant.products[index])) {
                 this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
@@ -164,11 +178,8 @@ export default {
 
             localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
         },
-        userInfoHandle() {
-            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-            if (!emailCheck.test(this.email)) {
-                return;
-            }
+        orderHandle(event) {
+            event.preventDefault();
 
             axios.post('/api/order', {
                 name: this.userName,
@@ -179,7 +190,9 @@ export default {
                 liveCart: this.liveCart
             })
             .then((response)=>{
-                console.log(response)
+                console.log(response);
+
+                window.location.reload();
             });
         },
         getPartialAmount(index) {

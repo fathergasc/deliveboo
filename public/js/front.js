@@ -1989,12 +1989,14 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this2.restaurants = response.data.results;
         _this2.isRestaurantLoading = false;
+        _this2.getLiveCart();
       });
     },
     getLiveCart: function getLiveCart() {
-      this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
-      if (this.liveCart.length == 0) {
+      if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
         return;
+      } else {
+        this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
       }
       for (var i = 0; i < this.restaurants.length; i++) {
         if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
@@ -2009,11 +2011,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    userInfoHandle: function userInfoHandle() {
-      var emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-      if (!emailCheck.test(this.email)) {
-        return;
-      }
+    orderHandle: function orderHandle(event) {
+      event.preventDefault();
       axios.post('/api/order', {
         name: this.userName,
         phone: this.userNumber,
@@ -2023,6 +2022,7 @@ __webpack_require__.r(__webpack_exports__);
         liveCart: this.liveCart
       }).then(function (response) {
         console.log(response);
+        window.location.reload();
       });
     },
     getPartialAmount: function getPartialAmount(index) {
@@ -2105,16 +2105,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.liveProductCounter.push(newProductCounter);
         }
         _this.isMenuLoading = false;
-        if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-          return;
-        } else {
-          var checkMyCart = JSON.parse(localStorage.getItem('myLiveCart'));
-          if (_this.restaurant.id == checkMyCart[0].restaurant_id) {
-            _this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
-          } else {
-            return;
-          }
-        }
+        _this.getLiveCart();
+        console.log(_this.liveCart);
       });
     },
     productIncrement: function productIncrement(index) {
@@ -2123,10 +2115,31 @@ __webpack_require__.r(__webpack_exports__);
     productDecrement: function productDecrement(index) {
       this.liveProductCounter[index].productCounter--;
     },
+    getLiveCart: function getLiveCart() {
+      if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
+        return;
+      } else {
+        this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+      }
+      this.getTotalAmount();
+    },
     addProductToCart: function addProductToCart(index) {
+      ////////////////////////////////////////////////////
+      //TO DO: 
+
+      // ADD CHECK CARRELLO ID PRODOTTO quando esiste local
+      //check button order con carrello pieno da local
+
       if (this.isCartEmpty == true) {
         this.isCartEmpty = false;
       }
+
+      /*for (let i = 0; i < this.restaurants.length; i++) {
+          if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
+              this.liveCartRestaurant = this.restaurants[i];
+          }
+      }*/
+
       if (this.liveCart.includes(this.restaurant.products[index])) {
         this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
       } else {
@@ -2144,11 +2157,8 @@ __webpack_require__.r(__webpack_exports__);
       this.liveProductCounter[index].productCounter = 0;
       localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
     },
-    userInfoHandle: function userInfoHandle() {
-      var emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-      if (!emailCheck.test(this.email)) {
-        return;
-      }
+    orderHandle: function orderHandle(event) {
+      event.preventDefault();
       axios.post('/api/order', {
         name: this.userName,
         phone: this.userNumber,
@@ -2158,6 +2168,7 @@ __webpack_require__.r(__webpack_exports__);
         liveCart: this.liveCart
       }).then(function (response) {
         console.log(response);
+        window.location.reload();
       });
     },
     getPartialAmount: function getPartialAmount(index) {
@@ -2478,7 +2489,11 @@ var render = function render() {
     }, [_c("div", [_vm._v(_vm._s(_vm.formatPrice(_vm.getPartialAmount(index))))]), _vm._v(" "), _c("div", {
       staticClass: "d-flex align-items-center px-2 ml-3 border border-primary rounded"
     }, [_vm._v(_vm._s(product.productCounter))])])]);
-  }), 0), _vm._v(" "), _c("form", [_c("div", [_c("p", {
+  }), 0), _vm._v(" "), _c("form", {
+    on: {
+      submit: _vm.orderHandle
+    }
+  }, [_c("div", [_c("p", {
     staticClass: "mb-2"
   }, [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
     staticClass: "form-group mb-2"
@@ -2495,6 +2510,7 @@ var render = function render() {
       id: "inputName",
       placeholder: "Name",
       required: "",
+      minlength: "3",
       maxlength: "50"
     },
     domProps: {
@@ -2521,7 +2537,8 @@ var render = function render() {
       id: "inputAddress",
       placeholder: "Address",
       required: "",
-      maxlength: "150"
+      minlength: "3",
+      maxlength: "50"
     },
     domProps: {
       value: _vm.userAddress
@@ -2547,7 +2564,8 @@ var render = function render() {
       id: "inputNumber",
       placeholder: "Phone",
       required: "",
-      maxlength: "20"
+      minlength: "5",
+      maxlength: "25"
     },
     domProps: {
       value: _vm.userNumber
@@ -2589,9 +2607,6 @@ var render = function render() {
     staticClass: "btn btn-success",
     attrs: {
       type: "submit"
-    },
-    on: {
-      click: _vm.userInfoHandle
     }
   }, [_vm._v("Order Now")])])]) : _vm._e(), _vm._v(" "), _vm._m(2)])]);
 };
@@ -2839,7 +2854,11 @@ var render = function render() {
         }
       }
     }, [_vm._v("Del")])])]);
-  }), 0), _vm._v(" "), _c("form", [_c("div", [_c("p", {
+  }), 0), _vm._v(" "), _c("form", {
+    on: {
+      submit: _vm.orderHandle
+    }
+  }, [_c("div", [_c("p", {
     staticClass: "mb-2"
   }, [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
     staticClass: "form-group mb-2"
@@ -2856,6 +2875,7 @@ var render = function render() {
       id: "inputName",
       placeholder: "Name",
       required: "",
+      minlength: "3",
       maxlength: "50"
     },
     domProps: {
@@ -2882,7 +2902,8 @@ var render = function render() {
       id: "inputAddress",
       placeholder: "Address",
       required: "",
-      maxlength: "150"
+      minlength: "3",
+      maxlength: "50"
     },
     domProps: {
       value: _vm.userAddress
@@ -2908,7 +2929,8 @@ var render = function render() {
       id: "inputNumber",
       placeholder: "Phone",
       required: "",
-      maxlength: "20"
+      minlength: "5",
+      maxlength: "25"
     },
     domProps: {
       value: _vm.userNumber
@@ -2951,9 +2973,6 @@ var render = function render() {
     attrs: {
       type: "submit",
       disabled: _vm.isCartEmpty
-    },
-    on: {
-      click: _vm.userInfoHandle
     }
   }, [_vm._v("Order Now")])])])])])]);
 };

@@ -11,16 +11,14 @@ class OrderController extends Controller
 {
     public function orderHandle(Request $request)
     {
-        ///// ADD VALIDATE E PAYCHECK /////
-
-        $data = $request->json()->all();
+        ///// ADD PAYCHECK /////
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
-            'phone' => 'required|numeric|digits_between:9,15',
+            'phone' => 'required|numeric|digits_between:5,25',
             'email' => 'required|email',
-            'shipping_address' => 'required|string|min:8|max:40',
-            //'total_price' => 'required|numeric|min:0.1',
+            'shipping_address' => 'required|string|min:3|max:50',
+            'total_price' => 'required|numeric',
         ]);
 
         if($validator->fails()) {
@@ -34,7 +32,7 @@ class OrderController extends Controller
 
         $order = new Order;
 
-        //$order-paid = // ADD BRAINTREE
+        //$order->paid = // ADD BRAINTREE
 
         $order->name = $request->name;
         $order->phone = $request->phone;
