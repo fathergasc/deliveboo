@@ -51,6 +51,10 @@
 
                 <div class="park-floor position-absolute"></div>
 
+                <!-- work in progress - check local null return ///////////////////
+                <div v-if="isLiveCartEmpty" class="cart-empty-label font-italic text-white position-absolute">Your cart is empty!</div>
+                -->
+
                 <div class="ferris-wheel-container">
                     <div class="circle">
                         <ul class="borders">
@@ -80,7 +84,7 @@
                 </div>
             </section>
 
-            <section class="container-md py-2" v-if="liveCart.length != 0">
+            <section id="cart-section" class="container-md py-2" v-if="liveCart.length > 0">
                 <div class="my-2 d-flex align-items-center">
                     <h2 class="mb-0">Cart</h2>
                     <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary mx-4">Update order</router-link>
@@ -154,6 +158,7 @@ export default {
             restaurants: [],
             liveCart: [],
             liveCartRestaurant: "",
+            isLiveCartEmpty: false,
             userName: "",
             userAddress: "",
             userNumber: "",
@@ -185,6 +190,10 @@ export default {
         getLiveCart() {
             this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
 
+            if (this.liveCart.length == 0) {
+                return;
+            }
+
             for (let i = 0; i < this.restaurants.length; i++) {
                 if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
                     this.liveCartRestaurant = this.restaurants[i];
@@ -192,8 +201,15 @@ export default {
             }
 
             this.getTotalAmount();
+
+            if (this.liveCart.length != 0) {
+                window.scroll({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            }
         },
-                userInfoHandle() {
+        userInfoHandle() {
             let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
             if (!emailCheck.test(this.email)) {
                 return;
@@ -256,7 +272,7 @@ export default {
         width: 100%;
         
 
-        z-index: 103;
+        z-index: 200;
 
         div {
             max-height: 212px;
@@ -400,14 +416,25 @@ export default {
 
     /*** END FOOD TRUCK ***/
 
+    /*** START SPECIAL ELEMENTS ***/
+
     .park-floor {
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 25px;
+        height: 27px;
         background-color: rgb(70, 70, 70);
         z-index: 100;
     }
+
+    .cart-empty-label {
+        bottom: 2px;
+        left: 83px;
+
+        z-index: 105;
+    }
+
+    /*** END SPECIAL ELEMENTS ***/
 
     /*** START FERRIS WHEEL ***/
 

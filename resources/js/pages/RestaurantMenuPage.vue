@@ -118,6 +118,17 @@ export default {
                 }
 
                 this.isMenuLoading = false;
+
+                if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
+                    return;
+                } else {
+                    let checkMyCart = JSON.parse(localStorage.getItem('myLiveCart'));
+                    if (this.restaurant.id == checkMyCart[0].restaurant_id) {
+                        this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+                    } else {
+                        return;
+                    }
+                }
             })
         },
         productIncrement(index) {
