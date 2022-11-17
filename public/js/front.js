@@ -1989,6 +1989,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this2.restaurants = response.data.results;
         _this2.isRestaurantLoading = false;
+        _this2.getLiveCart();
       });
     },
     getLiveCart: function getLiveCart() {
@@ -2104,16 +2105,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.liveProductCounter.push(newProductCounter);
         }
         _this.isMenuLoading = false;
-        if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-          return;
-        } else {
-          var checkMyCart = JSON.parse(localStorage.getItem('myLiveCart'));
-          if (_this.restaurant.id == checkMyCart[0].restaurant_id) {
-            _this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
-          } else {
-            return;
-          }
-        }
+        _this.getLiveCart();
+        console.log(_this.liveCart);
       });
     },
     productIncrement: function productIncrement(index) {
@@ -2121,6 +2114,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     productDecrement: function productDecrement(index) {
       this.liveProductCounter[index].productCounter--;
+    },
+    getLiveCart: function getLiveCart() {
+      if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
+        return;
+      } else {
+        this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+      }
+      this.getTotalAmount();
     },
     addProductToCart: function addProductToCart(index) {
       ////////////////////////////////////////////////////
@@ -2132,6 +2133,13 @@ __webpack_require__.r(__webpack_exports__);
       if (this.isCartEmpty == true) {
         this.isCartEmpty = false;
       }
+
+      /*for (let i = 0; i < this.restaurants.length; i++) {
+          if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
+              this.liveCartRestaurant = this.restaurants[i];
+          }
+      }*/
+
       if (this.liveCart.includes(this.restaurant.products[index])) {
         this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
       } else {

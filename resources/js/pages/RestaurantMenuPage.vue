@@ -119,16 +119,9 @@ export default {
 
                 this.isMenuLoading = false;
 
-                if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-                    return;
-                } else {
-                    let checkMyCart = JSON.parse(localStorage.getItem('myLiveCart'));
-                    if (this.restaurant.id == checkMyCart[0].restaurant_id) {
-                        this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
-                    } else {
-                        return;
-                    }
-                }
+                this.getLiveCart();
+
+                console.log(this.liveCart)
             })
         },
         productIncrement(index) {
@@ -136,6 +129,15 @@ export default {
         },
         productDecrement(index) {
             this.liveProductCounter[index].productCounter--;
+        },
+        getLiveCart() {
+            if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
+                return;
+            } else {
+                this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+            }
+
+            this.getTotalAmount();
         },
         addProductToCart(index) {
             ////////////////////////////////////////////////////
@@ -147,6 +149,12 @@ export default {
             if (this.isCartEmpty == true) {
                 this.isCartEmpty = false;
             }
+
+            /*for (let i = 0; i < this.restaurants.length; i++) {
+                if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
+                    this.liveCartRestaurant = this.restaurants[i];
+                }
+            }*/
 
             if (this.liveCart.includes(this.restaurant.products[index])) {
                 this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;

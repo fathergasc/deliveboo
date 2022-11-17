@@ -185,11 +185,13 @@ export default {
                 this.restaurants = response.data.results;
 
                 this.isRestaurantLoading = false;
+
+                this.getLiveCart();
             })
         },
         getLiveCart() {
             if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-                    return;
+                return;
             } else {
                 this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
             }

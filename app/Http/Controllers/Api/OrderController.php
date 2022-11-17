@@ -11,9 +11,7 @@ class OrderController extends Controller
 {
     public function orderHandle(Request $request)
     {
-        ///// ADD VALIDATE E PAYCHECK /////
-
-        $data = $request->json()->all();
+        ///// ADD PAYCHECK /////
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
@@ -34,7 +32,7 @@ class OrderController extends Controller
 
         $order = new Order;
 
-        //$order-paid = // ADD BRAINTREE
+        //$order->paid = // ADD BRAINTREE
 
         $order->name = $request->name;
         $order->phone = $request->phone;
