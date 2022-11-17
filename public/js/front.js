@@ -2125,7 +2125,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     addProductToCart: function addProductToCart(index) {
       ////////////////////////////////////////////////////
-      //TO DO: 
+      //TO DO:
 
       // ADD CHECK CARRELLO ID PRODOTTO quando esiste local
       //check button order con carrello pieno da local
@@ -2755,7 +2755,7 @@ var render = function render() {
   }, [_c("img", {
     staticClass: "img-fluid",
     attrs: {
-      src: _vm.restaurant.image == null ? "/assets/img/food-main-logo_edit.png" : "storage/" + _vm.restaurant.image,
+      src: _vm.restaurant.image,
       alt: _vm.restaurant.name
     }
   })]), _vm._v(" "), _c("div", {
@@ -19893,7 +19893,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\marco\Desktop\Dev\Boolean\Project Work\deliveboo\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\quagl\Desktop\Boolean\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
