@@ -19,7 +19,7 @@
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus
-                                required maxlength="255">
+                                required maxlength="255" placeholder="Please, enter your full name"/>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -35,7 +35,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email"
-                                required maxlength="255" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" v-model="email" />
+                                required maxlength="255" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" v-model="email" placeholder="Please, enter your email address"/>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -52,7 +52,7 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" autocomplete="new-password"
-                                required minlength="8" v-model="password" />
+                                required minlength="8" v-model="password" placeholder="Enter a password at least 8 characters long"/>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -69,7 +69,7 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password"
-                                required minlength="8" v-model="passwordConfirm" />
+                                required minlength="8" v-model="passwordConfirm" placeholder="Confirm your previously entered password"/>
                             </div>
                         </div>
 
@@ -79,7 +79,7 @@
 
                             <div class="col-md-6">
                                 <input id="vat_number" type="text" class="form-control @error('vat_number') is-invalid @enderror" name="vat_number" value="{{ old('vat_number') }}"
-                                required min="11" max="11">
+                                required min="11" max="11" placeholder="Please, enter your VAT identification number ">
 
                                 @error('vat_number')
                                     <span class="invalid-feedback" role="alert">
@@ -97,7 +97,7 @@
 
                             <div class="col-md-6">
                                 <input id="restaurant_name" type="text" class="form-control @error('restaurant_name') is-invalid @enderror" name="restaurant_name" value="{{ old('restaurant_name') }}"
-                                required maxlength="70">
+                                required maxlength="70" placeholder="Please, enter your restaurant's name">
 
                                 @error('restaurant_name')
                                     <span class="invalid-feedback" role="alert">
@@ -113,7 +113,7 @@
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}"
-                                required maxlength="80">
+                                required maxlength="80" placeholder="Please, enter your restaurant's address">
 
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
