@@ -3,7 +3,7 @@
         <section class="container-md text-center py-3">
             <div class="row">
                 <div class="col-4 offset-4">
-                    <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
+                    <img class="img-fluid" :src="restaurant.image" :alt="restaurant.name">
                 </div>
 
                 <div class="col-4 offset-4 pt-2">
@@ -141,7 +141,7 @@ export default {
         },
         addProductToCart(index) {
             ////////////////////////////////////////////////////
-            //TO DO: 
+            //TO DO:
 
             // ADD CHECK CARRELLO ID PRODOTTO quando esiste local
             //check button order con carrello pieno da local

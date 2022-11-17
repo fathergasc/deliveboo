@@ -68,6 +68,12 @@ class RestaurantController extends Controller
     {
         $restaurant = Restaurant::where('slug', $slug)->with('products')->first();
 
+        if($restaurant->image) {
+            $restaurant->image = asset('storage/' .$restaurant->image);
+        } else {
+            $restaurant->image = asset('img/restaurant-picture-default.png');
+        }
+
         return response()->json([
             'success' => true,
             'results' => $restaurant,
