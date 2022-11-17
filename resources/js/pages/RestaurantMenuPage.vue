@@ -53,33 +53,31 @@
                         </li>
                     </ul>
 
-                    <form>
-                        <!--<div>
+                    <form @submit="orderHandle">
+                        <div>
                             <p class="mb-2">Where to deliver?</p>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputName" placeholder="Name"
-                                v-model="userName" required maxlength="50">
+                                v-model="userName" required minlength="3" maxlength="50">
                             </div>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputAddress" placeholder="Address"
-                                v-model="userAddress" required maxlength="150">
+                                v-model="userAddress" required minlength="3" maxlength="50">
                             </div>
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" id="inputNumber" placeholder="Phone"
-                                v-model="userNumber" required maxlength="20">
+                                v-model="userNumber" required minlength="5" maxlength="25">
                             </div>
                             <div class="form-group mb-2">
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email"
                                 v-model="userEmail" required>
                             </div>
-                        </div>-->
+                        </div>
 
                         <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
 
-                        
+                        <button type="submit" class="btn btn-success" :disabled="isCartEmpty">Order Now</button>
                     </form>
-
-                    <button type="submit" class="btn btn-success" @click="userInfoHandle" :disabled="isCartEmpty">Order Now</button>
                 </div>
             </div>
         </section>
@@ -140,6 +138,12 @@ export default {
             this.liveProductCounter[index].productCounter--;
         },
         addProductToCart(index) {
+            ////////////////////////////////////////////////////
+            //TO DO: 
+
+            // ADD CHECK CARRELLO ID PRODOTTO quando esiste local
+            //check button order con carrello pieno da local
+
             if (this.isCartEmpty == true) {
                 this.isCartEmpty = false;
             }
@@ -166,22 +170,21 @@ export default {
 
             localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
         },
-        userInfoHandle() {
-            /*let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-            if (!emailCheck.test(this.email)) {
-                return;
-            }*/
+        orderHandle(event) {
+            event.preventDefault();
 
             axios.post('/api/order', {
-                name: 'this.userName',
-                phone: '12345',
-                email: 'email@this.user',
-                shipping_address: 'this.userAddress',
+                name: this.userName,
+                phone: this.userNumber,
+                email: this.userEmail,
+                shipping_address: this.userAddress,
                 total_price: this.totalAmount,
                 liveCart: this.liveCart
             })
             .then((response)=>{
-                console.log(response)
+                console.log(response);
+
+                window.location.reload();
             });
         },
         getPartialAmount(index) {

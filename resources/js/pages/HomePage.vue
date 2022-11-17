@@ -102,20 +102,20 @@
                     </li>
                 </ul>
 
-                <form>
+                <form @submit="orderHandle">
                     <div>
                         <p class="mb-2">Where to deliver?</p>
                         <div class="form-group mb-2">
                             <input type="text" class="form-control" id="inputName" placeholder="Name"
-                            v-model="userName" required maxlength="50">
+                            v-model="userName" required minlength="3" maxlength="50">
                         </div>
                         <div class="form-group mb-2">
                             <input type="text" class="form-control" id="inputAddress" placeholder="Address"
-                            v-model="userAddress" required maxlength="150">
+                            v-model="userAddress" required minlength="3" maxlength="50">
                         </div>
                         <div class="form-group mb-2">
                             <input type="text" class="form-control" id="inputNumber" placeholder="Phone"
-                            v-model="userNumber" required maxlength="20">
+                            v-model="userNumber" required minlength="5" maxlength="25">
                         </div>
                         <div class="form-group mb-2">
                             <input type="email" class="form-control" id="inputEmail" placeholder="Email"
@@ -125,7 +125,7 @@
 
                     <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
 
-                    <button type="submit" class="btn btn-success" @click="userInfoHandle">Order Now</button>
+                    <button type="submit" class="btn btn-success">Order Now</button>
                 </form>
             </section>
 
@@ -188,10 +188,10 @@ export default {
             })
         },
         getLiveCart() {
-            this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
-
-            if (this.liveCart.length == 0) {
-                return;
+            if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
+                    return;
+            } else {
+                this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
             }
 
             for (let i = 0; i < this.restaurants.length; i++) {
@@ -209,11 +209,8 @@ export default {
                 });
             }
         },
-        userInfoHandle() {
-            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-            if (!emailCheck.test(this.email)) {
-                return;
-            }
+        orderHandle(event) {
+            event.preventDefault();
 
             axios.post('/api/order', {
                 name: this.userName,
@@ -224,7 +221,9 @@ export default {
                 liveCart: this.liveCart
             })
             .then((response)=>{
-                console.log(response)
+                console.log(response);
+
+                window.location.reload();
             });
         },
         getPartialAmount(index) {

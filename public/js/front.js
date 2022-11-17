@@ -1992,9 +1992,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getLiveCart: function getLiveCart() {
-      this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
-      if (this.liveCart.length == 0) {
+      if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
         return;
+      } else {
+        this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
       }
       for (var i = 0; i < this.restaurants.length; i++) {
         if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
@@ -2009,11 +2010,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    userInfoHandle: function userInfoHandle() {
-      var emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-      if (!emailCheck.test(this.email)) {
-        return;
-      }
+    orderHandle: function orderHandle(event) {
+      event.preventDefault();
       axios.post('/api/order', {
         name: this.userName,
         phone: this.userNumber,
@@ -2023,6 +2021,7 @@ __webpack_require__.r(__webpack_exports__);
         liveCart: this.liveCart
       }).then(function (response) {
         console.log(response);
+        window.location.reload();
       });
     },
     getPartialAmount: function getPartialAmount(index) {
@@ -2124,6 +2123,12 @@ __webpack_require__.r(__webpack_exports__);
       this.liveProductCounter[index].productCounter--;
     },
     addProductToCart: function addProductToCart(index) {
+      ////////////////////////////////////////////////////
+      //TO DO: 
+
+      // ADD CHECK CARRELLO ID PRODOTTO quando esiste local
+      //check button order con carrello pieno da local
+
       if (this.isCartEmpty == true) {
         this.isCartEmpty = false;
       }
@@ -2144,21 +2149,18 @@ __webpack_require__.r(__webpack_exports__);
       this.liveProductCounter[index].productCounter = 0;
       localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
     },
-    userInfoHandle: function userInfoHandle() {
-      /*let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-      if (!emailCheck.test(this.email)) {
-          return;
-      }*/
-
+    orderHandle: function orderHandle(event) {
+      event.preventDefault();
       axios.post('/api/order', {
-        name: 'this.userName',
-        phone: '12345',
-        email: 'email@this.user',
-        shipping_address: 'this.userAddress',
+        name: this.userName,
+        phone: this.userNumber,
+        email: this.userEmail,
+        shipping_address: this.userAddress,
         total_price: this.totalAmount,
         liveCart: this.liveCart
       }).then(function (response) {
         console.log(response);
+        window.location.reload();
       });
     },
     getPartialAmount: function getPartialAmount(index) {
@@ -2479,7 +2481,11 @@ var render = function render() {
     }, [_c("div", [_vm._v(_vm._s(_vm.formatPrice(_vm.getPartialAmount(index))))]), _vm._v(" "), _c("div", {
       staticClass: "d-flex align-items-center px-2 ml-3 border border-primary rounded"
     }, [_vm._v(_vm._s(product.productCounter))])])]);
-  }), 0), _vm._v(" "), _c("form", [_c("div", [_c("p", {
+  }), 0), _vm._v(" "), _c("form", {
+    on: {
+      submit: _vm.orderHandle
+    }
+  }, [_c("div", [_c("p", {
     staticClass: "mb-2"
   }, [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
     staticClass: "form-group mb-2"
@@ -2496,6 +2502,7 @@ var render = function render() {
       id: "inputName",
       placeholder: "Name",
       required: "",
+      minlength: "3",
       maxlength: "50"
     },
     domProps: {
@@ -2522,7 +2529,8 @@ var render = function render() {
       id: "inputAddress",
       placeholder: "Address",
       required: "",
-      maxlength: "150"
+      minlength: "3",
+      maxlength: "50"
     },
     domProps: {
       value: _vm.userAddress
@@ -2548,7 +2556,8 @@ var render = function render() {
       id: "inputNumber",
       placeholder: "Phone",
       required: "",
-      maxlength: "20"
+      minlength: "5",
+      maxlength: "25"
     },
     domProps: {
       value: _vm.userNumber
@@ -2590,9 +2599,6 @@ var render = function render() {
     staticClass: "btn btn-success",
     attrs: {
       type: "submit"
-    },
-    on: {
-      click: _vm.userInfoHandle
     }
   }, [_vm._v("Order Now")])])]) : _vm._e(), _vm._v(" "), _vm._m(2)])]);
 };
@@ -2840,18 +2846,127 @@ var render = function render() {
         }
       }
     }, [_vm._v("Del")])])]);
-  }), 0), _vm._v(" "), _c("form", [_c("div", {
+  }), 0), _vm._v(" "), _c("form", {
+    on: {
+      submit: _vm.orderHandle
+    }
+  }, [_c("div", [_c("p", {
     staticClass: "mb-2"
-  }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))])]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group mb-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.userName,
+      expression: "userName"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "inputName",
+      placeholder: "Name",
+      required: "",
+      minlength: "3",
+      maxlength: "50"
+    },
+    domProps: {
+      value: _vm.userName
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.userName = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group mb-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.userAddress,
+      expression: "userAddress"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "inputAddress",
+      placeholder: "Address",
+      required: "",
+      minlength: "3",
+      maxlength: "50"
+    },
+    domProps: {
+      value: _vm.userAddress
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.userAddress = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group mb-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.userNumber,
+      expression: "userNumber"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "inputNumber",
+      placeholder: "Phone",
+      required: "",
+      minlength: "5",
+      maxlength: "25"
+    },
+    domProps: {
+      value: _vm.userNumber
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.userNumber = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group mb-2"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.userEmail,
+      expression: "userEmail"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "email",
+      id: "inputEmail",
+      placeholder: "Email",
+      required: ""
+    },
+    domProps: {
+      value: _vm.userEmail
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.userEmail = $event.target.value;
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "mb-2"
+  }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     attrs: {
       type: "submit",
       disabled: _vm.isCartEmpty
-    },
-    on: {
-      click: _vm.userInfoHandle
     }
-  }, [_vm._v("Order Now")])])])])]);
+  }, [_vm._v("Order Now")])])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

@@ -19,8 +19,8 @@ class OrderController extends Controller
             'name' => 'required|min:3|max:50',
             'phone' => 'required|numeric|digits_between:5,25',
             'email' => 'required|email',
-            'shipping_address' => 'required|string|min:8|max:40',
-            'total_price' => 'required|numeric|min:0.1',
+            'shipping_address' => 'required|string|min:3|max:50',
+            'total_price' => 'required|numeric',
         ]);
 
         if($validator->fails()) {
