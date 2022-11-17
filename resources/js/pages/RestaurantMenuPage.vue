@@ -76,7 +76,7 @@
 
                         <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
 
-                        <button type="submit" class="btn btn-success" @click="userInfoHandle">Order Now</button>
+                        <button type="submit" class="btn btn-success" @click="userInfoHandle" :disabled="isCartEmpty">Order Now</button>
                     </form>
                 </div>
             </div>
@@ -93,13 +93,12 @@ export default {
             restaurant: [],
             liveProductCounter: [],
             liveCart: [],
-            showUserInfo: false,
+            isCartEmpty: true,
             userName: "",
             userAddress: "",
             userNumber: "",
             userEmail: "",
-            totalAmount: 0,
-            errors: {},
+            totalAmount: 0
         }
     },
     methods: {
@@ -119,6 +118,17 @@ export default {
                 }
 
                 this.isMenuLoading = false;
+
+                if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
+                    return;
+                } else {
+                    let checkMyCart = JSON.parse(localStorage.getItem('myLiveCart'));
+                    if (this.restaurant.id == checkMyCart[0].restaurant_id) {
+                        this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+                    } else {
+                        return;
+                    }
+                }
             })
         },
         productIncrement(index) {
@@ -128,6 +138,10 @@ export default {
             this.liveProductCounter[index].productCounter--;
         },
         addProductToCart(index) {
+            if (this.isCartEmpty == true) {
+                this.isCartEmpty = false;
+            }
+
             if (this.liveCart.includes(this.restaurant.products[index])) {
                 this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
             } else {
@@ -136,30 +150,25 @@ export default {
             }
 
             this.liveProductCounter[index].productCounter = 0;
+
+            localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
         },
         delProductFromCart(index) {
+            if (this.liveCart.length == 1) {
+                this.isCartEmpty = true;
+            }
+
             this.liveCart.splice(index, 1);
 
             this.liveProductCounter[index].productCounter = 0;
+
+            localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
         },
-        userInfoHandle(event) {
-            /*if (this.showUserInfo == false) {
-                this.showUserInfo = true;
-            } else {
-                this.showUserInfo = false;
-            }*/
-
-            //////////////////////////////////ADD VALIDATE (& backend)
-
-            /*let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
+        userInfoHandle() {
+            let emailCheck = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
             if (!emailCheck.test(this.email)) {
-                //event.preventDefault();
                 return;
-            }*/
-
-            /////////////////////////////////////////////////////////////////////////
-            ///////////////////////////// DELETE THIS when you are ready to send data
-            //event.preventDefault();
+            }
 
             axios.post('/api/order', {
                 name: this.userName,
