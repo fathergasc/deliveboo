@@ -120,8 +120,6 @@ export default {
                 this.isMenuLoading = false;
 
                 this.getLiveCart();
-
-                console.log(this.liveCart)
             })
         },
         productIncrement(index) {
@@ -135,36 +133,42 @@ export default {
                 return;
             } else {
                 this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+                if (this.restaurant.id == this.liveCart[0].restaurant_id) {
+                    return;
+                } else {
+                    this.liveCart = [];
+                }
             }
 
             this.getTotalAmount();
         },
         addProductToCart(index) {
-            ////////////////////////////////////////////////////
-            //TO DO: 
-
-            // ADD CHECK CARRELLO ID PRODOTTO quando esiste local
-            //check button order con carrello pieno da local
-
             if (this.isCartEmpty == true) {
                 this.isCartEmpty = false;
             }
 
-            /*for (let i = 0; i < this.restaurants.length; i++) {
-                if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
-                    this.liveCartRestaurant = this.restaurants[i];
-                }
-            }*/
-
-            if (this.liveCart.includes(this.restaurant.products[index])) {
-                this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
+            if (this.liveCart.length == 0) {
+                this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
+                this.liveCart.push(this.restaurant.products[index]);
             } else {
+                for (let i = 0; i < this.liveCart.length; i++) {
+                    if (this.liveCart[i].id == this.restaurant.products[index].id) {
+                        this.liveCart[i].productCounter = this.liveCart[i].productCounter + this.liveProductCounter[index].productCounter;
+
+                        this.liveProductCounter[index].productCounter = 0;
+                        localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
+
+                        return;
+                    }
+                }
+            }
+
+            if (!this.liveCart.includes(this.restaurant.products[index])) {
                 this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
                 this.liveCart.push(this.restaurant.products[index]);
             }
 
             this.liveProductCounter[index].productCounter = 0;
-
             localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
         },
         delProductFromCart(index) {

@@ -19,7 +19,7 @@ export default {
         MyFooter
     },
     mounted() {
-        localStorage.clear();
+        //localStorage.clear();
     }
 }
 </script>

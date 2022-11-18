@@ -87,8 +87,9 @@
             <section id="cart-section" class="container-md py-2" v-if="liveCart.length > 0">
                 <div class="my-2 d-flex align-items-center">
                     <h2 class="mb-0">Cart</h2>
-                    <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary mx-4">Update order</router-link>
-                    <h4 class="mb-0">{{liveCartRestaurant.name}}</h4>
+                    <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary ml-4">Update order</router-link>
+                    <h4 class="mb-0 ml-4">{{liveCartRestaurant.name}}</h4>
+                    <button class="btn btn-danger ml-4" @click="deleteCart()">Delete cart</button>
                 </div>
 
                 <ul class="list-group mb-2">
@@ -210,6 +211,10 @@ export default {
                     behavior: 'smooth'
                 });
             }
+        },
+        deleteCart() {
+            this.liveCart = [];
+            localStorage.clear();
         },
         orderHandle(event) {
             event.preventDefault();

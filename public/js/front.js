@@ -2011,6 +2011,10 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    deleteCart: function deleteCart() {
+      this.liveCart = [];
+      localStorage.clear();
+    },
     orderHandle: function orderHandle(event) {
       event.preventDefault();
       axios.post('/api/order', {
@@ -2106,7 +2110,6 @@ __webpack_require__.r(__webpack_exports__);
         }
         _this.isMenuLoading = false;
         _this.getLiveCart();
-        console.log(_this.liveCart);
       });
     },
     productIncrement: function productIncrement(index) {
@@ -2120,29 +2123,32 @@ __webpack_require__.r(__webpack_exports__);
         return;
       } else {
         this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+        if (this.restaurant.id == this.liveCart[0].restaurant_id) {
+          return;
+        } else {
+          this.liveCart = [];
+        }
       }
       this.getTotalAmount();
     },
     addProductToCart: function addProductToCart(index) {
-      ////////////////////////////////////////////////////
-      //TO DO: 
-
-      // ADD CHECK CARRELLO ID PRODOTTO quando esiste local
-      //check button order con carrello pieno da local
-
       if (this.isCartEmpty == true) {
         this.isCartEmpty = false;
       }
-
-      /*for (let i = 0; i < this.restaurants.length; i++) {
-          if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
-              this.liveCartRestaurant = this.restaurants[i];
-          }
-      }*/
-
-      if (this.liveCart.includes(this.restaurant.products[index])) {
-        this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
+      if (this.liveCart.length == 0) {
+        this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
+        this.liveCart.push(this.restaurant.products[index]);
       } else {
+        for (var i = 0; i < this.liveCart.length; i++) {
+          if (this.liveCart[i].id == this.restaurant.products[index].id) {
+            this.liveCart[i].productCounter = this.liveCart[i].productCounter + this.liveProductCounter[index].productCounter;
+            this.liveProductCounter[index].productCounter = 0;
+            localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
+            return;
+          }
+        }
+      }
+      if (!this.liveCart.includes(this.restaurant.products[index])) {
         this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
         this.liveCart.push(this.restaurant.products[index]);
       }
@@ -2221,7 +2227,7 @@ __webpack_require__.r(__webpack_exports__);
     MyFooter: _components_MyFooter_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
-    localStorage.clear();
+    //localStorage.clear();
   }
 });
 
@@ -2467,7 +2473,7 @@ var render = function render() {
   }, [_c("h2", {
     staticClass: "mb-0"
   }, [_vm._v("Cart")]), _vm._v(" "), _c("router-link", {
-    staticClass: "btn btn-primary mx-4",
+    staticClass: "btn btn-primary ml-4",
     attrs: {
       to: {
         name: "restaurant-menu",
@@ -2477,8 +2483,15 @@ var render = function render() {
       }
     }
   }, [_vm._v("Update order")]), _vm._v(" "), _c("h4", {
-    staticClass: "mb-0"
-  }, [_vm._v(_vm._s(_vm.liveCartRestaurant.name))])], 1), _vm._v(" "), _c("ul", {
+    staticClass: "mb-0 ml-4"
+  }, [_vm._v(_vm._s(_vm.liveCartRestaurant.name))]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-danger ml-4",
+    on: {
+      click: function click($event) {
+        return _vm.deleteCart();
+      }
+    }
+  }, [_vm._v("Delete cart")])], 1), _vm._v(" "), _c("ul", {
     staticClass: "list-group mb-2"
   }, _vm._l(_vm.liveCart, function (product, index) {
     return _c("li", {
