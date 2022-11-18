@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+
         <table class="table table-dark table-striped">
             <thead>
             <tr>

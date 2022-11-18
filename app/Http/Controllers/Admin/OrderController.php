@@ -24,16 +24,29 @@ class OrderController extends Controller
         $restaurant = Restaurant::all()->where('user_id', $id)->first();
         $products = Product::all()->where('restaurant_id', $restaurant->id);
 
-        $orders = [];
+        $ordersUser = [];
         $ordersIds = [];
         foreach($products as $product){
             foreach($product->orders as $order){
                 if(!in_array($order->id, $ordersIds)) {
                     $ordersIds[] = $order->id;
-                    $orders[] = $order;
+                    $ordersUser[] = $order;
                 }
             }
         }
+
+        $orders = Order::whereIn('id', $ordersIds)->orderBy('created_at', 'DESC')->get();
+        //dd($orders);
+
+        /*$orders = DB::table('orders')
+        ->join('order_product', 'orders.id', '=', 'order_product.order_id')
+        ->join('products', 'order_product.product_id', '=', 'products.id')
+        ->where('products.restaurant_id', '=', $restaurant->id)
+        ->select('orders.id','orders.name', 'orders.phone', 'orders.email', 'orders.shipping_address', 'orders.total_price', 'orders.paid', 'orders.created_at','products.name as product_name', 'quantity as product_quantity')
+        ->distinct()
+        ->get();*/
+
+        //dd($ordersB);
 
         return view('admin.orders.index', compact('orders'));
     }
