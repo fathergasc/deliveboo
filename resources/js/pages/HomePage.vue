@@ -152,6 +152,11 @@
                     <a href="/register" class="btn btn-dark ml-4">Register</a>
                 </div>
             </section>
+
+            <div v-if="isOrderConfirmed" id="order-confirmed" class="position-fixed d-flex flex-column justify-content-center align-items-center">
+                <div class="alert alert-success">Order confirmed</div>
+                <button type="button" class="btn btn-primary px-4" @click="confirmedHandle()">x</button>
+            </div>
         </main>
     </div>
 </template>
@@ -173,7 +178,8 @@ export default {
             userAddress: "",
             userNumber: "",
             userEmail: "",
-            totalAmount: 0
+            totalAmount: 0,
+            isOrderConfirmed: false
         }
     },
     methods: {
@@ -230,13 +236,21 @@ export default {
                 liveCart: this.liveCart
             })
             .then((response)=>{
-                console.log(response);
-
                 this.liveCart = [];
                 localStorage.clear();
 
+                if (response.data.success == true) {
+                    this.isOrderConfirmed = true;
+                    localStorage.setItem('orderConfirmed', JSON.stringify(this.isOrderConfirmed));
+                }
+
                 window.location.reload();
             });
+        },
+        confirmedHandle() {
+            localStorage.clear();
+
+            this.isOrderConfirmed = false;
         },
         checkLiveCartEmpty() {
             if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
@@ -275,6 +289,12 @@ export default {
     mounted() {
         this.getCuisines();
         this.getFilteredRestaurants();
+
+        if (JSON.parse(localStorage.getItem('orderConfirmed')) == null) {
+            return;
+        } else {
+            this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
+        }
     }
 }
 </script>
@@ -352,6 +372,21 @@ export default {
 
     .pointer {
         cursor: pointer;
+    }
+
+    #order-confirmed {
+        top: 0;
+        left: 0;
+        z-index: 999;
+        width: 100%;
+        height: 100vh;
+
+        background-color: rgba(255, 255, 255, 0.6);
+        font-size: 40px;
+
+        button {
+            font-size: 40px;
+        }
     }
 
     /*** START FOOD TRUCK ***/
