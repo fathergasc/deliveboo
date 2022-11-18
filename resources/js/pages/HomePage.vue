@@ -44,16 +44,16 @@
                         </div>
                     </div>
 
-                    <div id="main-cart" class="position-absolute pointer" @click="getLiveCart">
+                    <div id="main-cart" class="position-absolute pointer" @click="checkLiveCartEmpty()">
                         <img src="/assets/img/shopping-cart-edit.png">
                     </div>
                 </div>
 
                 <div class="park-floor position-absolute"></div>
 
-                <!-- work in progress - check local null return ///////////////////
+                <!-- work in progress - check local null return ///////////////////-->
                 <div v-if="isLiveCartEmpty" class="cart-empty-label font-italic text-white position-absolute">Your cart is empty!</div>
-                -->
+                
 
                 <div class="ferris-wheel-container">
                     <div class="circle">
@@ -87,18 +87,19 @@
             <section id="cart-section" class="container-md py-2" v-if="liveCart.length > 0">
                 <div class="my-2 d-flex align-items-center">
                     <h2 class="mb-0">Cart</h2>
-                    <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary mx-4">Update order</router-link>
-                    <h4 class="mb-0">{{liveCartRestaurant.name}}</h4>
+                    <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary ml-4">Update order</router-link>
+                    <h4 class="mb-0 ml-4">{{liveCartRestaurant.name}}</h4>
+                    <button class="btn btn-danger ml-4" @click="deleteCart()">Delete cart</button>
                 </div>
 
                 <ul class="list-group mb-2">
                     <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                     v-for="(product, index) in liveCart" :key="index">
-                        {{product.name}}
                         <div class="d-flex align-items-center">
-                            <div>{{formatPrice(getPartialAmount(index))}}</div>
-                            <div class="d-flex align-items-center px-2 ml-3 border border-primary rounded">{{product.productCounter}}</div>
+                            <div class="d-flex align-items-center px-2 border border-primary rounded">{{product.productCounter}}</div>
+                            <div class="ml-3">{{product.name}}</div>
                         </div>
+                        <div>{{formatPrice(getPartialAmount(index))}}</div>
                     </li>
                 </ul>
 
@@ -142,6 +143,20 @@
                     </div>
                 </div>
             </section>
+
+            <section class="container-md py-4 text-center">
+                <h2>Work with us!</h2>
+
+                <div class="d-flex justify-content-center">
+                    <a href="/admin" class="btn btn-light">Login</a>
+                    <a href="/register" class="btn btn-dark ml-4">Register</a>
+                </div>
+            </section>
+
+            <div v-if="isOrderConfirmed" id="order-confirmed" class="position-fixed d-flex flex-column justify-content-center align-items-center">
+                <div class="alert alert-success">Order confirmed</div>
+                <button type="button" class="btn btn-primary px-4" @click="confirmedHandle()">x</button>
+            </div>
         </main>
     </div>
 </template>
@@ -163,7 +178,8 @@ export default {
             userAddress: "",
             userNumber: "",
             userEmail: "",
-            totalAmount: 0
+            totalAmount: 0,
+            isOrderConfirmed: false
         }
     },
     methods: {
@@ -203,13 +219,10 @@ export default {
             }
 
             this.getTotalAmount();
-
-            if (this.liveCart.length != 0) {
-                window.scroll({
-                    top: window.innerHeight,
-                    behavior: 'smooth'
-                });
-            }
+        },
+        deleteCart() {
+            this.liveCart = [];
+            localStorage.clear();
         },
         orderHandle(event) {
             event.preventDefault();
@@ -223,10 +236,31 @@ export default {
                 liveCart: this.liveCart
             })
             .then((response)=>{
-                console.log(response);
+                this.liveCart = [];
+                localStorage.clear();
+
+                if (response.data.success == true) {
+                    this.isOrderConfirmed = true;
+                    localStorage.setItem('orderConfirmed', JSON.stringify(this.isOrderConfirmed));
+                }
 
                 window.location.reload();
             });
+        },
+        confirmedHandle() {
+            localStorage.clear();
+
+            this.isOrderConfirmed = false;
+        },
+        checkLiveCartEmpty() {
+            if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
+                this.isLiveCartEmpty = true;
+            } else {
+                window.scroll({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            }
         },
         getPartialAmount(index) {
             let partialAmount = 0;
@@ -255,6 +289,12 @@ export default {
     mounted() {
         this.getCuisines();
         this.getFilteredRestaurants();
+
+        if (JSON.parse(localStorage.getItem('orderConfirmed')) == null) {
+            return;
+        } else {
+            this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
+        }
     }
 }
 </script>
@@ -332,6 +372,21 @@ export default {
 
     .pointer {
         cursor: pointer;
+    }
+
+    #order-confirmed {
+        top: 0;
+        left: 0;
+        z-index: 999;
+        width: 100%;
+        height: 100vh;
+
+        background-color: rgba(255, 255, 255, 0.6);
+        font-size: 40px;
+
+        button {
+            font-size: 40px;
+        }
     }
 
     /*** START FOOD TRUCK ***/

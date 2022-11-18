@@ -44,10 +44,12 @@
                     <ul class="list-group" :class="liveCart.length > 0 ? 'mb-2' : ''">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in liveCart" :key="index">
-                            {{product.name}}
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center px-2 border border-primary rounded">{{product.productCounter}}</div>
+                                <div class="ml-3">{{product.name}}</div>
+                            </div>
                             <div class="d-flex align-items-center">
                                 <div>{{formatPrice(getPartialAmount(index))}}</div>
-                                <div class="d-flex align-items-center px-2 ml-3 border border-primary rounded">{{product.productCounter}}</div>
                                 <button type="button" class="btn btn-danger ml-3" @click="delProductFromCart(index), getTotalAmount()">Del</button>
                             </div>
                         </li>
@@ -81,6 +83,11 @@
                 </div>
             </div>
         </section>
+
+        <div v-if="isOrderConfirmed" id="order-confirmed" class="position-fixed d-flex flex-column justify-content-center align-items-center">
+            <div class="alert alert-success">Order confirmed</div>
+            <button type="button" class="btn btn-primary px-4" @click="confirmedHandle()">x</button>
+        </div>
     </div>
 </template>
 
@@ -98,7 +105,8 @@ export default {
             userAddress: "",
             userNumber: "",
             userEmail: "",
-            totalAmount: 0
+            totalAmount: 0,
+            isOrderConfirmed: false
         }
     },
     methods: {
@@ -120,8 +128,6 @@ export default {
                 this.isMenuLoading = false;
 
                 this.getLiveCart();
-
-                console.log(this.liveCart)
             })
         },
         productIncrement(index) {
@@ -135,36 +141,44 @@ export default {
                 return;
             } else {
                 this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+                if (this.restaurant.id == this.liveCart[0].restaurant_id) {
+                    this.isCartEmpty = false;
+                    return;
+                } else {
+                    this.liveCart = [];
+                    this.isCartEmpty = true;
+                }
             }
 
             this.getTotalAmount();
         },
         addProductToCart(index) {
-            ////////////////////////////////////////////////////
-            //TO DO:
-
-            // ADD CHECK CARRELLO ID PRODOTTO quando esiste local
-            //check button order con carrello pieno da local
-
             if (this.isCartEmpty == true) {
                 this.isCartEmpty = false;
             }
 
-            /*for (let i = 0; i < this.restaurants.length; i++) {
-                if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
-                    this.liveCartRestaurant = this.restaurants[i];
-                }
-            }*/
-
-            if (this.liveCart.includes(this.restaurant.products[index])) {
-                this.restaurant.products[index].productCounter = this.restaurant.products[index].productCounter + this.liveProductCounter[index].productCounter;
+            if (this.liveCart.length == 0) {
+                this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
+                this.liveCart.push(this.restaurant.products[index]);
             } else {
+                for (let i = 0; i < this.liveCart.length; i++) {
+                    if (this.liveCart[i].id == this.restaurant.products[index].id) {
+                        this.liveCart[i].productCounter = this.liveCart[i].productCounter + this.liveProductCounter[index].productCounter;
+
+                        this.liveProductCounter[index].productCounter = 0;
+                        localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
+
+                        return;
+                    }
+                }
+            }
+
+            if (!this.liveCart.includes(this.restaurant.products[index])) {
                 this.restaurant.products[index].productCounter = this.liveProductCounter[index].productCounter;
                 this.liveCart.push(this.restaurant.products[index]);
             }
 
             this.liveProductCounter[index].productCounter = 0;
-
             localStorage.setItem('myLiveCart', JSON.stringify(this.liveCart));
         },
         delProductFromCart(index) {
@@ -190,10 +204,21 @@ export default {
                 liveCart: this.liveCart
             })
             .then((response)=>{
-                console.log(response);
+                this.liveCart = [];
+                localStorage.clear();
+
+                if (response.data.success == true) {
+                    this.isOrderConfirmed = true;
+                    localStorage.setItem('orderConfirmed', JSON.stringify(this.isOrderConfirmed));
+                }
 
                 window.location.reload();
             });
+        },
+        confirmedHandle() {
+            localStorage.clear();
+
+            this.isOrderConfirmed = false;
         },
         getPartialAmount(index) {
             let partialAmount = 0;
@@ -221,10 +246,33 @@ export default {
     },
     mounted() {
         this.getRestaurant();
+
+        if (JSON.parse(localStorage.getItem('orderConfirmed')) == null) {
+            return;
+        } else {
+            this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
+    section {
+        background-color: beige;
+    }
 
+    #order-confirmed {
+        top: 0;
+        left: 0;
+        z-index: 999;
+        width: 100%;
+        height: 100vh;
+
+        background-color: rgba(255, 255, 255, 0.6);
+        font-size: 40px;
+
+        button {
+            font-size: 40px;
+        }
+    }
 </style>
