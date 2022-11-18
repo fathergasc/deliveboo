@@ -44,10 +44,12 @@
                     <ul class="list-group" :class="liveCart.length > 0 ? 'mb-2' : ''">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in liveCart" :key="index">
-                            {{product.name}}
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center px-2 border border-primary rounded">{{product.productCounter}}</div>
+                                <div class="ml-3">{{product.name}}</div>
+                            </div>
                             <div class="d-flex align-items-center">
                                 <div>{{formatPrice(getPartialAmount(index))}}</div>
-                                <div class="d-flex align-items-center px-2 ml-3 border border-primary rounded">{{product.productCounter}}</div>
                                 <button type="button" class="btn btn-danger ml-3" @click="delProductFromCart(index), getTotalAmount()">Del</button>
                             </div>
                         </li>
@@ -134,9 +136,11 @@ export default {
             } else {
                 this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
                 if (this.restaurant.id == this.liveCart[0].restaurant_id) {
+                    this.isCartEmpty = false;
                     return;
                 } else {
                     this.liveCart = [];
+                    this.isCartEmpty = true;
                 }
             }
 
@@ -196,6 +200,9 @@ export default {
             .then((response)=>{
                 console.log(response);
 
+                this.liveCart = [];
+                localStorage.clear();
+
                 window.location.reload();
             });
         },
@@ -230,5 +237,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+    section {
+        background-color: beige;
+    }
 </style>
