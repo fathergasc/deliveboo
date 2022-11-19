@@ -7,8 +7,8 @@
     <title>Order received notification</title>
 </head>
 <body>
-    <h1>Dear customer, your order has been received!</h1>
-    <p>You will receive it as soon as possible.</p>
+    <h1>Dear customer, your order has been received by the restaurant!</h1>
+    <p>It will be delivered to you as soon as possible.</p>
 </body>
 </html>
 
