@@ -11,6 +11,9 @@ class OrderConfirmationRestaurant extends Mailable
 {
     use Queueable, SerializesModels;
 
+
+    //private $products;
+
     /**
      * Create a new message instance.
      *
@@ -18,7 +21,7 @@ class OrderConfirmationRestaurant extends Mailable
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -28,6 +31,7 @@ class OrderConfirmationRestaurant extends Mailable
      */
     public function build()
     {
+
         return $this->view('emails.orderConfirmationRestaurant');
     }
 }
