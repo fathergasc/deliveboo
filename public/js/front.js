@@ -2105,6 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isMenuLoading: true,
       restaurant: [],
+      //resUserId: '',
       liveProductCounter: [],
       liveCart: [],
       isCartEmpty: true,
@@ -2195,7 +2196,8 @@ __webpack_require__.r(__webpack_exports__);
         email: this.userEmail,
         shipping_address: this.userAddress,
         total_price: this.totalAmount,
-        liveCart: this.liveCart
+        liveCart: this.liveCart,
+        resUserId: this.restaurant.user_id
       }).then(function (response) {
         _this2.liveCart = [];
         localStorage.clear();
