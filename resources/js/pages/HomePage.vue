@@ -203,6 +203,7 @@ export default {
                 this.isRestaurantLoading = false;
 
                 this.getLiveCart();
+                this.getTotalAmount();
             })
         },
         getLiveCart() {
@@ -217,8 +218,6 @@ export default {
                     this.liveCartRestaurant = this.restaurants[i];
                 }
             }
-
-            this.getTotalAmount();
         },
         deleteCart() {
             this.liveCart = [];
