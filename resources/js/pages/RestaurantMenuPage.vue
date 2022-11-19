@@ -98,6 +98,7 @@ export default {
         return {
             isMenuLoading: true,
             restaurant: [],
+            //resUserId: '',
             liveProductCounter: [],
             liveCart: [],
             isCartEmpty: true,
@@ -201,7 +202,9 @@ export default {
                 email: this.userEmail,
                 shipping_address: this.userAddress,
                 total_price: this.totalAmount,
-                liveCart: this.liveCart
+                liveCart: this.liveCart,
+                resUserId: this.restaurant.user_id,
+                
             })
             .then((response)=>{
                 this.liveCart = [];

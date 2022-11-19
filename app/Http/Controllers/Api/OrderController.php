@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderConfirmationCustomer;
+use App\Mail\OrderConfirmationRestaurant;
 use Illuminate\Http\Request;
 use App\Order;
+use App\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
@@ -56,6 +60,16 @@ class OrderController extends Controller
         }
 
         $order->products()->sync($sync_data);
+
+
+        //get restaurant owner's email
+        $resUserId = $request->resUserId;
+        $resUser = User::where('id', $resUserId)->first();
+        $resEmail = $resUser->email;
+
+
+        Mail::to($request->email)->send(new OrderConfirmationCustomer());
+        Mail::to($resEmail)->send(new OrderConfirmationRestaurant());
 
         return response()->json([
             'success' => true
