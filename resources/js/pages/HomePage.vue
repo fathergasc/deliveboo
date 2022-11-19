@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="col-3 d-flex justify-content-center align-items-center position-relative py-2" v-for="(restaurant, index) in restaurants" :key="index">
-                            <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
+                            <router-link @click.native="checkRestaurantHasCart(restaurant.id)" :event="restaurant.hasCartActive == false ? '' : 'click'" :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
                             class="my_restaurant">
                                 <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
                                 <div class="my_restaurant-label text-capitalize font-weight-bold text-center position-absolute">{{restaurant.name}}</div>
@@ -51,9 +51,8 @@
 
                 <div class="park-floor position-absolute"></div>
 
-                <!-- work in progress - check local null return ///////////////////-->
                 <div v-if="isLiveCartEmpty" class="cart-empty-label font-italic text-white position-absolute">Your cart is empty!</div>
-                
+                <div v-if="hasRestaurantCart" class="cart-empty-label font-italic text-white position-absolute">Delete your cart to change restaurant!</div>
 
                 <div class="ferris-wheel-container">
                     <div class="circle">
@@ -174,6 +173,7 @@ export default {
             liveCart: [],
             liveCartRestaurant: "",
             isLiveCartEmpty: false,
+            hasRestaurantCart: false,
             userName: "",
             userAddress: "",
             userNumber: "",
@@ -189,7 +189,7 @@ export default {
                 this.cuisines = response.data.results;
 
                 this.isCuisineLoading = false;
-            })
+            });
         },
         getFilteredRestaurants() {
             axios.get('/api/restaurants', {
@@ -204,7 +204,17 @@ export default {
 
                 this.getLiveCart();
                 this.getTotalAmount();
-            })
+
+                for (let i = 0; i < this.restaurants.length; i++) {
+                    this.restaurants[i].hasCartActive = false;
+
+                    if (this.liveCart.length == 0) {
+                        return;
+                    } else if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
+                        this.restaurants[i].hasCartActive = true;
+                    }
+                }
+            });
         },
         getLiveCart() {
             if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
@@ -221,6 +231,12 @@ export default {
         },
         deleteCart() {
             this.liveCart = [];
+
+            for (let i = 0; i < this.restaurants.length; i++) {
+                this.restaurants[i].hasCartActive = true;
+            }
+            this.hasRestaurantCart = false;
+
             localStorage.clear();
         },
         orderHandle(event) {
@@ -250,6 +266,14 @@ export default {
             localStorage.clear();
 
             this.isOrderConfirmed = false;
+        },
+        checkRestaurantHasCart(restaurantId) {
+            console.log('click')
+
+            this.hasRestaurantCart = true
+
+            ////////////////
+            // ALERT & CHECK
         },
         checkLiveCartEmpty() {
             if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {

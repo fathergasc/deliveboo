@@ -129,7 +129,7 @@ export default {
 
                 this.getLiveCart();
                 this.getTotalAmount();
-            })
+            });
         },
         productIncrement(index) {
             this.liveProductCounter[index].productCounter++;

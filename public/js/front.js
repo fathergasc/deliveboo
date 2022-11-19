@@ -1965,6 +1965,7 @@ __webpack_require__.r(__webpack_exports__);
       liveCart: [],
       liveCartRestaurant: "",
       isLiveCartEmpty: false,
+      hasRestaurantCart: false,
       userName: "",
       userAddress: "",
       userNumber: "",
@@ -1992,6 +1993,14 @@ __webpack_require__.r(__webpack_exports__);
         _this2.isRestaurantLoading = false;
         _this2.getLiveCart();
         _this2.getTotalAmount();
+        for (var i = 0; i < _this2.restaurants.length; i++) {
+          _this2.restaurants[i].hasCartActive = false;
+          if (_this2.liveCart.length == 0) {
+            return;
+          } else if (_this2.restaurants[i].id == _this2.liveCart[0].restaurant_id) {
+            _this2.restaurants[i].hasCartActive = true;
+          }
+        }
       });
     },
     getLiveCart: function getLiveCart() {
@@ -2008,6 +2017,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteCart: function deleteCart() {
       this.liveCart = [];
+      for (var i = 0; i < this.restaurants.length; i++) {
+        this.restaurants[i].hasCartActive = true;
+      }
+      this.hasRestaurantCart = false;
       localStorage.clear();
     },
     orderHandle: function orderHandle(event) {
@@ -2033,6 +2046,13 @@ __webpack_require__.r(__webpack_exports__);
     confirmedHandle: function confirmedHandle() {
       localStorage.clear();
       this.isOrderConfirmed = false;
+    },
+    checkRestaurantHasCart: function checkRestaurantHasCart(restaurantId) {
+      console.log('click');
+      this.hasRestaurantCart = true;
+
+      ////////////////
+      // ALERT & CHECK
     },
     checkLiveCartEmpty: function checkLiveCartEmpty() {
       if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
@@ -2458,11 +2478,17 @@ var render = function render() {
     }, [_c("router-link", {
       staticClass: "my_restaurant",
       attrs: {
+        event: restaurant.hasCartActive == false ? "" : "click",
         to: {
           name: "restaurant-menu",
           params: {
             slug: restaurant.slug
           }
+        }
+      },
+      nativeOn: {
+        click: function click($event) {
+          return _vm.checkRestaurantHasCart(restaurant.id);
         }
       }
     }, [_c("img", {
@@ -2502,7 +2528,9 @@ var render = function render() {
     staticClass: "park-floor position-absolute"
   }), _vm._v(" "), _vm.isLiveCartEmpty ? _c("div", {
     staticClass: "cart-empty-label font-italic text-white position-absolute"
-  }, [_vm._v("Your cart is empty!")]) : _vm._e(), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _vm.liveCart.length > 0 ? _c("section", {
+  }, [_vm._v("Your cart is empty!")]) : _vm._e(), _vm._v(" "), _vm.hasRestaurantCart ? _c("div", {
+    staticClass: "cart-empty-label font-italic text-white position-absolute"
+  }, [_vm._v("Delete your cart to change restaurant!")]) : _vm._e(), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _vm.liveCart.length > 0 ? _c("section", {
     staticClass: "container-md py-2",
     attrs: {
       id: "cart-section"
