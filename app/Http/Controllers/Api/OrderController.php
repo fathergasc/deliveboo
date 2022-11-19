@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderConfirmationCustomer;
 use Illuminate\Http\Request;
 use App\Order;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
@@ -56,6 +58,8 @@ class OrderController extends Controller
         }
 
         $order->products()->sync($sync_data);
+
+        Mail::to($request->email)->send(new OrderConfirmationCustomer);
 
         return response()->json([
             'success' => true
