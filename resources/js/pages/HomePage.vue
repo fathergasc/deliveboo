@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="col-3 d-flex justify-content-center align-items-center position-relative py-2" v-for="(restaurant, index) in restaurants" :key="index">
-                            <router-link @click.native="checkRestaurantHasCart(restaurant.id)" :event="restaurant.hasCartActive == false ? '' : 'click'" :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
+                            <router-link @click.native="checkRestaurantHasCart()" :event="restaurant.hasCartActive == false ? '' : 'click'" :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
                             class="my_restaurant">
                                 <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
                                 <div class="my_restaurant-label text-capitalize font-weight-bold text-center position-absolute">{{restaurant.name}}</div>
@@ -272,13 +272,8 @@ export default {
 
             this.isOrderConfirmed = false;
         },
-        checkRestaurantHasCart(restaurantId) {
-            console.log('click')
-
-            this.hasRestaurantCart = true
-
-            ////////////////
-            // ALERT & CHECK
+        checkRestaurantHasCart() {
+            this.hasRestaurantCart = true;
         },
         checkLiveCartEmpty() {
             if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {

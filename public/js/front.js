@@ -2048,12 +2048,8 @@ __webpack_require__.r(__webpack_exports__);
       localStorage.clear();
       this.isOrderConfirmed = false;
     },
-    checkRestaurantHasCart: function checkRestaurantHasCart(restaurantId) {
-      console.log('click');
+    checkRestaurantHasCart: function checkRestaurantHasCart() {
       this.hasRestaurantCart = true;
-
-      ////////////////
-      // ALERT & CHECK
     },
     checkLiveCartEmpty: function checkLiveCartEmpty() {
       if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
@@ -2493,7 +2489,7 @@ var render = function render() {
       },
       nativeOn: {
         click: function click($event) {
-          return _vm.checkRestaurantHasCart(restaurant.id);
+          return _vm.checkRestaurantHasCart();
         }
       }
     }, [_c("img", {
