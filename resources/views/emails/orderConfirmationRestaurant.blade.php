@@ -7,26 +7,63 @@
     <title>Order received notification</title>
 </head>
 <body>
-    <h1>You've just received an order!</h1>
-    <ul>
-        <li>Customer: {{ $order->name }}</li>
-        <li>Shipping Address: {{ $order->shipping_address }}</li>
-        <li>Phone: {{ $order->phone }}</li>
-        <li>Email: {{ $order->email }}</li>
-        <li>Total: ${{ $order->total_price }}</li>
+    <header>DeliveBoo</header>
+    <main>
+        <div class="container">
+            <h3>You've just received an order!</h3>
+            <h4>Order:</h4>
+            <ul>
+                <li>Customer: {{ $order->name }}</li>
+                <li>Shipping Address: {{ $order->shipping_address }}</li>
+                <li>Phone: {{ $order->phone }}</li>
+                <li>Email: {{ $order->email }}</li>
+                <li>Total: ${{ $order->total_price }}</li>
+            </ul>
+            <p>Please, check your dashboard for further details.</p>
+        </div>
+    </main>
 
-    </ul>
-    <p>Please, check your dashboard for further details.</p>
 </body>
 </html>
 
+
 <style>
-    body {
-        background-color: #00c2b3;
+
+    html{
+        padding:0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
         color: white;
-        /* text-align: center; */
-        padding-top: 3rem;
+    }
+    main {
+        background-color: #2792D8;
+        color: white;
+        padding-top: 2.5rem;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+        padding: 2rem
+    }
+
+    header {
+        width: 100%;
+        padding: 1rem;
+        font-size: 3rem;
+        font-style: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #0367a6;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .container {
+        width: 80%;
     }
 </style>
-
-
