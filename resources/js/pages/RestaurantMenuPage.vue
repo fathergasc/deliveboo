@@ -204,7 +204,8 @@ export default {
                 total_price: this.totalAmount,
                 liveCart: this.liveCart,
                 resUserId: this.restaurant.user_id,
-                
+                resName: this.restaurant.name,
+
             })
             .then((response)=>{
                 this.liveCart = [];

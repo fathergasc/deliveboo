@@ -7,7 +7,8 @@
     <title>Order received notification</title>
 </head>
 <body>
-    <h1>Dear customer, your order has been received by the restaurant!</h1>
+    <h1>Dear customer, your order has been received by the restaurant "{{ $restaurant }}"!</h1>
+    <p>Your order total is: ${{ $order->total_price }}</p>
     <p>It will be delivered to you as soon as possible.</p>
 </body>
 </html>
@@ -16,7 +17,7 @@
     body {
         background-color: #00c2b3;
         color: white;
-        text-align: center;
+        /* text-align: center; */
         padding-top: 3rem;
     }
 </style>

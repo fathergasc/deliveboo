@@ -67,9 +67,11 @@ class OrderController extends Controller
         $resUser = User::where('id', $resUserId)->first();
         $resEmail = $resUser->email;
 
+        //restaurant name
+        $restaurant = $request->resName;
 
-        Mail::to($request->email)->send(new OrderConfirmationCustomer());
-        Mail::to($resEmail)->send(new OrderConfirmationRestaurant());
+        Mail::to($request->email)->send(new OrderConfirmationCustomer($order, $restaurant));
+        Mail::to($resEmail)->send(new OrderConfirmationRestaurant($order));
 
         return response()->json([
             'success' => true
