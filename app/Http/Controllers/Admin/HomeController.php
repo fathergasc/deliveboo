@@ -27,4 +27,14 @@ class HomeController extends Controller
         return view('admin.home', compact('restaurant', 'cuisines'));
     }
 
+    public function checkAuth(){
+        $auth = Auth::id();
+
+        if ($auth) {
+            return response()->json([
+                'success' => true
+            ]);
+        }
+    }
+
 }

@@ -146,9 +146,13 @@
             <section class="container-md py-4 text-center">
                 <h2>Work with us!</h2>
 
-                <div class="d-flex justify-content-center">
+                <div v-if="!isUserLogged" class="d-flex justify-content-center">
                     <a href="/admin" class="btn btn-light">Login</a>
                     <a href="/register" class="btn btn-dark ml-4">Register</a>
+                </div>
+
+                <div v-else class="d-flex justify-content-center">
+                    <a href="/admin" class="btn btn-secondary">Dashboard</a>
                 </div>
             </section>
 
@@ -165,6 +169,7 @@ export default {
     name: 'MyMain',
     data() {
         return {
+            isUserLogged: false,
             isCuisineLoading: true,
             isRestaurantLoading: true,
             cuisines: [],
@@ -312,6 +317,11 @@ export default {
     mounted() {
         this.getCuisines();
         this.getFilteredRestaurants();
+
+        axios.get('/admin/checkAuth')
+        .then((response) =>{
+            this.isUserLogged = response.data.success;
+        });
 
         if (JSON.parse(localStorage.getItem('orderConfirmed')) == null) {
             return;

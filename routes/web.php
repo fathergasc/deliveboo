@@ -11,6 +11,7 @@ Route::middleware('auth')
 ->prefix('admin')
 ->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/checkAuth', 'HomeController@checkAuth');
     Route::resource('products', 'ProductController');
     Route::resource('orders', 'OrderController');
     Route::resource('restaurants', 'RestaurantController');
