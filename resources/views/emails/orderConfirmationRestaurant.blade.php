@@ -13,7 +13,7 @@
         <li>Shipping Address: {{ $order->shipping_address }}</li>
         <li>Phone: {{ $order->phone }}</li>
         <li>Email: {{ $order->email }}</li>
-        <li>Total: {{ $order->total_price }}</li>
+        <li>Total: ${{ $order->total_price }}</li>
 
     </ul>
     <p>Please, check your dashboard for further details.</p>
