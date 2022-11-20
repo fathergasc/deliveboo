@@ -2197,7 +2197,8 @@ __webpack_require__.r(__webpack_exports__);
         shipping_address: this.userAddress,
         total_price: this.totalAmount,
         liveCart: this.liveCart,
-        resUserId: this.restaurant.user_id
+        resUserId: this.restaurant.user_id,
+        resName: this.restaurant.name
       }).then(function (response) {
         _this2.liveCart = [];
         localStorage.clear();

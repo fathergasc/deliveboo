@@ -12,7 +12,6 @@ class OrderConfirmationRestaurant extends Mailable
     use Queueable, SerializesModels;
 
     private $order;
-    //private $products;
 
     /**
      * Create a new message instance.
