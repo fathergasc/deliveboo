@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Dear customer, your order has been received by the restaurant!</h1>
+    <p>Your order total is: ${{ $order->total_price }}</p>
     <p>It will be delivered to you as soon as possible.</p>
 </body>
 </html>

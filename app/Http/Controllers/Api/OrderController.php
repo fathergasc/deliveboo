@@ -68,8 +68,8 @@ class OrderController extends Controller
         $resEmail = $resUser->email;
 
 
-        Mail::to($request->email)->send(new OrderConfirmationCustomer());
-        Mail::to($resEmail)->send(new OrderConfirmationRestaurant());
+        Mail::to($request->email)->send(new OrderConfirmationCustomer($order));
+        Mail::to($resEmail)->send(new OrderConfirmationRestaurant($order));
 
         return response()->json([
             'success' => true
