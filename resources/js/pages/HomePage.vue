@@ -313,16 +313,17 @@ export default {
         this.getCuisines();
         this.getFilteredRestaurants();
 
-        axios.get('/admin/checkAuth')
-        .then((response) =>{
-            this.isUserLogged = response.data.success;
-        });
-
         if (JSON.parse(localStorage.getItem('orderConfirmed')) == null) {
             return;
         } else {
             this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
         }
+    },
+    created() {
+        axios.get('/admin/checkAuth')
+        .then((response) =>{
+            this.isUserLogged = response.data.success;
+        });
     }
 }
 </script>

@@ -2082,17 +2082,19 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
     this.getCuisines();
     this.getFilteredRestaurants();
-    axios.get('/admin/checkAuth').then(function (response) {
-      _this4.isUserLogged = response.data.success;
-    });
     if (JSON.parse(localStorage.getItem('orderConfirmed')) == null) {
       return;
     } else {
       this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
     }
+  },
+  created: function created() {
+    var _this4 = this;
+    axios.get('/admin/checkAuth').then(function (response) {
+      _this4.isUserLogged = response.data.success;
+    });
   }
 });
 
