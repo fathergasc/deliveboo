@@ -1924,7 +1924,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'MyHeader'
+  name: 'MyHeader',
+  data: function data() {
+    return {
+      isUserLogged: false
+    };
+  },
+  created: function created() {
+    var _this = this;
+    axios.get('/admin/checkAuth').then(function (response) {
+      _this.isUserLogged = response.data.success;
+    });
+  }
 });
 
 /***/ }),
@@ -1957,7 +1968,6 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MyMain',
   data: function data() {
     return {
-      isUserLogged: false,
       isCuisineLoading: true,
       isRestaurantLoading: true,
       cuisines: [],
@@ -2089,12 +2099,6 @@ __webpack_require__.r(__webpack_exports__);
     } else {
       this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
     }
-  },
-  created: function created() {
-    var _this4 = this;
-    axios.get('/admin/checkAuth').then(function (response) {
-      _this4.isUserLogged = response.data.success;
-    });
   }
 });
 
@@ -2348,7 +2352,26 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("h1", {
     staticClass: "mb-0 ml-2 text-white"
-  }, [_vm._v("DeliveBoo")])]), _vm._v(" "), _vm._m(0)], 1)])]);
+  }, [_vm._v("DeliveBoo")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), !_vm.isUserLogged ? _c("div", {
+    staticClass: "d-flex justify-content-center"
+  }, [_c("a", {
+    staticClass: "btn btn-light",
+    attrs: {
+      href: "/admin"
+    }
+  }, [_vm._v("Login")]), _vm._v(" "), _c("a", {
+    staticClass: "btn btn-dark ml-4",
+    attrs: {
+      href: "/register"
+    }
+  }, [_vm._v("Register")])]) : _c("div", {
+    staticClass: "d-flex justify-content-center"
+  }, [_c("a", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      href: "/admin"
+    }
+  }, [_vm._v("Dashboard")])])], 1)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -2505,7 +2528,11 @@ var render = function render() {
       }
     }), _vm._v(" "), _c("div", {
       staticClass: "my_restaurant-label text-capitalize font-weight-bold text-center position-absolute"
-    }, [_vm._v(_vm._s(restaurant.name))])])], 1);
+    }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _vm._l(restaurant.cuisines, function (cuisine, cuisineIndex) {
+      return _c("div", {
+        key: cuisineIndex
+      }, [_vm._v(_vm._s(cuisine.name))]);
+    })], 2)], 1);
   })], 2)]), _vm._v(" "), _c("div", {
     staticClass: "position-absolute",
     attrs: {
@@ -2696,28 +2723,7 @@ var render = function render() {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Order Now")])])]) : _vm._e(), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("section", {
-    staticClass: "container-md py-4 text-center"
-  }, [_c("h2", [_vm._v("Work with us!")]), _vm._v(" "), !_vm.isUserLogged ? _c("div", {
-    staticClass: "d-flex justify-content-center"
-  }, [_c("a", {
-    staticClass: "btn btn-light",
-    attrs: {
-      href: "/admin"
-    }
-  }, [_vm._v("Login")]), _vm._v(" "), _c("a", {
-    staticClass: "btn btn-dark ml-4",
-    attrs: {
-      href: "/register"
-    }
-  }, [_vm._v("Register")])]) : _c("div", {
-    staticClass: "d-flex justify-content-center"
-  }, [_c("a", {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      href: "/admin"
-    }
-  }, [_vm._v("Dashboard")])])]), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
+  }, [_vm._v("Order Now")])])]) : _vm._e(), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
     staticClass: "position-fixed d-flex flex-column justify-content-center align-items-center",
     attrs: {
       id: "order-confirmed"
@@ -2824,6 +2830,12 @@ var staticRenderFns = [function () {
   }), _vm._v(" "), _c("div", {
     staticClass: "my_main-slogan text-center position-absolute"
   }, [_vm._v("If you can eat it, we can deliver it!")])])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("section", {
+    staticClass: "container-md py-4 text-center"
+  }, [_c("h2", [_vm._v("Work with us!")])]);
 }];
 render._withStripped = true;
 

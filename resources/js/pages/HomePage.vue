@@ -28,6 +28,7 @@
                             class="my_restaurant">
                                 <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
                                 <div class="my_restaurant-label text-capitalize font-weight-bold text-center position-absolute">{{restaurant.name}}</div>
+                                <div v-for="(cuisine, cuisineIndex) in restaurant.cuisines" :key="cuisineIndex">{{cuisine.name}}</div>
                             </router-link>
                         </div>
                     </div>
@@ -145,15 +146,6 @@
 
             <section class="container-md py-4 text-center">
                 <h2>Work with us!</h2>
-
-                <div v-if="!isUserLogged" class="d-flex justify-content-center">
-                    <a href="/admin" class="btn btn-light">Login</a>
-                    <a href="/register" class="btn btn-dark ml-4">Register</a>
-                </div>
-
-                <div v-else class="d-flex justify-content-center">
-                    <a href="/admin" class="btn btn-secondary">Dashboard</a>
-                </div>
             </section>
 
             <div v-if="isOrderConfirmed" id="order-confirmed" class="position-fixed d-flex flex-column justify-content-center align-items-center">
@@ -169,7 +161,6 @@ export default {
     name: 'MyMain',
     data() {
         return {
-            isUserLogged: false,
             isCuisineLoading: true,
             isRestaurantLoading: true,
             cuisines: [],
@@ -318,12 +309,6 @@ export default {
         } else {
             this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
         }
-    },
-    created() {
-        axios.get('/admin/checkAuth')
-        .then((response) =>{
-            this.isUserLogged = response.data.success;
-        });
     }
 }
 </script>

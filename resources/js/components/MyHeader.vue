@@ -11,6 +11,15 @@
                     Your kitchen is<br />
                     not a luna park
                 </div>
+
+                <div v-if="!isUserLogged" class="d-flex justify-content-center">
+                    <a href="/admin" class="btn btn-light">Login</a>
+                    <a href="/register" class="btn btn-dark ml-4">Register</a>
+                </div>
+
+                <div v-else class="d-flex justify-content-center">
+                    <a href="/admin" class="btn btn-secondary">Dashboard</a>
+                </div>
             </nav>
         </header>
     </div>
@@ -18,7 +27,18 @@
 
 <script>
 export default {
-    name: 'MyHeader'
+    name: 'MyHeader',
+    data() {
+        return {
+            isUserLogged: false
+        }
+    },
+    created() {
+        axios.get('/admin/checkAuth')
+        .then((response) =>{
+            this.isUserLogged = response.data.success;
+        });
+    }
 }
 </script>
 
