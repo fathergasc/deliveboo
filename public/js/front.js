@@ -1973,8 +1973,6 @@ __webpack_require__.r(__webpack_exports__);
       userEmail: "",
       totalAmount: 0,
       isOrderConfirmed: false
-      totalAmount: 0,
-      isOrderConfirmed: false
     };
   },
   methods: {
