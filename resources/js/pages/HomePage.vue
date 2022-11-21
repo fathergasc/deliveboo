@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="col-3 d-flex justify-content-center align-items-center position-relative py-2" v-for="(restaurant, index) in restaurants" :key="index">
-                            <router-link :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
+                            <router-link @click.native="checkRestaurantHasCart()" :event="restaurant.hasCartActive == false ? '' : 'click'" :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
                             class="my_restaurant">
                                 <img class="img-fluid" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
                                 <div class="my_restaurant-label text-capitalize font-weight-bold text-center position-absolute">{{restaurant.name}}</div>
@@ -51,9 +51,8 @@
 
                 <div class="park-floor position-absolute"></div>
 
-                <!-- work in progress - check local null return ///////////////////-->
                 <div v-if="isLiveCartEmpty" class="cart-empty-label font-italic text-white position-absolute">Your cart is empty!</div>
-                
+                <div v-if="hasRestaurantCart" class="cart-empty-label font-italic text-white position-absolute">Delete your cart to change restaurant!</div>
 
                 <div class="ferris-wheel-container">
                     <div class="circle">
@@ -147,9 +146,13 @@
             <section class="container-md py-4 text-center">
                 <h2>Work with us!</h2>
 
-                <div class="d-flex justify-content-center">
+                <div v-if="!isUserLogged" class="d-flex justify-content-center">
                     <a href="/admin" class="btn btn-light">Login</a>
                     <a href="/register" class="btn btn-dark ml-4">Register</a>
+                </div>
+
+                <div v-else class="d-flex justify-content-center">
+                    <a href="/admin" class="btn btn-secondary">Dashboard</a>
                 </div>
             </section>
 
@@ -166,6 +169,7 @@ export default {
     name: 'MyMain',
     data() {
         return {
+            isUserLogged: false,
             isCuisineLoading: true,
             isRestaurantLoading: true,
             cuisines: [],
@@ -174,6 +178,7 @@ export default {
             liveCart: [],
             liveCartRestaurant: "",
             isLiveCartEmpty: false,
+            hasRestaurantCart: false,
             userName: "",
             userAddress: "",
             userNumber: "",
@@ -189,7 +194,7 @@ export default {
                 this.cuisines = response.data.results;
 
                 this.isCuisineLoading = false;
-            })
+            });
         },
         getFilteredRestaurants() {
             axios.get('/api/restaurants', {
@@ -203,7 +208,18 @@ export default {
                 this.isRestaurantLoading = false;
 
                 this.getLiveCart();
-            })
+                this.getTotalAmount();
+
+                for (let i = 0; i < this.restaurants.length; i++) {
+                    this.restaurants[i].hasCartActive = false;
+
+                    if (this.liveCart.length == 0) {
+                        return;
+                    } else if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
+                        this.restaurants[i].hasCartActive = true;
+                    }
+                }
+            });
         },
         getLiveCart() {
             if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
@@ -217,11 +233,15 @@ export default {
                     this.liveCartRestaurant = this.restaurants[i];
                 }
             }
-
-            this.getTotalAmount();
         },
         deleteCart() {
             this.liveCart = [];
+
+            for (let i = 0; i < this.restaurants.length; i++) {
+                this.restaurants[i].hasCartActive = true;
+            }
+            this.hasRestaurantCart = false;
+
             localStorage.clear();
         },
         orderHandle(event) {
@@ -251,6 +271,9 @@ export default {
             localStorage.clear();
 
             this.isOrderConfirmed = false;
+        },
+        checkRestaurantHasCart() {
+            this.hasRestaurantCart = true;
         },
         checkLiveCartEmpty() {
             if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
@@ -295,6 +318,12 @@ export default {
         } else {
             this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
         }
+    },
+    created() {
+        axios.get('/admin/checkAuth')
+        .then((response) =>{
+            this.isUserLogged = response.data.success;
+        });
     }
 }
 </script>

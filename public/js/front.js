@@ -1957,6 +1957,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MyMain',
   data: function data() {
     return {
+      isUserLogged: false,
       isCuisineLoading: true,
       isRestaurantLoading: true,
       cuisines: [],
@@ -1965,10 +1966,13 @@ __webpack_require__.r(__webpack_exports__);
       liveCart: [],
       liveCartRestaurant: "",
       isLiveCartEmpty: false,
+      hasRestaurantCart: false,
       userName: "",
       userAddress: "",
       userNumber: "",
       userEmail: "",
+      totalAmount: 0,
+      isOrderConfirmed: false
       totalAmount: 0,
       isOrderConfirmed: false
     };
@@ -1991,6 +1995,15 @@ __webpack_require__.r(__webpack_exports__);
         _this2.restaurants = response.data.results;
         _this2.isRestaurantLoading = false;
         _this2.getLiveCart();
+        _this2.getTotalAmount();
+        for (var i = 0; i < _this2.restaurants.length; i++) {
+          _this2.restaurants[i].hasCartActive = false;
+          if (_this2.liveCart.length == 0) {
+            return;
+          } else if (_this2.restaurants[i].id == _this2.liveCart[0].restaurant_id) {
+            _this2.restaurants[i].hasCartActive = true;
+          }
+        }
       });
     },
     getLiveCart: function getLiveCart() {
@@ -2004,10 +2017,13 @@ __webpack_require__.r(__webpack_exports__);
           this.liveCartRestaurant = this.restaurants[i];
         }
       }
-      this.getTotalAmount();
     },
     deleteCart: function deleteCart() {
       this.liveCart = [];
+      for (var i = 0; i < this.restaurants.length; i++) {
+        this.restaurants[i].hasCartActive = true;
+      }
+      this.hasRestaurantCart = false;
       localStorage.clear();
     },
     orderHandle: function orderHandle(event) {
@@ -2033,6 +2049,9 @@ __webpack_require__.r(__webpack_exports__);
     confirmedHandle: function confirmedHandle() {
       localStorage.clear();
       this.isOrderConfirmed = false;
+    },
+    checkRestaurantHasCart: function checkRestaurantHasCart() {
+      this.hasRestaurantCart = true;
     },
     checkLiveCartEmpty: function checkLiveCartEmpty() {
       if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
@@ -2072,6 +2091,12 @@ __webpack_require__.r(__webpack_exports__);
     } else {
       this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
     }
+  },
+  created: function created() {
+    var _this4 = this;
+    axios.get('/admin/checkAuth').then(function (response) {
+      _this4.isUserLogged = response.data.success;
+    });
   }
 });
 
@@ -2132,6 +2157,7 @@ __webpack_require__.r(__webpack_exports__);
         }
         _this.isMenuLoading = false;
         _this.getLiveCart();
+        _this.getTotalAmount();
       });
     },
     productIncrement: function productIncrement(index) {
@@ -2153,7 +2179,6 @@ __webpack_require__.r(__webpack_exports__);
           this.isCartEmpty = true;
         }
       }
-      this.getTotalAmount();
     },
     addProductToCart: function addProductToCart(index) {
       if (this.isCartEmpty == true) {
@@ -2461,11 +2486,17 @@ var render = function render() {
     }, [_c("router-link", {
       staticClass: "my_restaurant",
       attrs: {
+        event: restaurant.hasCartActive == false ? "" : "click",
         to: {
           name: "restaurant-menu",
           params: {
             slug: restaurant.slug
           }
+        }
+      },
+      nativeOn: {
+        click: function click($event) {
+          return _vm.checkRestaurantHasCart();
         }
       }
     }, [_c("img", {
@@ -2505,7 +2536,9 @@ var render = function render() {
     staticClass: "park-floor position-absolute"
   }), _vm._v(" "), _vm.isLiveCartEmpty ? _c("div", {
     staticClass: "cart-empty-label font-italic text-white position-absolute"
-  }, [_vm._v("Your cart is empty!")]) : _vm._e(), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _vm.liveCart.length > 0 ? _c("section", {
+  }, [_vm._v("Your cart is empty!")]) : _vm._e(), _vm._v(" "), _vm.hasRestaurantCart ? _c("div", {
+    staticClass: "cart-empty-label font-italic text-white position-absolute"
+  }, [_vm._v("Delete your cart to change restaurant!")]) : _vm._e(), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _vm.liveCart.length > 0 ? _c("section", {
     staticClass: "container-md py-2",
     attrs: {
       id: "cart-section"
@@ -2665,7 +2698,28 @@ var render = function render() {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Order Now")])])]) : _vm._e(), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
+  }, [_vm._v("Order Now")])])]) : _vm._e(), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("section", {
+    staticClass: "container-md py-4 text-center"
+  }, [_c("h2", [_vm._v("Work with us!")]), _vm._v(" "), !_vm.isUserLogged ? _c("div", {
+    staticClass: "d-flex justify-content-center"
+  }, [_c("a", {
+    staticClass: "btn btn-light",
+    attrs: {
+      href: "/admin"
+    }
+  }, [_vm._v("Login")]), _vm._v(" "), _c("a", {
+    staticClass: "btn btn-dark ml-4",
+    attrs: {
+      href: "/register"
+    }
+  }, [_vm._v("Register")])]) : _c("div", {
+    staticClass: "d-flex justify-content-center"
+  }, [_c("a", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      href: "/admin"
+    }
+  }, [_vm._v("Dashboard")])])]), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
     staticClass: "position-fixed d-flex flex-column justify-content-center align-items-center",
     attrs: {
       id: "order-confirmed"
@@ -2772,24 +2826,6 @@ var staticRenderFns = [function () {
   }), _vm._v(" "), _c("div", {
     staticClass: "my_main-slogan text-center position-absolute"
   }, [_vm._v("If you can eat it, we can deliver it!")])])])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("section", {
-    staticClass: "container-md py-4 text-center"
-  }, [_c("h2", [_vm._v("Work with us!")]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex justify-content-center"
-  }, [_c("a", {
-    staticClass: "btn btn-light",
-    attrs: {
-      href: "/admin"
-    }
-  }, [_vm._v("Login")]), _vm._v(" "), _c("a", {
-    staticClass: "btn btn-dark ml-4",
-    attrs: {
-      href: "/register"
-    }
-  }, [_vm._v("Register")])])]);
 }];
 render._withStripped = true;
 
@@ -20073,7 +20109,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\quagl\Desktop\Boolean\deliveboo\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\marco\Desktop\Dev\Boolean\Project Work\deliveboo\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

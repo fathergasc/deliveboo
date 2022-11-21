@@ -129,7 +129,8 @@ export default {
                 this.isMenuLoading = false;
 
                 this.getLiveCart();
-            })
+                this.getTotalAmount();
+            });
         },
         productIncrement(index) {
             this.liveProductCounter[index].productCounter++;
@@ -150,8 +151,6 @@ export default {
                     this.isCartEmpty = true;
                 }
             }
-
-            this.getTotalAmount();
         },
         addProductToCart(index) {
             if (this.isCartEmpty == true) {
