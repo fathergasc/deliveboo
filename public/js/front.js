@@ -2885,31 +2885,33 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("section", {
-    staticClass: "container-md text-center py-3"
+    staticClass: "container-md text-center py-5"
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-4 offset-4"
+    staticClass: "col-6"
   }, [_c("img", {
-    staticClass: "img-fluid",
+    staticClass: "img-fluid mb-2 rounded",
     attrs: {
       src: _vm.restaurant.image,
       alt: _vm.restaurant.name
     }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "col-4 offset-4 pt-2"
-  }, [_c("h2", [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.restaurant.cuisine))])]), _vm._v(" "), _c("div", {
-    staticClass: "col-12"
-  }, [_c("router-link", {
+  }), _vm._v(" "), _c("h2", {
+    staticClass: "text-left"
+  }, [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.restaurant.cuisine))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-6"
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center justify-content-between mb-2"
+  }, [_c("h3", {
+    staticClass: "mt-2 ms-3"
+  }, [_vm._v("Menu")]), _vm._v(" "), _c("router-link", {
     staticClass: "btn btn-secondary",
     attrs: {
       to: {
         name: "home"
       }
     }
-  }, [_vm._v("Back")]), _vm._v(" "), _c("h3", {
-    staticClass: "mt-2"
-  }, [_vm._v("Menu")]), _vm._v(" "), _vm.isMenuLoading ? _c("div", {
+  }, [_vm._v("Back")])], 1), _vm._v(" "), _vm.isMenuLoading ? _c("div", {
     staticClass: "spinner-border text-primary",
     attrs: {
       role: "status"
@@ -2917,7 +2919,7 @@ var render = function render() {
   }, [_c("span", {
     staticClass: "sr-only"
   }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _c("ul", {
-    staticClass: "list-group"
+    staticClass: "list-group mb-4"
   }, _vm._l(_vm.restaurant.products, function (product, index) {
     return _c("li", {
       key: index,
@@ -2964,14 +2966,12 @@ var render = function render() {
         }
       }
     }, [_vm._v("Add")])])]);
-  }), 0)], 1), _vm._v(" "), _c("div", {
-    staticClass: "col-12"
-  }, [_c("h2", {
-    staticClass: "mt-2"
+  }), 0), _vm._v(" "), _c("h2", {
+    staticClass: "text-left"
   }, [_vm._v("Cart")]), _vm._v(" "), _vm.liveCart.length == 0 ? _c("p", {
     staticClass: "font-italic mb-2"
   }, [_vm._v("Nothing to see here, just add your food.")]) : _vm._e(), _vm._v(" "), _c("ul", {
-    staticClass: "list-group",
+    staticClass: "list-group mb-4",
     "class": _vm.liveCart.length > 0 ? "mb-2" : ""
   }, _vm._l(_vm.liveCart, function (product, index) {
     return _c("li", {
@@ -3109,14 +3109,16 @@ var render = function render() {
       }
     }
   })])]), _vm._v(" "), _c("div", {
-    staticClass: "mb-2"
+    staticClass: "d-flex justify-content-left flex-column"
+  }, [_c("div", {
+    staticClass: "mb-2 text-left"
   }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-success",
+    staticClass: "btn btn-success text-center w-25",
     attrs: {
       type: "submit",
       disabled: _vm.isCartEmpty
     }
-  }, [_vm._v("Order Now")])])])])]), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
+  }, [_vm._v("Order Now")])])])])])]), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
     staticClass: "position-fixed d-flex flex-column justify-content-center align-items-center",
     attrs: {
       id: "order-confirmed"
@@ -20119,7 +20121,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\marco\Desktop\Dev\Boolean\Project Work\deliveboo\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! /Users/kevinbaly/Desktop/deliveboo/deliveboo/resources/js/front.js */"./resources/js/front.js");
 
 
 /***/ })

@@ -1,26 +1,26 @@
 <template>
     <div>
-        <section class="container-md text-center py-3">
+        <section class="container-md text-center py-5">
             <div class="row">
-                <div class="col-4 offset-4">
-                    <img class="img-fluid" :src="restaurant.image" :alt="restaurant.name">
-                </div>
-
-                <div class="col-4 offset-4 pt-2">
-                    <h2>{{restaurant.name}}</h2>
+                <!-- restaurant image -->
+                <div class="col-6">
+                    <img class="img-fluid mb-2 rounded" :src="restaurant.image" :alt="restaurant.name">
+                    <h2 class="text-left">{{restaurant.name}}</h2>
                     <div>{{restaurant.cuisine}}</div>
                 </div>
 
-                <div class="col-12">
-                    <router-link :to="{name: 'home'}" class="btn btn-secondary">Back</router-link>
-
-                    <h3 class="mt-2">Menu</h3>
+                <!-- restaurant menu -->
+                <div class="col-6">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h3 class="mt-2 ms-3">Menu</h3>
+                        <router-link :to="{name: 'home'}" class="btn btn-secondary">Back</router-link>
+                    </div>
 
                     <div v-if="isMenuLoading" class="spinner-border text-primary" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
 
-                    <ul class="list-group">
+                    <ul class="list-group mb-4">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in restaurant.products" :key="index">
                             {{product.name}}
@@ -35,13 +35,12 @@
                         </div>
                         </li>
                     </ul>
-                </div>
-
-                <div class="col-12">
-                    <h2 class="mt-2">Cart</h2>
+                    
+                    <!-- cart -->
+                    <h2 class="text-left">Cart</h2>
                     <p v-if="liveCart.length == 0" class="font-italic mb-2">Nothing to see here, just add your food.</p>
 
-                    <ul class="list-group" :class="liveCart.length > 0 ? 'mb-2' : ''">
+                    <ul class="list-group mb-4" :class="liveCart.length > 0 ? 'mb-2' : ''">
                         <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                         v-for="(product, index) in liveCart" :key="index">
                             <div class="d-flex align-items-center">
@@ -55,6 +54,7 @@
                         </li>
                     </ul>
 
+                    <!-- user form -->
                     <form @submit="orderHandle">
                         <div>
                             <p class="mb-2">Where to deliver?</p>
@@ -75,10 +75,10 @@
                                 v-model="userEmail" required>
                             </div>
                         </div>
-
-                        <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
-
-                        <button type="submit" class="btn btn-success" :disabled="isCartEmpty">Order Now</button>
+                        <div class="d-flex justify-content-left flex-column">
+                            <div class="mb-2 text-left">Total amount: {{formatPrice(totalAmount)}}</div>
+                            <button type="submit" class="btn btn-success text-center w-25" :disabled="isCartEmpty">Order Now</button>
+                        </div>
                     </form>
                 </div>
             </div>
