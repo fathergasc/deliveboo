@@ -12,7 +12,8 @@
                             </div>
 
                             <div class="col-3 col-md" v-for="(cuisine, index) in cuisines" :key="index">
-                                <input type="checkbox" class="my_checkbox rounded pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
+                                <input type="checkbox" class="my_checkbox rounded pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()"
+                                :style="`background-image: url('/assets/img/cuisines/${cuisine.name}.jpg');`">
                                 <div class="text-capitalize" :for="cuisine.id">{{cuisine.name}}</div>
                             </div>
                         </div>
@@ -312,7 +313,6 @@ export default {
         max-width: 90px;
         max-height: 90px;
         appearance: none;
-        background-image: url('/assets/img/hand-drawn-food-doodle_edit.png');
         background-size: 100%;
         background-repeat: no-repeat;
         filter: grayscale(100%);
