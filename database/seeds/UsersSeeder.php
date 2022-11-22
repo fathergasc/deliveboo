@@ -25,7 +25,37 @@ class UsersSeeder extends Seeder
                 'email' => 'sakura@gmail.com',
                 'password' => 'team3team3',
                 'vat_number' => '21221122112'
-            ]
+            ],
+            [
+                'name' => 'Zhang Wei',
+                'email' => 'tiantian@gmail.com',
+                'password' => 'team3team3',
+                'vat_number' => '21521122112'
+            ],
+            [
+                'name' => 'Emre Akbas',
+                'email' => 'istanbulkebab@gmail.com',
+                'password' => 'team3team3',
+                'vat_number' => '31221122712'
+            ],
+            [
+                'name' => 'Ciro Esposito',
+                'email' => 'laveranapoletana@gmail.com',
+                'password' => 'team3team3',
+                'vat_number' => '21221122156'
+            ],
+            [
+                'name' => 'Mario Hernandez',
+                'email' => 'lacucaracha@gmail.com',
+                'password' => 'team3team3',
+                'vat_number' => '21441122112'
+            ],
+            [
+                'name' => 'Daniel Dubois',
+                'email' => 'leparisien@gmail.com',
+                'password' => 'team3team3',
+                'vat_number' => '21228822112'
+            ],
         ];
 
         foreach ($users as $user) {
