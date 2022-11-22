@@ -3,14 +3,14 @@
         <section class="container-md text-center py-5">
             <div class="row">
                 <!-- restaurant image -->
-                <div class="col-6">
+                <div class="col-md-6 col-12">
                     <img class="img-fluid mb-2 rounded" :src="restaurant.image" :alt="restaurant.name">
                     <h2 class="text-left">{{restaurant.name}}</h2>
                     <div>{{restaurant.cuisine}}</div>
                 </div>
 
                 <!-- restaurant menu -->
-                <div class="col-6">
+                <div class="col-md-6 col-12">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h3 class="mt-2 ms-3">Menu</h3>
                         <router-link :to="{name: 'home'}" class="btn btn-secondary">Back</router-link>

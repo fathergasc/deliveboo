@@ -2889,7 +2889,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-6"
+    staticClass: "col-md-6 col-12"
   }, [_c("img", {
     staticClass: "img-fluid mb-2 rounded",
     attrs: {
@@ -2899,7 +2899,7 @@ var render = function render() {
   }), _vm._v(" "), _c("h2", {
     staticClass: "text-left"
   }, [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.restaurant.cuisine))])]), _vm._v(" "), _c("div", {
-    staticClass: "col-6"
+    staticClass: "col-md-6 col-12"
   }, [_c("div", {
     staticClass: "d-flex align-items-center justify-content-between mb-2"
   }, [_c("h3", {
