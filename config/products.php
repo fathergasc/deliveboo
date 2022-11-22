@@ -1,17 +1,17 @@
 <?php
 return [
             [
-                'name' => 'margherita',
-                'description' => 'the original pizza',
+                'name' => 'supplì',
+                'description' => '',
                 'price' => '5.00',
                 'displayed' => '1',
-                'category' => "pizza",
+                'category' => "",
                 'restaurant_id' => '1'
             ],
             [
-                'name' => 'quattro stagioni',
+                'name' => 'pasta alla gricia',
                 'description' => '',
-                'price' => '7.00',
+                'price' => '11.00',
                 'displayed' => '1',
                 'category' => "pizza",
                 'restaurant_id' => '1'
@@ -25,19 +25,11 @@ return [
                 'restaurant_id' => '1'
             ],
             [
-                'name' => 'fries',
+                'name' => 'spaghetti all\'amatriciana',
                 'description' => '',
-                'price' => '3.50',
+                'price' => '10.50',
                 'displayed' => '1',
-                'category' => "fried",
-                'restaurant_id' => '1'
-            ],
-            [
-                'name' => 'beef steak',
-                'description' => '',
-                'price' => '20.00',
-                'displayed' => '1',
-                'category' => "meat",
+                'category' => "",
                 'restaurant_id' => '1'
             ],
 
@@ -82,6 +74,9 @@ return [
 
 
 
+
+
+
             [
                 'name' => 'salmon nigiri',
                 'description' => '',
@@ -107,11 +102,207 @@ return [
                 'restaurant_id' => '3'
             ],
             [
+                'name' => 'Kobe Beef',
+                'description' => '',
+                'price' => '120.00',
+                'displayed' => '1',
+                'category' => "meat",
+                'restaurant_id' => '3'
+            ],
+
+
+
+
+            [
                 'name' => 'sichuan boiled fish',
                 'description' => '',
                 'price' => '20.00',
                 'displayed' => '1',
                 'category' => "fish",
-                'restaurant_id' => '3'
+                'restaurant_id' => '4'
+            ],
+            [
+                'name' => 'jiaozi',
+                'description' => '4 pieces',
+                'price' => '8.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '4'
+            ],
+            [
+                'name' => 'peking duck',
+                'description' => '',
+                'price' => '30.00',
+                'displayed' => '1',
+                'category' => "meat",
+                'restaurant_id' => '4'
+            ],
+            [
+                'name' => 'sichuan hotpot',
+                'description' => '',
+                'price' => '30.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '4'
+            ],
+            [
+                'name' => 'salmon sashimi',
+                'description' => '',
+                'price' => '10.00',
+                'displayed' => '1',
+                'category' => "sushi",
+                'restaurant_id' => '4'
+            ],
+
+
+
+
+
+
+            [
+                'name' => 'döner kebab',
+                'description' => '',
+                'price' => '7.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '5'
+            ],
+            [
+                'name' => 'maxi döner kebab',
+                'description' => '',
+                'price' => '9.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '5'
+            ],
+            [
+                'name' => 'falafel',
+                'description' => '',
+                'price' => '6.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '5'
+            ],
+            [
+                'name' => 'börek with meat and vegetables',
+                'description' => '',
+                'price' => '10.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '5'
+            ],
+
+
+
+
+
+
+            [
+                'name' => 'margherita',
+                'description' => '',
+                'price' => '7.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '6'
+            ],
+            [
+                'name' => 'marinara',
+                'description' => '',
+                'price' => '6.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '6'
+            ],
+            [
+                'name' => 'capricciosa',
+                'description' => '',
+                'price' => '9.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '6'
+            ],
+            [
+                'name' => 'quattro stagioni',
+                'description' => '',
+                'price' => '9.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '6'
+            ],
+
+
+
+
+
+
+            [
+                'name' => 'tacos with meat',
+                'description' => '',
+                'price' => '6.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '7'
+            ],
+            [
+                'name' => 'vegetarian tacos',
+                'description' => '',
+                'price' => '6.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '7'
+            ],
+            [
+                'name' => 'chilaquiles',
+                'description' => '',
+                'price' => '10.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '7'
+            ],
+            [
+                'name' => 'enchilada',
+                'description' => '',
+                'price' => '12.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '7'
+            ],
+
+
+
+
+
+
+            [
+                'name' => 'onion soup',
+                'description' => '',
+                'price' => '13.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '8'
+            ],
+            [
+                'name' => 'boeuf bourguignon',
+                'description' => '',
+                'price' => '17.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '8'
+            ],
+            [
+                'name' => 'quiche lorraine',
+                'description' => '',
+                'price' => '8.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '8'
+            ],
+            [
+                'name' => 'coq au vin',
+                'description' => '',
+                'price' => '15.00',
+                'displayed' => '1',
+                'category' => "",
+                'restaurant_id' => '8'
             ],
         ];
