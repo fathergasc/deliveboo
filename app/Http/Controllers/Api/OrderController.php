@@ -15,7 +15,7 @@ class OrderController extends Controller
 {
     public function orderHandle(Request $request)
     {
-        ///// ADD PAYCHECK /////
+        ////// ADD PAYCHECK WITH BRAINTREE X ORDER->PAID //////
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
@@ -36,13 +36,12 @@ class OrderController extends Controller
 
         $order = new Order;
 
-        //$order->paid = // ADD BRAINTREE
-
         $order->name = $request->name;
         $order->phone = $request->phone;
         $order->email = $request->email;
         $order->shipping_address = $request->shipping_address;
         $order->total_price = $request->total_price;
+        $order->paid = true;
 
         $order->save();
 
