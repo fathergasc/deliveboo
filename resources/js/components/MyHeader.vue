@@ -39,7 +39,7 @@ export default {
 
 <style scoped lang="scss">
     header {
-        background-color: #0367a6;
+        background-color: #464646;
         height: 70px;
     }
 

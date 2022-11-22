@@ -13,64 +13,11 @@
 
                             <div class="col-3 col-md" v-for="(cuisine, index) in cuisines" :key="index">
                                 <input type="checkbox" class="my_checkbox rounded pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()">
-                                <div class="my_cuisine-label text-capitalize" :for="cuisine.id">{{cuisine.name}}</div>
+                                <div class="text-capitalize" :for="cuisine.id">{{cuisine.name}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-                <div id="luna-park-container" class="container-md position-relative">
-
-                    <div id="food-truck-container" class="position-absolute">
-                        <img src="/assets/img/food-truck edit.png" alt="Food truck">
-
-                        <div id="truck-door-container" class="position-absolute">
-                            <div id="truck-door" class="position-relative">
-                                <div id="truck-door-window" class="position-absolute"></div>
-                                <img src="/assets/img/food-truck-door-handle.png" class="position-absolute">
-                            </div>
-                        </div>
-
-                        <div id="main-cart" class="position-absolute pointer" @click="checkLiveCartEmpty()">
-                            <img src="/assets/img/shopping-cart-edit.png">
-                        </div>
-                    </div>
-
-                    <div class="ferris-wheel-container">
-                        <div class="circle">
-                            <ul class="borders">
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                            <div class="cab"></div>
-                        <div>
-                    </div>
-                    </div>
-                    <div class="std"></div>
-                    </div>
-
-                    <div v-if="isLiveCartEmpty" class="cart-empty-label text-white position-absolute">Your cart is empty!</div>
-
-                </div>
-
-                <div class="park-floor position-absolute"></div>
-
             </section>
 
             <section class="container-md">
@@ -85,9 +32,9 @@
                         class="d-flex">
                             <img class="my_restaurant-img rounded" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
                             <div>
-                                <div class="my_restaurant-label text-capitalize">{{restaurant.name}}</div>
+                                <div class="text-capitalize">{{restaurant.name}}</div>
                                 <div v-for="(cuisine, cuisineIndex) in restaurant.cuisines" :key="cuisineIndex">{{cuisine.name}}</div>
-                                <div class="my_restaurant-label text-capitalize">{{restaurant.address}}</div>
+                                <div class="text-capitalize">{{restaurant.address}}</div>
                             </div>
                         </router-link>
                     </div>
@@ -158,7 +105,10 @@
                     <div class="col-12 col-md-6 d-flex justify-content-center">
                         <div class="slogan-container position-relative">
                             <img class="img-fluid" src="/assets/img/cloud-comic.png" alt="If you can eat it, we can deliver it!">
-                            <div class="my_main-slogan text-center position-absolute">If you can eat it, we can deliver it!</div>
+                            <div class="my_main-slogan text-center position-absolute">
+                                If you can eat it,</br> 
+                                we can deliver it!
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,7 +139,7 @@ export default {
             restaurants: [],
             liveCart: [],
             liveCartRestaurant: "",
-            isLiveCartEmpty: false,
+            isLiveCartEmpty: false, ///////////////////check label advise
             hasRestaurantCart: false, ///////////////////check label advise
             userName: "",
             userAddress: "",
@@ -342,7 +292,7 @@ export default {
 
 <style scoped lang="scss">
     main {
-        background-color: beige;
+        background-color: #0367a6;
     }
 
     #main-section {
@@ -366,11 +316,6 @@ export default {
         background-size: 100%;
         background-repeat: no-repeat;
         filter: grayscale(100%);
-    }
-
-    .my_cuisine-label,
-    .my_restaurant-label {
-
     }
 
     .my_checkbox:checked {
@@ -402,263 +347,6 @@ export default {
         }
     }
 
-    #luna-park-container {
-        height: 218px;
-    }
-
-    /*** START FOOD TRUCK ***/
-
-    #food-truck-container {
-        bottom: 0px;
-        left: -84px;
-
-        z-index: 102;
-
-        img {
-            height: 280px;
-        }
-    }
-
-    #truck-door-container {
-        width: 43px;
-        height: 96.5px;
-
-        bottom: 51px;
-        left: 250px;
-
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-
-    #truck-door {
-        width: 100%;
-        height: 100%;
-        background-color: #cd181f;
-        box-shadow: inset 0px 0px 0px 1px #000000;
-
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-
-        img {
-            height: 6px;
-
-            top: 60px;
-            right: 3px;
-        }
-    }
-
-    #truck-door-window {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: #0ca49b;
-        box-shadow: 0px 0px 0px 2px #000000;
-
-        top: 16px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    #truck-door-container:hover #truck-door {
-        animation: open-door 1.5s ease forwards;
-    }
-
-    @keyframes open-door {
-        0% {
-            -webkit-transform: perspective(600) rotateY(0deg);
-            transform-origin: 0% 50%;
-        }
-        100% {
-            -webkit-transform: perspective(600) rotateY(-180deg);
-            transform-origin: 0% 50%;
-        }
-    }
-
-    #main-cart {
-        bottom: 4px;
-        left: 295px;
-
-        img {
-            height: 80px;
-        }
-    }
-
-    /*** END FOOD TRUCK ***/
-
-    /*** START SPECIAL ELEMENTS ***/
-
-    .park-floor {
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 27px;
-        background-color: rgb(70, 70, 70);
-        z-index: 100;
-    }
-
-    .cart-empty-label {
-        bottom: 170px;
-        left: 215px;
-
-        z-index: 105;
-    }
-
-    /*** END SPECIAL ELEMENTS ***/
-
-    /*** START FERRIS WHEEL ***/
-
-    .ferris-wheel-container {
-        height: 500px;
-        width: 500px;
-        position: absolute;
-        overflow: hidden;
-
-        bottom: 20px;
-        right: -156px;
-
-        z-index: 101;
-    }
-    .ferris-wheel-container * {
-        position: absolute;
-        box-sizing: border-box;
-    }
-    *::before,
-    *::after {
-        content: '';
-        position: absolute;
-    }
-
-    .circle,
-    .borders::before {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    .circle,
-    .borders,
-    .borders::before {
-        border-radius: 50%;
-    }
-
-    .circle {
-        top: 200px;
-        height: 350px;
-        width: 350px;
-        
-        animation: circle 60s linear infinite;
-    }
-
-    @keyframes circle {
-        to {transform: translate(-50%, -50%) rotate(360deg);}
-    }
-
-    .borders {
-        padding: 0;
-        list-style: none;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 5;
-        border: 3px solid #1c8fab;
-    }
-    .borders::before {
-        height: 50px;
-        width: 50px;
-        background-color: #7dc3dd;
-        border: 10px solid #1c8fab;
-        z-index: 555;
-    }
-    .borders li {
-        top: 50%;
-        transform: translateY(-50%);
-        height: 2px;
-        width: 100%;
-        background-color: #7dc3dd;
-    }
-    .borders li:nth-of-type(2) {
-        transform: rotate(30deg);
-    }
-    .borders li:nth-of-type(3) {
-        transform: rotate(60deg);
-    }
-    .borders li:nth-of-type(4) {
-        transform: rotate(90deg);
-    }
-    .borders li:nth-of-type(5) {
-        transform: rotate(120deg);
-    }
-    .borders li:nth-of-type(6) {
-        transform: rotate(150deg);
-    }
-
-    .cab {
-        height: 40px;
-        width: 40px;
-        transform-origin: top center;
-        background-image: url('/assets/img/food-main-logo_edit.png');
-        background-size: 100%;
-        background-repeat: no-repeat;
-        
-        animation: cab-one 60s linear infinite reverse;
-    }
-    .cab:nth-of-type(1) { top: 175px; left: -19px; }
-    .cab:nth-of-type(2) { top: 91px; left: 4px; }
-    .cab:nth-of-type(3) { top: 26px; left: 68px; }
-    .cab:nth-of-type(4) { top: 1px; left: 155px; }
-    .cab:nth-of-type(5) { top: 26px; left: 245px; }
-    .cab:nth-of-type(6) { top: 90px; left: 307px; }
-    .cab:nth-of-type(7) { top: 175px; left: 329px; }
-    .cab:nth-of-type(8) { top: 263px; left: 306px; }
-    .cab:nth-of-type(9) { top: 327px; left: 243px; }
-    .cab:nth-of-type(10) { top: 349px; left: 156px; }
-    .cab:nth-of-type(11) { top: 328px; left: 69px; }
-    .cab:nth-of-type(12) { top: 265px; left: 4px; }
-    @keyframes cab-one {
-        100% {transform: rotate(360deg);}
-    }
-
-    .cab::before {
-        height: 6px;
-        width: 6px;
-        top: -3px;
-        left: 50%;
-        background-color: black;
-        transform: translateX(-50%);
-        border-radius: 50%;
-    }
-
-    .std {
-        height: 30px;
-        width: 350px;
-        border-radius: 30px 30px 0 0;
-        background-color: #1d90ac;
-        top: 470px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    .std::before,
-    .std::after {
-        height: 290px;
-        width: 12px;
-        background-color: #1d90ac;
-        bottom: 0;
-        transform-origin: bottom center;
-    }
-    .std::before {
-        left: 60px;
-        transform: rotate(20deg);
-    }
-    .std::after {
-        right: 60px;
-        transform: rotate(-20deg);
-    }
-
-    /*** END FERRIS WHEEL ***/
-
     /*** START SLOGAN ***/
 
     .my_main-slogan {
@@ -673,31 +361,9 @@ export default {
     /////// MEDUA QUERY ///////
 
     @media all and (min-width: 768px) {
-        #luna-park-container {
-            height: 500px;
-        }
-        #food-truck-container {
-            bottom: 147px;
-            left: 0px;
-        }
-        .ferris-wheel-container {
-            bottom: 167px;
-            right: 0px;
-        }
-        .cart-empty-label {
-            bottom: 317px;
-            left: 299px;
-        }
-        .my_main-slogan {
-            font-size: 20px;
-        }
+        
     }
     @media all and (min-width: 992px) {
-        #luna-park-container {
-            height: 484px;
-        }
-        .my_main-slogan {
-            font-size: 28px;
-        }
+        
     }
 </style>
