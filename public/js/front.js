@@ -2735,7 +2735,7 @@ var render = function render() {
   }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))])]), _vm._v(" "), _vm._m(1)])])])]) : _vm._e(), _vm._v(" "), _c("section", {
     staticClass: "position-relative",
     attrs: {
-      id: "info-section"
+      id: "special-section"
     }
   }, [_c("div", {
     staticClass: "custom-shape-divider-bottom-1669183688"
@@ -2831,8 +2831,16 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("section", {
-    staticClass: "container-md py-4 text-center"
-  }, [_c("h2", [_vm._v("Work with us!")])]);
+    attrs: {
+      id: "info-section"
+    }
+  }, [_c("div", {
+    staticClass: "container-md py-4"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12"
+  }, [_vm._v("\n                        INSERISCI QUI LE 3 CARD INFO TIPO GLOVO\n                    ")])])])]);
 }];
 render._withStripped = true;
 
@@ -3212,7 +3220,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#hero-section[data-v-04c29797] {\n  background: #343a40;\n  background: linear-gradient(180deg, #343a40 100%);\n}\n#cuisine-section[data-v-04c29797] {\n  background-color: #ffffff;\n  padding-top: 60px;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  height: 70px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 3px solid #007BFF;\n  outline-offset: 3px;\n}\n#restaurant-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.restaurant-card[data-v-04c29797] {\n  width: 100%;\n  height: 100px;\n}\n.my_restaurant-img[data-v-04c29797] {\n  width: 30%;\n  height: 100%;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n#cart-section[data-v-04c29797] {\n  padding-bottom: 20px;\n  z-index: 111;\n}\n#info-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.my_main-slogan[data-v-04c29797] {\n  font-size: 22px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n.my_img-fluid-h[data-v-04c29797] {\n  height: 100%;\n}\n#order-confirmed[data-v-04c29797] {\n  top: 0;\n  left: 0;\n  z-index: 999;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(255, 255, 255, 0.6);\n  font-size: 40px;\n}\n#order-confirmed button[data-v-04c29797] {\n  font-size: 40px;\n}\n.custom-shape-divider-top-1669183005[data-v-04c29797] {\n  position: absolute;\n  bottom: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n  fill: #343a40;\n}\n.custom-shape-divider-bottom-1669183688[data-v-04c29797] {\n  position: absolute;\n  top: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-04c29797] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 768px) {\n#hero-section[data-v-04c29797] {\n    background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n    fill: #ffc107;\n}\n.my_main-slogan[data-v-04c29797] {\n    font-size: 16px;\n}\n}\n@media all and (min-width: 992px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}", ""]);
+exports.push([module.i, "#hero-section[data-v-04c29797] {\n  background: #343a40;\n  background: linear-gradient(180deg, #343a40 100%);\n}\n#cuisine-section[data-v-04c29797] {\n  background-color: #ffffff;\n  padding-top: 60px;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  height: 70px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 3px solid #007BFF;\n  outline-offset: 3px;\n}\n#restaurant-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.restaurant-card[data-v-04c29797] {\n  width: 100%;\n  height: 100px;\n}\n.my_restaurant-img[data-v-04c29797] {\n  width: 30%;\n  height: 100%;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n#cart-section[data-v-04c29797] {\n  padding-bottom: 20px;\n  z-index: 111;\n}\n#info-section[data-v-04c29797] {\n  background-color: #ffc107;\n}\n#special-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.my_main-slogan[data-v-04c29797] {\n  font-size: 22px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n.my_img-fluid-h[data-v-04c29797] {\n  height: 100%;\n}\n#order-confirmed[data-v-04c29797] {\n  top: 0;\n  left: 0;\n  z-index: 999;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(255, 255, 255, 0.6);\n  font-size: 40px;\n}\n#order-confirmed button[data-v-04c29797] {\n  font-size: 40px;\n}\n.custom-shape-divider-top-1669183005[data-v-04c29797] {\n  position: absolute;\n  bottom: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n  fill: #343a40;\n}\n.custom-shape-divider-bottom-1669183688[data-v-04c29797] {\n  position: absolute;\n  top: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-04c29797] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 768px) {\n#hero-section[data-v-04c29797] {\n    background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n    fill: #ffc107;\n}\n.my_main-slogan[data-v-04c29797] {\n    font-size: 16px;\n}\n}\n@media all and (min-width: 992px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}", ""]);
 
 // exports
 
