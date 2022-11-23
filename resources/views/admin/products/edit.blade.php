@@ -39,7 +39,7 @@
 
         <div class="form-group mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea name="description" id="description" cols="30" rows="10" class="form-control @error('description') is-invalid @enderror"
+            <textarea name="description" id="description" cols="30" rows="2" class="form-control @error('description') is-invalid @enderror"
             >{{old('description', $product->description)}}</textarea>
 
             @error('description')
