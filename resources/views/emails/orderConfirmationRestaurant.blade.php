@@ -37,8 +37,8 @@
         color: white;
     }
     main {
-        background-color: #2792D8;
-        color: white;
+        background-color: #e4e7eb;
+        color: black;
         padding-top: 2.5rem;
         display: flex;
         justify-content: center;
@@ -55,7 +55,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #0367a6;
+        background-color: #007bff;
     }
 
     ul {
@@ -67,3 +67,4 @@
         width: 80%;
     }
 </style>
+

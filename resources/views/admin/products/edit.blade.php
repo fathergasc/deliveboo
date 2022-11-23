@@ -82,7 +82,9 @@
         <div class="form-group mb-3">
             <label for="image">Product Image</label>
             @if ($product->image)
+            <div class="product-image-edit-wrap">
                 <img class="d-block image-fluid mb-4" src="{{ asset('storage/' . $product->image) }}" alt="">
+            </div>
             @else
                 <span class="d-block mb-3">No image for product</span>
             @endif

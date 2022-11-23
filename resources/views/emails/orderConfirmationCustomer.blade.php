@@ -10,7 +10,7 @@
     <header>DeliveBoo</header>
     <main>
         <div class="container">
-            <h2>Dear customer, your order has been received by the restaurant "{{ $restaurant }}"!</h2>
+            <h3>Dear {{ $order->name }}, your order has been received by "{{ $restaurant }}"!</h3>
             <p>Your order total is: ${{ $order->total_price }}</p>
             <p>It will be delivered to you as soon as possible.</p>
         </div>
@@ -29,8 +29,8 @@
         color: white;
     }
     main {
-        background-color: #2792D8;
-        color: white;
+        background-color: #e4e7eb;
+        color: black;
         padding-top: 2.5rem;
         display: flex;
         justify-content: center;
@@ -47,7 +47,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #0367a6;
+        background-color: #007bff;
     }
 
     ul {
