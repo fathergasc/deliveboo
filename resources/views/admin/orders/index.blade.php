@@ -15,7 +15,6 @@
                 <th scope="col">Date</th>
                 <th scope="col">Time</th>
                 <th scope="col">Paid</th>
-                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -35,7 +34,6 @@
                     <td>{{$order->created_at->format('d-m-Y')}}</td>
                     <td>{{$order->created_at->format('H:i')}}</td>
                     <td>{{($order->paid)?'paid':'not paid'}}</td>
-                    <td><a class="btn btn-warning m-1" href="{{route('admin.orders.show', ['order' => $order->id])}}">Show</a></td>
                 </tr>
                 @endforeach
             </tbody>
