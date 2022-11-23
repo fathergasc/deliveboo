@@ -38,7 +38,7 @@ class ProductController extends Controller
         $request->validate(
             [
                 'name' => 'required|max:100',
-                'description' => 'required',
+                //'description' => 'required',
                 'category' => 'max:70',
                 'price' => 'required|numeric|between:0,9999',
                 'displayed' => 'required|numeric|between:0,1',
@@ -98,7 +98,7 @@ class ProductController extends Controller
         $request->validate(
             [
                 'name' => 'required|max:100',
-                'description' => 'required',
+                //'description' => 'required',
                 'category' => 'max:70',
                 'price' => 'required|numeric|between:0,9999',
                 'displayed' => 'required|numeric|between:0,1',
