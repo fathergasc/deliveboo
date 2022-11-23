@@ -10978,8 +10978,18 @@ main .right {
   padding: 0;
 }
 
-.cover-img-index {
+.product-index-wrapper {
+  height: 80px;
   width: 80px;
+}
+
+.product-index-wrapper img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 
 .inf-content {
@@ -10994,6 +11004,20 @@ main .right {
 }
 
 .restaurant-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.product-show-wrapper {
+  height: 400px;
+  width: 400px;
+}
+
+.product-show-wrapper img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
