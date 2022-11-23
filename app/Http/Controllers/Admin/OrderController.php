@@ -63,10 +63,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        //calls the view function in OrderPolicy
-        $this->authorize('view', $order);
-
-        return view('admin.orders.show', compact('order'));
+        //
     }
 
     public function edit($id)
