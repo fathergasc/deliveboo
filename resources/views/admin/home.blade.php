@@ -30,7 +30,7 @@
                     @method('PUT')
 
                     <label for="image" class="btn btn-primary my-3">
-                        Carica immagine
+                        Upload image
                         <input type="file" name="image" id="image" class="d-none form-control-file @error('image') is-invalid @enderror" accept="image/*">
                     </label>
                     @error('image')
