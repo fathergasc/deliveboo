@@ -1,15 +1,15 @@
 <template>
     <div>
-        <header class="">
-            <nav class="container-md navbar navbar-light d-flex align-items-center justify-content-between">
+        <header>
+            <nav class="container-md text-light navbar navbar-light d-flex align-items-center justify-content-between">
                 <router-link :to="{name: 'home'}" class="navbar-brand d-flex align-items-center">
                     <img src="/assets/img/super-french-fries_edit.png" alt="DeliveBoo">
                     <h1 class="mb-0 ml-2 text-white">DeliveBoo</h1>
                 </router-link>
 
                 <div v-if="!isUserLogged" class="d-flex justify-content-center">
-                    <a href="/admin" class="btn btn-light">Login</a>
-                    <a href="/register" class="btn btn-dark ml-2">Register</a>
+                    <a href="/admin" class="btn btn-light">Log In</a>
+                    <a href="/register" class="btn btn-dark ml-2">Sign Up</a>
                 </div>
 
                 <div v-else class="d-flex justify-content-center">
@@ -39,7 +39,7 @@ export default {
 
 <style scoped lang="scss">
     header {
-        background-color: #464646;
+        background-color: #007bff;
         height: 70px;
     }
 
