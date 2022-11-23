@@ -87,16 +87,19 @@
                 <span class="d-block mb-3">No image for product</span>
             @endif
 
-            <input type="file" name="image" id="image" class="form-control-file @error('image') is-invalid @enderror"
-            accept="image/*">
+            <label for="image" class="btn btn-primary my-2">
+                Carica immagine
+                <input type="file" name="image" id="image" class="d-none form-control-file @error('image') is-invalid @enderror" accept="image/*">
+            </label>
+
             @error('image')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
 
-            <button type="submit" class="btn btn-danger my-4 " {{ ($product->image == null)?'disabled':'' }} onclick="event.preventDefault(); document.getElementById('deleteProductImage').submit()">Delete Image</button>
+            <button type="submit" class="btn btn-danger d-block" {{ ($product->image == null)?'disabled':'' }} onclick="event.preventDefault(); document.getElementById('deleteProductImage').submit()">Delete Image</button>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-success my-3">Submit</button>
     </form>
 
     {{-- hidden form to delete an uploaded image, forms can't be inside other forms --}}

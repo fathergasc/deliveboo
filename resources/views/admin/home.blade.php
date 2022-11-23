@@ -29,14 +29,15 @@
                     @csrf
                     @method('PUT')
 
-                    <label class="mt-1" for="image">Restaurant Image</label>
-                    <input type="file" name="image" id="image" class="form-control-file mb-3 @error('image') is-invalid @enderror"
-                    accept="image/*">
+                    <label for="image" class="btn btn-primary my-3">
+                        Carica immagine
+                        <input type="file" name="image" id="image" class="d-none form-control-file @error('image') is-invalid @enderror" accept="image/*">
+                    </label>
                     @error('image')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
 
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-success d-block">Update</button>
                 </form>
 
             </div>

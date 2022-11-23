@@ -73,9 +73,11 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="image">Product Image</label>
-            <input type="file" name="image" id="image" class="form-control-file @error('image') is-invalid @enderror"
-            accept="image/*">
+
+            <label for="image" class="btn btn-primary my-3">
+                Carica immagine
+                <input type="file" name="image" id="image" class="d-none form-control-file @error('image') is-invalid @enderror" accept="image/*">
+            </label>
 
             @error('image')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -83,7 +85,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-success">Submit</button>
     </form>
 </div>
 
