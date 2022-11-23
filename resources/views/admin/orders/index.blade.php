@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container table-responsive">
 
         <table class="table table-dark table-striped">
             <thead>
@@ -26,7 +26,7 @@
                     <td>{{$order->shipping_address}}</td>
                     <td>
                         @foreach($order->products as $product)
-                        <span class="d-block">{{ $product->name }} - {{ $product->pivot->quantity }}</span>
+                        <span class="d-block">{{ $product->name }} - qty {{ $product->pivot->quantity }} </span>
 
                         @endforeach
                     </td>
