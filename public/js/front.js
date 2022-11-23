@@ -1978,7 +1978,6 @@ __webpack_require__.r(__webpack_exports__);
       isLiveCartEmpty: false,
       ///////////////////check label advise
       hasRestaurantCart: false,
-      ///////////////////check label advise
       userName: "",
       userAddress: "",
       userNumber: "",
@@ -2521,6 +2520,13 @@ var render = function render() {
   }, [_c("h4", {
     staticClass: "pt-2"
   }, [_vm._v("These are our best restaurants")]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex"
+  }, [_vm.hasRestaurantCart ? _c("div", {
+    staticClass: "alert alert-danger",
+    attrs: {
+      role: "alert"
+    }
+  }, [_vm._v("\n                        Empty your cart to change restaurant.\n                    ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "row",
     "class": _vm.isRestaurantLoading ? "justify-content-center pb-4" : ""
   }, [_vm.isRestaurantLoading ? _c("div", {
@@ -2569,13 +2575,32 @@ var render = function render() {
     }), _vm._v(" "), _c("div", {
       staticClass: "text-capitalize"
     }, [_vm._v(_vm._s(restaurant.address))])], 2)])], 1);
-  })], 2)])]), _vm._v(" "), _vm.liveCart.length > 0 ? _c("section", {
-    staticClass: "position-relative",
+  })], 2)])]), _vm._v(" "), _vm.isOrderConfirmed || _vm.liveCart.length > 0 ? _c("section", {
+    staticClass: "position-relative pt-4",
     attrs: {
       id: "cart-section"
     }
+  }, [_vm.isOrderConfirmed ? _c("div", {
+    staticClass: "container-md d-flex justify-content-center"
   }, [_c("div", {
-    staticClass: "container-md text-dark pt-4"
+    staticClass: "alert alert-success d-flex align-items-center",
+    attrs: {
+      role: "alert"
+    }
+  }, [_c("div", {
+    staticClass: "alert alert-success"
+  }, [_vm._v("Order confirmed")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-primary px-4",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.confirmedHandle();
+      }
+    }
+  }, [_vm._v("x")])])]) : _vm._e(), _vm._v(" "), _vm.liveCart.length > 0 ? _c("div", {
+    staticClass: "container-md text-dark"
   }, [_c("div", {
     staticClass: "d-flex align-items-center mb-2"
   }, [_c("h4", {
@@ -2597,7 +2622,7 @@ var render = function render() {
         return _vm.deleteCart();
       }
     }
-  }, [_vm._v("Delete cart")])], 1), _vm._v(" "), _c("form", {
+  }, [_vm._v("Empty cart")])], 1), _vm._v(" "), _c("form", {
     on: {
       submit: _vm.orderHandle
     }
@@ -2732,12 +2757,12 @@ var render = function render() {
     staticClass: "col-12 d-flex justify-content-center"
   }, [_c("div", {
     staticClass: "mb-2"
-  }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))])]), _vm._v(" "), _vm._m(1)])])])]) : _vm._e(), _vm._v(" "), _c("section", {
+  }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))])]), _vm._v(" "), _vm._m(1)])])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c("section", {
     staticClass: "position-relative",
     attrs: {
       id: "special-section"
     }
-  }, [_c("div", {
+  }, [_vm.isOrderConfirmed || _vm.liveCart.length > 0 ? _c("div", {
     staticClass: "custom-shape-divider-bottom-1669183688"
   }, [_c("svg", {
     attrs: {
@@ -2751,24 +2776,7 @@ var render = function render() {
     attrs: {
       d: "M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
     }
-  })])]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
-    staticClass: "position-fixed d-flex flex-column justify-content-center align-items-center",
-    attrs: {
-      id: "order-confirmed"
-    }
-  }, [_c("div", {
-    staticClass: "alert alert-success"
-  }, [_vm._v("Order confirmed")]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary px-4",
-    attrs: {
-      type: "button"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.confirmedHandle();
-      }
-    }
-  }, [_vm._v("x")])]) : _vm._e()])]);
+  })])]) : _vm._e(), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _vm._m(3)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -3220,7 +3228,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#hero-section[data-v-04c29797] {\n  background: #343a40;\n  background: linear-gradient(180deg, #343a40 100%);\n}\n#cuisine-section[data-v-04c29797] {\n  background-color: #ffffff;\n  padding-top: 60px;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  height: 70px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 3px solid #007BFF;\n  outline-offset: 3px;\n}\n#restaurant-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.restaurant-card[data-v-04c29797] {\n  width: 100%;\n  height: 100px;\n}\n.my_restaurant-img[data-v-04c29797] {\n  width: 30%;\n  height: 100%;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n#cart-section[data-v-04c29797] {\n  padding-bottom: 20px;\n  z-index: 111;\n}\n#info-section[data-v-04c29797] {\n  background-color: #ffc107;\n}\n#special-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.my_main-slogan[data-v-04c29797] {\n  font-size: 22px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n.my_img-fluid-h[data-v-04c29797] {\n  height: 100%;\n}\n#order-confirmed[data-v-04c29797] {\n  top: 0;\n  left: 0;\n  z-index: 999;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(255, 255, 255, 0.6);\n  font-size: 40px;\n}\n#order-confirmed button[data-v-04c29797] {\n  font-size: 40px;\n}\n.custom-shape-divider-top-1669183005[data-v-04c29797] {\n  position: absolute;\n  bottom: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n  fill: #343a40;\n}\n.custom-shape-divider-bottom-1669183688[data-v-04c29797] {\n  position: absolute;\n  top: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-04c29797] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 768px) {\n#hero-section[data-v-04c29797] {\n    background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n    fill: #ffc107;\n}\n.my_main-slogan[data-v-04c29797] {\n    font-size: 16px;\n}\n}\n@media all and (min-width: 992px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}", ""]);
+exports.push([module.i, "#hero-section[data-v-04c29797] {\n  background: #343a40;\n  background: linear-gradient(180deg, #343a40 100%);\n}\n#cuisine-section[data-v-04c29797] {\n  background-color: #ffffff;\n  padding-top: 60px;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  height: 70px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 3px solid #007BFF;\n  outline-offset: 3px;\n}\n#restaurant-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.restaurant-card[data-v-04c29797] {\n  width: 100%;\n  height: 100px;\n}\n.my_restaurant-img[data-v-04c29797] {\n  width: 30%;\n  height: 100%;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n#cart-section[data-v-04c29797] {\n  padding-bottom: 20px;\n  z-index: 111;\n}\n#info-section[data-v-04c29797] {\n  background-color: #ffc107;\n}\n#special-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.my_main-slogan[data-v-04c29797] {\n  font-size: 22px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n.custom-shape-divider-top-1669183005[data-v-04c29797] {\n  position: absolute;\n  bottom: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n  fill: #343a40;\n}\n.custom-shape-divider-bottom-1669183688[data-v-04c29797] {\n  position: absolute;\n  top: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-04c29797] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 768px) {\n#hero-section[data-v-04c29797] {\n    background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n    fill: #ffc107;\n}\n.my_main-slogan[data-v-04c29797] {\n    font-size: 16px;\n}\n}\n@media all and (min-width: 992px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}", ""]);
 
 // exports
 
