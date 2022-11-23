@@ -17,7 +17,7 @@
 
             <section id="cuisine-section">
                 <div class="container-md pt-4 text-dark">
-                    <div class="row justify-content-center" :class="isCuisineLoading ? 'pb-4' : ''">
+                    <div class="row" :class="isCuisineLoading ? 'justify-content-center pb-4' : ''">
                         <div v-if="isCuisineLoading" class="spinner-border text-primary" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
@@ -36,7 +36,7 @@
             <section id="restaurant-section">
                 <div class="container-md pt-2 text-dark">
                     <h4 class="pt-2">These are our best restaurants</h4>
-                    <div class="row justify-content-center" :class="isRestaurantLoading ? 'pb-4' : ''">
+                    <div class="row" :class="isRestaurantLoading ? 'justify-content-center pb-4' : ''">
                         <div v-if="isRestaurantLoading" class="spinner-border text-primary" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>

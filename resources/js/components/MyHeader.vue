@@ -1,7 +1,7 @@
 <template>
     <div>
-        <header class="">
-            <nav class="container-md navbar navbar-light d-flex align-items-center justify-content-between">
+        <header>
+            <nav class="container-md text-light navbar navbar-light d-flex align-items-center justify-content-between">
                 <router-link :to="{name: 'home'}" class="navbar-brand d-flex align-items-center">
                     <img src="/assets/img/super-french-fries_edit.png" alt="DeliveBoo">
                     <h1 class="mb-0 ml-2 text-white">DeliveBoo</h1>
