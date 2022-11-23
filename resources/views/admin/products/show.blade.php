@@ -3,23 +3,25 @@
 @section('content')
     <div class="container">
 
-        <a class="btn btn-primary mb-3" href="{{ route('admin.products.index') }}">Back to products list</a>
+        <a class="btn btn-primary mb-3 ml-4" href="{{ route('admin.products.index') }}">Back to products list</a>
 
 
 
         <div class="container d-flex flex-wrap flex-md-nowrap">
 
             <div class="container">
-
+                <div class="product-show-wrapper">
                 @if ($product->image)
+
+
                     <img class="card-img-top img-fluid mx-auto my-3" style="max-width: 100%" src="{{ asset('storage/' . $product->image) }}" alt="product-image">
                 @else
                     <img class="card-img-top img-fluid mx-auto my-3" style="max-width: 100%" src="{{ asset('img/no_product_image_default.jpg') }}" alt="product-image">
                 @endif
-
+                </div>
             </div>
 
-            <div class="container p-3">
+            <div class="container p-3 pt-sm-4">
 
                 <div class="text-primary">Name:</div>
                 <h1 class="text-left font-weight-bold text-capitalize mb-4">{{$product->name}}</h1>
@@ -35,7 +37,7 @@
                 <p class="text-left mb-3">{{ $product->description }}</p>
 
                 <div class="text-primary">Price:</div>
-                <h5 class="text-left">{{ $product->price }}</h5>
+                <h5 class="text-left">${{ $product->price }}</h5>
             </div>
         </div>
 

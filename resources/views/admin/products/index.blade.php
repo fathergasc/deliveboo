@@ -20,9 +20,14 @@
                 <tr>
                     <th scope="row">
                         @if ($product->image)
-                            <img class="cover-img-index" src="{{ asset('storage/' . $product->image) }}" alt="">
+                            <div class="product-index-wrapper">
+                                <img class="cover-img-index" src="{{ asset('storage/' . $product->image) }}" alt="">
+                            </div>
+
                         @else
+                        <div class="product-index-wrapper">
                             <img class="cover-img-index" src="{{ asset('img/no_product_image_default.jpg') }}" alt="">
+                        </div>
                         @endif
                     </th>
                     <td>{{$product->name}}</td>
