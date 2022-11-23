@@ -2419,22 +2419,15 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("main", [_c("section", {
-    staticClass: "position-relative",
+  return _c("div", [_c("main", [_vm._m(0), _vm._v(" "), _c("section", {
     attrs: {
-      id: "main-section"
+      id: "cuisine-section"
     }
   }, [_c("div", {
-    staticClass: "position-relative",
-    attrs: {
-      id: "search-container"
-    }
+    staticClass: "container-md pt-4 text-dark"
   }, [_c("div", {
-    staticClass: "container-md"
-  }, [_c("h4", {
-    staticClass: "pt-2"
-  }, [_vm._v("Your kitchen is not a luna park.")]), _vm._v(" "), _c("div", {
-    staticClass: "row justify-content-center"
+    staticClass: "row justify-content-center",
+    "class": _vm.isCuisineLoading ? "pb-4" : ""
   }, [_vm.isCuisineLoading ? _c("div", {
     staticClass: "spinner-border text-primary",
     attrs: {
@@ -2445,7 +2438,9 @@ var render = function render() {
   }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.cuisines, function (cuisine, index) {
     return _c("div", {
       key: index,
-      staticClass: "col-3 col-md"
+      staticClass: "col-3 col-md mb-4"
+    }, [_c("div", {
+      staticClass: "my_search-card rounded"
     }, [_c("input", {
       directives: [{
         name: "model",
@@ -2454,6 +2449,7 @@ var render = function render() {
         expression: "selectedCuisines"
       }],
       staticClass: "my_checkbox rounded pointer",
+      style: "background-image: url('/assets/img/cuisines/".concat(cuisine.name, ".jpg');"),
       attrs: {
         type: "checkbox",
         name: cuisine.name,
@@ -2484,17 +2480,22 @@ var render = function render() {
         }]
       }
     }), _vm._v(" "), _c("div", {
-      staticClass: "text-capitalize",
+      staticClass: "text-capitalize text-center mt-2",
       attrs: {
         "for": cuisine.id
       }
-    }, [_vm._v(_vm._s(cuisine.name))])]);
-  })], 2)])])]), _vm._v(" "), _c("section", {
-    staticClass: "container-md"
-  }, [_c("h3", {
+    }, [_vm._v(_vm._s(cuisine.name))])])]);
+  })], 2)])]), _vm._v(" "), _c("section", {
+    attrs: {
+      id: "restaurant-section"
+    }
+  }, [_c("div", {
+    staticClass: "container-md pt-2 text-dark"
+  }, [_c("h4", {
     staticClass: "pt-2"
-  }, [_vm._v("Restaurants")]), _vm._v(" "), _c("div", {
-    staticClass: "row justify-content-center"
+  }, [_vm._v("These are our best restaurants")]), _vm._v(" "), _c("div", {
+    staticClass: "row justify-content-center",
+    "class": _vm.isRestaurantLoading ? "pb-4" : ""
   }, [_vm.isRestaurantLoading ? _c("div", {
     staticClass: "spinner-border text-primary",
     attrs: {
@@ -2505,9 +2506,9 @@ var render = function render() {
   }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.restaurants, function (restaurant, index) {
     return _c("div", {
       key: index,
-      staticClass: "col-12 col-sm-6 col-md-4 col-lg-3"
+      staticClass: "col-12 col-md-6 mb-4"
     }, [_c("router-link", {
-      staticClass: "d-flex",
+      staticClass: "restaurant-card rounded text-dark d-flex align-items-center",
       attrs: {
         event: restaurant.cartActiveDetect == false ? "click" : "",
         to: {
@@ -2522,29 +2523,34 @@ var render = function render() {
           return _vm.checkRestaurantHasCart();
         }
       }
+    }, [_c("div", {
+      staticClass: "my_restaurant-img rounded"
     }, [_c("img", {
-      staticClass: "my_restaurant-img rounded",
       attrs: {
         src: restaurant.image == null ? "/assets/img/food-main-logo_edit.png" : "storage/" + restaurant.image,
         alt: restaurant.name
       }
-    }), _vm._v(" "), _c("div", [_c("div", {
-      staticClass: "text-capitalize"
+    })]), _vm._v(" "), _c("div", {
+      staticClass: "ml-2"
+    }, [_c("h5", {
+      staticClass: "mb-0 text-capitalize"
     }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _vm._l(restaurant.cuisines, function (cuisine, cuisineIndex) {
       return _c("div", {
-        key: cuisineIndex
+        key: cuisineIndex,
+        staticClass: "text-capitalize"
       }, [_vm._v(_vm._s(cuisine.name))]);
     }), _vm._v(" "), _c("div", {
       staticClass: "text-capitalize"
     }, [_vm._v(_vm._s(restaurant.address))])], 2)])], 1);
-  })], 2)]), _vm._v(" "), _vm.liveCart.length > 0 ? _c("section", {
-    staticClass: "container-md py-2",
+  })], 2)])]), _vm._v(" "), _vm.liveCart.length > 0 ? _c("section", {
     attrs: {
       id: "cart-section"
     }
   }, [_c("div", {
-    staticClass: "my-2 d-flex align-items-center"
-  }, [_c("h2", {
+    staticClass: "container-md text-dark py-4"
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center mb-2"
+  }, [_c("h4", {
     staticClass: "mb-0"
   }, [_vm._v("Cart")]), _vm._v(" "), _c("router-link", {
     staticClass: "btn btn-primary ml-4",
@@ -2556,9 +2562,7 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("Update order")]), _vm._v(" "), _c("h4", {
-    staticClass: "mb-0 ml-4"
-  }, [_vm._v(_vm._s(_vm.liveCartRestaurant.name))]), _vm._v(" "), _c("button", {
+  }, [_vm._v("Update order")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-danger ml-4",
     on: {
       click: function click($event) {
@@ -2573,7 +2577,7 @@ var render = function render() {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-12 col-md-6"
-  }, [_c("ul", {
+  }, [_c("h5", [_vm._v(_vm._s(_vm.liveCartRestaurant.name))]), _vm._v(" "), _c("ul", {
     staticClass: "list-group mb-2"
   }, _vm._l(_vm.liveCart, function (product, index) {
     return _c("li", {
@@ -2700,7 +2704,7 @@ var render = function render() {
     staticClass: "col-12 d-flex justify-content-center"
   }, [_c("div", {
     staticClass: "mb-2"
-  }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))])]), _vm._v(" "), _vm._m(0)])])]) : _vm._e(), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
+  }, [_vm._v("Total amount: " + _vm._s(_vm.formatPrice(_vm.totalAmount)))])]), _vm._v(" "), _vm._m(1)])])])]) : _vm._e(), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
     staticClass: "position-fixed d-flex flex-column justify-content-center align-items-center",
     attrs: {
       id: "order-confirmed"
@@ -2722,6 +2726,22 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
+  return _c("section", {
+    attrs: {
+      id: "hero-section"
+    }
+  }, [_c("div", {
+    staticClass: "container-md py-4 text-light"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12 col-md-6"
+  }, [_vm._v("\n                        Your favourite meals directly to your home.\n                    ")]), _vm._v(" "), _c("div", {
+    staticClass: "col col-md-6"
+  }, [_vm._v("\n                        FOTO FOOD HERE\n                    ")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
   return _c("div", {
     staticClass: "col-12 d-flex justify-content-center"
   }, [_c("button", {
@@ -2734,11 +2754,15 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("section", {
-    staticClass: "container-md py-4"
+    attrs: {
+      id: "info-section"
+    }
   }, [_c("div", {
-    staticClass: "row align-items-center"
+    staticClass: "container-md text-dark py-4"
   }, [_c("div", {
-    staticClass: "col-12 col-md-6 d-flex justify-content-center"
+    staticClass: "row justify-content-center align-items-center"
+  }, [_c("div", {
+    staticClass: "col-10 col-md-5"
   }, [_c("img", {
     staticClass: "img-fluid",
     attrs: {
@@ -2746,7 +2770,7 @@ var staticRenderFns = [function () {
       alt: "DeliveBoo"
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "col-12 col-md-6 d-flex justify-content-center"
+    staticClass: "col-10 col-md-5"
   }, [_c("div", {
     staticClass: "slogan-container position-relative"
   }, [_c("img", {
@@ -2757,7 +2781,7 @@ var staticRenderFns = [function () {
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "my_main-slogan text-center position-absolute"
-  }, [_vm._v("\n                            If you can eat it,"), _c("br"), _vm._v(" \n                            we can deliver it!\n                        ")])])])])]);
+  }, [_vm._v("\n                                If you can eat it,"), _c("br"), _vm._v(" \n                                we can deliver it!\n                            ")])])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -3105,7 +3129,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "header[data-v-a4c8a778] {\n  background-color: #464646;\n  height: 70px;\n}\nnav[data-v-a4c8a778] {\n  height: 100%;\n}\nimg[data-v-a4c8a778] {\n  height: 50px;\n}", ""]);
+exports.push([module.i, "header[data-v-a4c8a778] {\n  background-color: #007bff;\n  height: 70px;\n}\nnav[data-v-a4c8a778] {\n  height: 100%;\n}\nimg[data-v-a4c8a778] {\n  height: 50px;\n}", ""]);
 
 // exports
 
@@ -3124,7 +3148,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "main[data-v-04c29797] {\n  background-color: #0367a6;\n}\n#main-section[data-v-04c29797] {\n  height: 500px;\n  overflow: hidden;\n}\n#search-container[data-v-04c29797] {\n  background-color: rgba(255, 255, 255, 0.8);\n  z-index: 200;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  aspect-ratio: 1/1;\n  max-width: 90px;\n  max-height: 90px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-image: url(\"/assets/img/hand-drawn-food-doodle_edit.png\");\n  background-size: 100%;\n  background-repeat: no-repeat;\n  filter: grayscale(100%);\n}\n.my_checkbox[data-v-04c29797]:checked {\n  filter: grayscale(0%);\n}\n.my_restaurant-img[data-v-04c29797] {\n  aspect-ratio: 1/1;\n  max-width: 90px;\n  max-height: 90px;\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n#order-confirmed[data-v-04c29797] {\n  top: 0;\n  left: 0;\n  z-index: 999;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(255, 255, 255, 0.6);\n  font-size: 40px;\n}\n#order-confirmed button[data-v-04c29797] {\n  font-size: 40px;\n}\n\n/*** START SLOGAN ***/\n.my_main-slogan[data-v-04c29797] {\n  font-size: 28px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}", ""]);
+exports.push([module.i, "#hero-section[data-v-04c29797] {\n  background-color: #343a40;\n}\n#cuisine-section[data-v-04c29797] {\n  background-color: #ffffff;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  height: 70px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 3px solid #007BFF;\n  outline-offset: 3px;\n}\n#restaurant-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.restaurant-card[data-v-04c29797] {\n  width: 100%;\n  height: 100px;\n}\n.my_restaurant-img[data-v-04c29797] {\n  width: 30%;\n  height: 100%;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n#info-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.my_main-slogan[data-v-04c29797] {\n  font-size: 22px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n.my_img-fluid-h[data-v-04c29797] {\n  height: 100%;\n}\n#order-confirmed[data-v-04c29797] {\n  top: 0;\n  left: 0;\n  z-index: 999;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(255, 255, 255, 0.6);\n  font-size: 40px;\n}\n#order-confirmed button[data-v-04c29797] {\n  font-size: 40px;\n}\n@media all and (min-width: 768px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 16px;\n}\n}\n@media all and (min-width: 992px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}", ""]);
 
 // exports
 

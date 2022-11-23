@@ -1,123 +1,145 @@
 <template>
     <div>
         <main>
-            <section id="main-section" class="position-relative">
-                <div id="search-container" class="position-relative">
-                    <div class="container-md">
-                        <h4 class="pt-2">Your kitchen is not a luna park.</h4>
-
-                        <div class="row justify-content-center">
-                            <div v-if="isCuisineLoading" class="spinner-border text-primary" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-
-                            <div class="col-3 col-md" v-for="(cuisine, index) in cuisines" :key="index">
-                                <input type="checkbox" class="my_checkbox rounded pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()"
-                                :style="`background-image: url('/assets/img/cuisines/${cuisine.name}.jpg');`">
-                                <div class="text-capitalize" :for="cuisine.id">{{cuisine.name}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="container-md">
-                <h3 class="pt-2">Restaurants</h3>
-                <div class="row justify-content-center">
-                    <div v-if="isRestaurantLoading" class="spinner-border text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="(restaurant, index) in restaurants" :key="index">
-                        <router-link @click.native="checkRestaurantHasCart()" :event="restaurant.cartActiveDetect == false ? 'click' : ''" :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
-                        class="d-flex">
-                            <img class="my_restaurant-img rounded" :src=" restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
-                            <div>
-                                <div class="text-capitalize">{{restaurant.name}}</div>
-                                <div v-for="(cuisine, cuisineIndex) in restaurant.cuisines" :key="cuisineIndex">{{cuisine.name}}</div>
-                                <div class="text-capitalize">{{restaurant.address}}</div>
-                            </div>
-                        </router-link>
-                    </div>
-                </div>
-            </section>
-
-            <section id="cart-section" class="container-md py-2" v-if="liveCart.length > 0">
-                <div class="my-2 d-flex align-items-center">
-                    <h2 class="mb-0">Cart</h2>
-                    <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary ml-4">Update order</router-link>
-                    <h4 class="mb-0 ml-4">{{liveCartRestaurant.name}}</h4>
-                    <button class="btn btn-danger ml-4" @click="deleteCart()">Delete cart</button>
-                </div>
-
-                <form @submit="orderHandle">
+            <section id="hero-section">
+                <div class="container-md py-4 text-light">
                     <div class="row">
                         <div class="col-12 col-md-6">
-                            <ul class="list-group mb-2">
-                                <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
-                                v-for="(product, index) in liveCart" :key="index">
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex align-items-center px-2 border border-primary rounded">{{product.productCounter}}</div>
-                                        <div class="ml-3">{{product.name}}</div>
-                                    </div>
-                                    <div>{{formatPrice(getPartialAmount(index))}}</div>
-                                </li>
-                            </ul>
+                            Your favourite meals directly to your home.
                         </div>
-
-                        <div class="col-12 col-md-6">
-                            <div>
-                                <p class="mb-2">Where to deliver?</p>
-                                <div class="form-group mb-2">
-                                    <input type="text" class="form-control" id="inputName" placeholder="Name"
-                                    v-model="userName" required minlength="3" maxlength="50">
-                                </div>
-                                <div class="form-group mb-2">
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Address"
-                                    v-model="userAddress" required minlength="3" maxlength="50">
-                                </div>
-                                <div class="form-group mb-2">
-                                    <input type="text" class="form-control" id="inputNumber" placeholder="Phone"
-                                    v-model="userNumber" required minlength="5" maxlength="25">
-                                </div>
-                                <div class="form-group mb-2">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email"
-                                    v-model="userEmail" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 d-flex justify-content-center">
-                            <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
-                        </div>
-
-                        <div class="col-12 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-success">Order Now</button>
+                        <div class="col col-md-6">
+                            FOTO FOOD HERE
                         </div>
                     </div>
-                </form>
+                </div>
             </section>
 
-            <section class="container-md py-4">
-                <div class="row align-items-center">
-                    <div class="col-12 col-md-6 d-flex justify-content-center">
-                        <img class="img-fluid" src="/assets/img/super-french-fries_edit.png" alt="DeliveBoo">
-                    </div>
-                    <div class="col-12 col-md-6 d-flex justify-content-center">
-                        <div class="slogan-container position-relative">
-                            <img class="img-fluid" src="/assets/img/cloud-comic.png" alt="If you can eat it, we can deliver it!">
-                            <div class="my_main-slogan text-center position-absolute">
-                                If you can eat it,</br> 
-                                we can deliver it!
+
+            <section id="cuisine-section">
+                <div class="container-md pt-4 text-dark">
+                    <div class="row justify-content-center" :class="isCuisineLoading ? 'pb-4' : ''">
+                        <div v-if="isCuisineLoading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="col-3 col-md mb-4" v-for="(cuisine, index) in cuisines" :key="index">
+                            <div class="my_search-card rounded">
+                                <input type="checkbox" class="my_checkbox rounded pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()"
+                                :style="`background-image: url('/assets/img/cuisines/${cuisine.name}.jpg');`">
+                                <div class="text-capitalize text-center mt-2" :for="cuisine.id">{{cuisine.name}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <section id="restaurant-section">
+                <div class="container-md pt-2 text-dark">
+                    <h4 class="pt-2">These are our best restaurants</h4>
+                    <div class="row justify-content-center" :class="isRestaurantLoading ? 'pb-4' : ''">
+                        <div v-if="isRestaurantLoading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-4" v-for="(restaurant, index) in restaurants" :key="index">
+                            <router-link @click.native="checkRestaurantHasCart()" :event="restaurant.cartActiveDetect == false ? 'click' : ''" :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
+                            class="restaurant-card rounded text-dark d-flex align-items-center">
+                                <div class="my_restaurant-img rounded">
+                                    <img :src="restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
+                                </div>
+                                <div class="ml-2">
+                                    <h5 class="mb-0 text-capitalize">{{restaurant.name}}</h5>
+                                    <div class="text-capitalize" v-for="(cuisine, cuisineIndex) in restaurant.cuisines" :key="cuisineIndex">{{cuisine.name}}</div>
+                                    <div class="text-capitalize">{{restaurant.address}}</div>
+                                </div>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cart-section" v-if="liveCart.length > 0">
+                <div class="container-md text-dark py-4">
+                    <div class="d-flex align-items-center mb-2">
+                        <h4 class="mb-0">Cart</h4>
+                        <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary ml-4">Update order</router-link>
+                        <button class="btn btn-danger ml-4" @click="deleteCart()">Delete cart</button>
+                    </div>
+
+                    <form @submit="orderHandle">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <h5>{{liveCartRestaurant.name}}</h5>
+                                <ul class="list-group mb-2">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
+                                    v-for="(product, index) in liveCart" :key="index">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center px-2 border border-primary rounded">{{product.productCounter}}</div>
+                                            <div class="ml-3">{{product.name}}</div>
+                                        </div>
+                                        <div>{{formatPrice(getPartialAmount(index))}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div>
+                                    <p class="mb-2">Where to deliver?</p>
+                                    <div class="form-group mb-2">
+                                        <input type="text" class="form-control" id="inputName" placeholder="Name"
+                                        v-model="userName" required minlength="3" maxlength="50">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <input type="text" class="form-control" id="inputAddress" placeholder="Address"
+                                        v-model="userAddress" required minlength="3" maxlength="50">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <input type="text" class="form-control" id="inputNumber" placeholder="Phone"
+                                        v-model="userNumber" required minlength="5" maxlength="25">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email"
+                                        v-model="userEmail" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-center">
+                                <div class="mb-2">Total amount: {{formatPrice(totalAmount)}}</div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-success">Order Now</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="info-section">
+                <div class="container-md text-dark py-4">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-10 col-md-5">
+                            <img class="img-fluid" src="/assets/img/super-french-fries_edit.png" alt="DeliveBoo">
+                        </div>
+                        <div class="col-10 col-md-5">
+                            <div class="slogan-container position-relative">
+                                <img class="img-fluid" src="/assets/img/cloud-comic.png" alt="If you can eat it, we can deliver it!">
+                                <div class="my_main-slogan text-center position-absolute">
+                                    If you can eat it,<br> 
+                                    we can deliver it!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
 
             <section class="container-md py-4 text-center">
                 <h2>Work with us!</h2>
             </section>
+
 
 
             <div v-if="isOrderConfirmed" id="order-confirmed" class="position-fixed d-flex flex-column justify-content-center align-items-center">
@@ -292,44 +314,72 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    main {
-        background-color: #0367a6;
+    #hero-section {
+        background-color: #343a40;
     }
 
-    #main-section {
-        height: 500px;
-        overflow: hidden;
+    #cuisine-section {
+        background-color: #ffffff;
     }
 
-    #search-container {
-        background-color: rgba(255, 255, 255, 0.8);
-
-        z-index: 200;
+    .my_search-card {
+        //outline: 5px solid #007BFF;
+        //outline-offset: 5px;
     }
 
     .my_checkbox {
         width: 100%;
-        aspect-ratio: 1 / 1;
-        max-width: 90px;
-        max-height: 90px;
+        height: 70px;
         appearance: none;
-        background-size: 100%;
         background-repeat: no-repeat;
-        filter: grayscale(100%);
+        background-position: center;
+        background-size: cover;
     }
 
     .my_checkbox:checked {
-        filter: grayscale(0%);
+        outline: 3px solid #007BFF;
+        outline-offset: 3px;
+    }
+
+    #restaurant-section {
+        background-color: #e4e7eb;
+    }
+
+    .restaurant-card {
+        width: 100%;
+        height: 100px;
     }
 
     .my_restaurant-img {
-        aspect-ratio: 1 / 1;
-        max-width: 90px;
-        max-height: 90px;
+        width: 30%;
+        height: 100%;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    #info-section {
+        background-color: #e4e7eb;
+    }
+
+    .my_main-slogan {
+        font-size: 22px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .pointer {
         cursor: pointer;
+    }
+
+    .my_img-fluid-h {
+        height: 100%;
     }
 
     #order-confirmed {
@@ -347,23 +397,16 @@ export default {
         }
     }
 
-    /*** START SLOGAN ***/
-
-    .my_main-slogan {
-        font-size: 28px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-
-
     /////// MEDUA QUERY ///////
 
     @media all and (min-width: 768px) {
-        
+        .my_main-slogan {
+            font-size: 16px;
+        }
     }
     @media all and (min-width: 992px) {
-        
+        .my_main-slogan {
+            font-size: 22px;
+        }
     }
 </style>
