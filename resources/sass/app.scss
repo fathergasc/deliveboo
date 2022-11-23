@@ -108,3 +108,10 @@ main{
     }
 }
 
+@media screen and (max-width: 600px) {
+    .product-show-wrapper {
+      height: 300px;
+      width: 300px;
+    }
+  }
+
