@@ -34,7 +34,7 @@
                     <td>{{Str::limit($product->description, 30)}}</td>
                     <td>{{($product->displayed)?'displayed':'not displayed'}}</td>
                     <td>{{$product->category}}</td>
-                    <td>{{$product->price}}</td>
+                    <td>${{$product->price}}</td>
                     <td class="d-flex flex-wrap">
                         <a class="btn btn-warning m-1" href="{{route('admin.products.show', ['product' => $product->slug])}}">Show</a>
                         <a class="btn btn-primary m-1" href="{{route('admin.products.edit', ['product' => $product->slug])}}">Edit</a>
