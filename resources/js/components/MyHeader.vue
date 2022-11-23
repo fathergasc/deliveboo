@@ -8,8 +8,8 @@
                 </router-link>
 
                 <div v-if="!isUserLogged" class="d-flex justify-content-center">
-                    <a href="/admin" class="btn btn-light">Login</a>
-                    <a href="/register" class="btn btn-dark ml-2">Register</a>
+                    <a href="/admin" class="btn btn-light">Log In</a>
+                    <a href="/register" class="btn btn-dark ml-2">Sign Up</a>
                 </div>
 
                 <div v-else class="d-flex justify-content-center">

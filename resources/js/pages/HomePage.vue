@@ -1,22 +1,33 @@
 <template>
     <div>
         <main>
-            <section id="hero-section">
-                <div class="container-md py-4 text-light">
+            <section id="hero-section" class="position-relative">
+                <div class="container-md py-4 pb-md-0 text-light">
                     <div class="row">
-                        <div class="col-12 col-md-6">
-                            Your favourite meals directly to your home.
+                        <div class="col-12 col-md-8 d-flex align-items-center">
+                            <div>
+                                <h2>Your favourite meals directly to your home.</h2>
+                                <p>
+                                    The meals you love delivered in no time. You'll see when the rider has picked up the order which you can follow step by step, and you'll receive a notification when it's almost there.
+                                </p>
+                            </div>
                         </div>
-                        <div class="col col-md-6">
-                            FOTO FOOD HERE
+                        <div class="d-none d-md-block col-md-4">
+                            <img class="img-fluid mt-4" src="/assets/img/real-hamburger-edit.png" alt="Food">
                         </div>
                     </div>
                 </div>
+
+
+                <div class="custom-shape-divider-top-1669183005">
+                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                    </svg>
+                </div>
             </section>
 
-
             <section id="cuisine-section">
-                <div class="container-md pt-4 text-dark">
+                <div class="container-md text-dark">
                     <div class="row" :class="isCuisineLoading ? 'justify-content-center pb-4' : ''">
                         <div v-if="isCuisineLoading" class="spinner-border text-primary" role="status">
                             <span class="sr-only">Loading...</span>
@@ -58,8 +69,8 @@
                 </div>
             </section>
 
-            <section id="cart-section" v-if="liveCart.length > 0">
-                <div class="container-md text-dark py-4">
+            <section id="cart-section" class="position-relative" v-if="liveCart.length > 0">
+                <div class="container-md text-dark pt-4">
                     <div class="d-flex align-items-center mb-2">
                         <h4 class="mb-0">Cart</h4>
                         <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary ml-4">Update order</router-link>
@@ -116,7 +127,14 @@
                 </div>
             </section>
 
-            <section id="info-section">
+            <section id="info-section" class="position-relative">
+                <div class="custom-shape-divider-bottom-1669183688">
+                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                    </svg>
+                </div>
+
+
                 <div class="container-md text-dark py-4">
                     <div class="row justify-content-center align-items-center">
                         <div class="col-10 col-md-5">
@@ -134,7 +152,6 @@
                     </div>
                 </div>
             </section>
-
 
             <section class="container-md py-4 text-center">
                 <h2>Work with us!</h2>
@@ -315,11 +332,13 @@ export default {
 
 <style scoped lang="scss">
     #hero-section {
-        background-color: #343a40;
+        background: #343a40;
+        background: linear-gradient(180deg, #343a40 100%);
     }
 
     #cuisine-section {
         background-color: #ffffff;
+        padding-top: 60px;
     }
 
     .my_search-card {
@@ -363,6 +382,12 @@ export default {
         }
     }
 
+    #cart-section {
+        padding-bottom: 20px;
+
+        z-index: 111;
+    }
+
     #info-section {
         background-color: #e4e7eb;
     }
@@ -397,9 +422,55 @@ export default {
         }
     }
 
+
+
+    .custom-shape-divider-top-1669183005 {
+        position: absolute;
+        bottom: -50px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+    }
+    .custom-shape-divider-top-1669183005 svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 50px;
+    }
+    .custom-shape-divider-top-1669183005 .shape-fill {
+        fill: #343a40;
+    }
+
+    .custom-shape-divider-bottom-1669183688 {
+        position: absolute;
+        top: -50px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+    }
+    .custom-shape-divider-bottom-1669183688 svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 50px;
+        transform: rotateY(180deg);
+    }
+    .custom-shape-divider-bottom-1669183688 .shape-fill {
+        fill: #e4e7eb;
+    }
+
     /////// MEDUA QUERY ///////
 
     @media all and (min-width: 768px) {
+        #hero-section {
+            background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);
+        }
+        .custom-shape-divider-top-1669183005 .shape-fill {
+            fill: #ffc107;
+        }
         .my_main-slogan {
             font-size: 16px;
         }
