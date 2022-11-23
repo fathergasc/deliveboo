@@ -47,6 +47,11 @@
             <section id="restaurant-section">
                 <div class="container-md pt-2 text-dark">
                     <h4 class="pt-2">These are our best restaurants</h4>
+                    <div class="d-flex">
+                        <div v-if="hasRestaurantCart" class="alert alert-danger" role="alert">
+                            Empty your cart to change restaurant.
+                        </div>
+                    </div>
                     <div class="row" :class="isRestaurantLoading ? 'justify-content-center pb-4' : ''">
                         <div v-if="isRestaurantLoading" class="spinner-border text-primary" role="status">
                             <span class="sr-only">Loading...</span>
@@ -69,12 +74,19 @@
                 </div>
             </section>
 
-            <section id="cart-section" class="position-relative" v-if="liveCart.length > 0">
-                <div class="container-md text-dark pt-4">
+            <section v-if="isOrderConfirmed || liveCart.length > 0" id="cart-section" class="position-relative pt-4">
+                <div v-if="isOrderConfirmed" class="container-md d-flex justify-content-center">
+                    <div class="alert alert-success d-flex align-items-center" role="alert">
+                        <div class="alert alert-success">Order confirmed</div>
+                        <button type="button" class="btn btn-primary px-4" @click="confirmedHandle()">x</button>
+                    </div>
+                </div>
+
+                <div v-if="liveCart.length > 0" class="container-md text-dark">
                     <div class="d-flex align-items-center mb-2">
                         <h4 class="mb-0">Cart</h4>
                         <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary ml-4">Update order</router-link>
-                        <button class="btn btn-danger ml-4" @click="deleteCart()">Delete cart</button>
+                        <button class="btn btn-danger ml-4" @click="deleteCart()">Empty cart</button>
                     </div>
 
                     <form @submit="orderHandle">
@@ -128,7 +140,7 @@
             </section>
 
             <section id="special-section" class="position-relative">
-                <div class="custom-shape-divider-bottom-1669183688">
+                <div v-if="isOrderConfirmed || liveCart.length > 0" class="custom-shape-divider-bottom-1669183688">
                     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                         <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
                     </svg>
@@ -162,13 +174,6 @@
                     </div>
                 </div>
             </section>
-
-
-
-            <div v-if="isOrderConfirmed" id="order-confirmed" class="position-fixed d-flex flex-column justify-content-center align-items-center">
-                <div class="alert alert-success">Order confirmed</div>
-                <button type="button" class="btn btn-primary px-4" @click="confirmedHandle()">x</button>
-            </div>
         </main>
     </div>
 </template>
@@ -186,7 +191,7 @@ export default {
             liveCart: [],
             liveCartRestaurant: "",
             isLiveCartEmpty: false, ///////////////////check label advise
-            hasRestaurantCart: false, ///////////////////check label advise
+            hasRestaurantCart: false,
             userName: "",
             userAddress: "",
             userNumber: "",
@@ -411,25 +416,6 @@ export default {
 
     .pointer {
         cursor: pointer;
-    }
-
-    .my_img-fluid-h {
-        height: 100%;
-    }
-
-    #order-confirmed {
-        top: 0;
-        left: 0;
-        z-index: 999;
-        width: 100%;
-        height: 100vh;
-
-        background-color: rgba(255, 255, 255, 0.6);
-        font-size: 40px;
-
-        button {
-            font-size: 40px;
-        }
     }
 
 
