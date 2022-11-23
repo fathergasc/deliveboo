@@ -32,7 +32,7 @@
         <div class="form-group mb-3">
             <label for="description" class="form-label">Description</label>
             <textarea name="description" id="description" cols="30" rows="10" class="form-control @error('description') is-invalid @enderror"
-            required>{{old('description')}}</textarea>
+            >{{old('description')}}</textarea>
 
             @error('description')
                 <div class="invalid-feedback">{{ $message }}</div>
