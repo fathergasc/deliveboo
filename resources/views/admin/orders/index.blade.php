@@ -30,7 +30,7 @@
 
                         @endforeach
                     </td>
-                    <td>{{$order->total_price}}</td>
+                    <td>${{$order->total_price}}</td>
                     <td>{{$order->created_at->format('d-m-Y')}}</td>
                     <td>{{$order->created_at->format('H:i')}}</td>
                     <td>{{($order->paid)?'paid':'not paid'}}</td>
