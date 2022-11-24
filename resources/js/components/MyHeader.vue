@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         checkLiveCartEmpty() {
-            if (JSON.parse(localStorage.getItem('myLiveCart')) == null ||JSON.parse(localStorage.getItem('myLiveCart')).length == 0) {
+            if (JSON.parse(localStorage.getItem('myLiveCart')) == null || JSON.parse(localStorage.getItem('myLiveCart')).length == 0) {
                 if (this.isLiveCartEmpty == false) {
                     this.isLiveCartEmpty = true;
                 } else {
