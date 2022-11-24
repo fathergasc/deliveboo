@@ -182,7 +182,7 @@
                         </div>
                         <div class="col-12 col-md-4 my-4 my-md-2 px-md-4">
                             <div class="info-section-card rounded text-center">
-                                <img class="rounded" src="/assets/img/funny-burger.jpg" alt="Funny Burger">
+                                <img class="rounded" src="/assets/img/funny-burger-edit.png" alt="Funny Burger">
                                 <div class="my-2 mx-4">Speed is our pride. Order anything to your city and we'll pick it up and deliver it to you within minutes.</div>
                             </div>
                         </div>
