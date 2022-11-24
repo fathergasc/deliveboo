@@ -2659,9 +2659,9 @@ var render = function render() {
       role: "alert"
     }
   }, [_c("div", {
-    staticClass: "alert alert-success"
+    staticClass: "alert alert-success m-0"
   }, [_vm._v("Order confirmed")]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary px-4",
+    staticClass: "btn btn-primary px-4 ml-2",
     attrs: {
       type: "button"
     },
@@ -2670,7 +2670,9 @@ var render = function render() {
         return _vm.confirmedHandle();
       }
     }
-  }, [_vm._v("x")])])]) : _vm._e(), _vm._v(" "), _vm.liveCart.length > 0 && _vm.isOrderProcessing == false ? _c("div", {
+  }, [_c("i", {
+    staticClass: "fa-solid fa-xmark"
+  })])])]) : _vm._e(), _vm._v(" "), _vm.liveCart.length > 0 && _vm.isOrderProcessing == false ? _c("div", {
     staticClass: "container-md text-dark"
   }, [_c("div", {
     staticClass: "d-flex align-items-center mb-2"

@@ -83,8 +83,8 @@
 
                 <div v-if="isOrderConfirmed" class="container-md d-flex justify-content-center">
                     <div class="alert alert-success d-flex align-items-center" role="alert">
-                        <div class="alert alert-success">Order confirmed</div>
-                        <button type="button" class="btn btn-primary px-4" @click="confirmedHandle()">x</button>
+                        <div class="alert alert-success m-0">Order confirmed</div>
+                        <button type="button" class="btn btn-primary px-4 ml-2" @click="confirmedHandle()"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
 
