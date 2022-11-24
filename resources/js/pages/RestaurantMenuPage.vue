@@ -31,13 +31,13 @@
                         </div>
 
                         <ul class="list-group mb-4">
-                            <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
+                            <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize p-0"
                             v-for="(product, index) in restaurant.products" :key="index">
-                                <div class="d-flex align-items-center">
-                                    <img class="my_product-img rounded" :src="product.image == null ? '/assets/img/hand-drawn-food-doodle_edit.png' : '/storage/' + product.image" :alt="product.name">
-                                    <div class="mx-2 overflow-hidden">{{product.name}}</div>
+                                <div v-if="product.displayed == 1" class="d-flex align-items-center overflow-hidden p-3">
+                                    <img class="my_product-img d-none d-sm-block rounded" :src="product.image == null ? '/assets/img/hand-drawn-food-doodle_edit.png' : '/storage/' + product.image" :alt="product.name">
+                                    <div class="mx-2">{{product.name}}</div>
                                 </div>
-                                <div class="d-flex align-items-center">
+                                <div v-if="product.displayed == 1" class="d-flex align-items-center p-3">
                                     <div>{{formatPrice(product.price)}}</div>
                                     <div class="btn-group ml-3" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-primary" @click="productDecrement(index)" :disabled="liveProductCounter[index].productCounter <= 0">-</button>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
 
-                        <ul class="list-group mb-4" :class="liveCart.length > 0 ? 'mb-2' : ''">
+                        <ul v-if="isOrderProcessing == false" class="list-group mb-4" :class="liveCart.length > 0 ? 'mb-2' : ''">
                             <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                             v-for="(product, index) in liveCart" :key="index">
                                 <div class="d-flex align-items-center">
@@ -301,6 +301,8 @@ export default {
 <style scoped lang="scss">
     #order-section {
         background-color: #ffffff;
+
+        min-height: calc(100vh - (70px + 100px));
     }
 
     .my_restaurant-img {
