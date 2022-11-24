@@ -1936,8 +1936,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     checkLiveCartEmpty: function checkLiveCartEmpty() {
-      if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-        this.isLiveCartEmpty = true;
+      if (JSON.parse(localStorage.getItem('myLiveCart')) == null || JSON.parse(localStorage.getItem('myLiveCart')).length == 0) {
+        if (this.isLiveCartEmpty == false) {
+          this.isLiveCartEmpty = true;
+        } else {
+          this.isLiveCartEmpty = false;
+        }
       } else {
         window.scroll({
           top: window.innerHeight,
@@ -2296,6 +2300,13 @@ __webpack_require__.r(__webpack_exports__);
     } else {
       this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
     }
+  },
+  computed: {
+    filteredProduct: function filteredProduct() {
+      return this.restaurant.products.filter(function (i) {
+        return i.displayed == 1;
+      });
+    }
   }
 });
 
@@ -2463,14 +2474,11 @@ var render = function render() {
       }
     }
   })]), _vm._v(" "), _vm.isLiveCartEmpty && _vm.linkPerEmptyLiveCart ? _c("div", {
-    staticClass: "position-absolute"
-  }, [_c("div", {
-    staticClass: "alert alert-primary m-0",
+    staticClass: "alert alert-primary position-absolute py-2 px-0 text-center",
     attrs: {
-      id: "empty-cart-alert",
-      role: "alert"
+      id: "empty-cart-alert"
     }
-  }, [_vm._v("\n                        Your cart is empty.\n                    ")])]) : _vm._e()])], 1)])]);
+  }, [_vm._v("\n                    Your cart is empty.\n                ")]) : _vm._e()])], 1)])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2968,7 +2976,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "rounded",
     attrs: {
-      src: "/assets/img/funny-burger-edit.png",
+      src: "/assets/img/funny-burger-edit.jpg",
       alt: "Funny Burger"
     }
   }), _vm._v(" "), _c("div", {
@@ -3088,21 +3096,21 @@ var render = function render() {
     staticClass: "d-flex justify-content-center"
   }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _c("ul", {
     staticClass: "list-group mb-4"
-  }, _vm._l(_vm.restaurant.products, function (product, index) {
+  }, _vm._l(_vm.filteredProduct, function (product, index) {
     return _c("li", {
       key: index,
       staticClass: "list-group-item d-flex justify-content-between align-items-center text-capitalize p-0"
-    }, [product.displayed == 1 ? _c("div", {
-      staticClass: "d-flex align-items-center overflow-hidden p-3"
+    }, [_c("div", {
+      staticClass: "my_product-img-title d-flex align-items-center overflow-hidden p-3"
     }, [_c("img", {
-      staticClass: "my_product-img d-none d-sm-block rounded",
+      staticClass: "d-none d-sm-block rounded",
       attrs: {
         src: product.image == null ? "/assets/img/hand-drawn-food-doodle_edit.png" : "/storage/" + product.image,
         alt: product.name
       }
     }), _vm._v(" "), _c("div", {
       staticClass: "mx-2"
-    }, [_vm._v(_vm._s(product.name))])]) : _vm._e(), _vm._v(" "), product.displayed == 1 ? _c("div", {
+    }, [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("div", {
       staticClass: "d-flex align-items-center p-3"
     }, [_c("div", [_vm._v(_vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("div", {
       staticClass: "btn-group ml-3",
@@ -3143,10 +3151,10 @@ var render = function render() {
           _vm.addProductToCart(index), _vm.getTotalAmount();
         }
       }
-    }, [_vm._v("Add")])]) : _vm._e()]);
-  }), 0), _vm._v(" "), _c("h3", {
+    }, [_vm._v("Add")])])]);
+  }), 0), _vm._v(" "), _vm.isOrderProcessing == false ? _c("h3", {
     staticClass: "text-center text-md-left"
-  }, [_vm._v("Cart")]), _vm._v(" "), _vm.isOrderProcessing ? _c("div", {
+  }, [_vm._v("Cart")]) : _vm._e(), _vm._v(" "), _vm.isOrderProcessing ? _c("div", {
     staticClass: "d-flex justify-content-center"
   }, [_vm._m(1)]) : _vm._e(), _vm._v(" "), _vm.liveCart.length == 0 && _vm.isOrderConfirmed == false ? _c("div", {
     staticClass: "font-italic text-center text-md-left"
@@ -3435,7 +3443,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "header[data-v-a4c8a778] {\n  background-color: #007bff;\n  height: 70px;\n}\nnav[data-v-a4c8a778] {\n  height: 100%;\n}\nnav h1[data-v-a4c8a778] {\n  font-size: 26px;\n}\nnav img[data-v-a4c8a778] {\n  height: 50px;\n}\nnav i[data-v-a4c8a778] {\n  font-size: 26px;\n}\n#empty-cart-alert[data-v-a4c8a778] {\n  right: -22px;\n  bottom: -64px;\n  z-index: 211;\n}\n.pointer[data-v-a4c8a778] {\n  cursor: pointer;\n}\n@media all and (min-width: 576px) {\nnav h1[data-v-a4c8a778] {\n    font-size: 34px;\n}\n}", ""]);
+exports.push([module.i, "header[data-v-a4c8a778] {\n  background-color: #007bff;\n  height: 70px;\n}\nnav[data-v-a4c8a778] {\n  height: 100%;\n}\nnav h1[data-v-a4c8a778] {\n  font-size: 26px;\n}\nnav img[data-v-a4c8a778] {\n  height: 50px;\n}\nnav i[data-v-a4c8a778] {\n  font-size: 26px;\n}\n#empty-cart-alert[data-v-a4c8a778] {\n  width: 155px;\n  right: 34px;\n  top: -3px;\n  z-index: 211;\n}\n.pointer[data-v-a4c8a778] {\n  cursor: pointer;\n}\n@media all and (min-width: 576px) {\nnav h1[data-v-a4c8a778] {\n    font-size: 34px;\n}\n}", ""]);
 
 // exports
 
@@ -3473,7 +3481,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#order-section[data-v-6ded6ab4] {\n  background-color: #ffffff;\n  min-height: calc(100vh - 170px);\n}\n.my_restaurant-img[data-v-6ded6ab4] {\n  width: 80%;\n  height: 250px;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-6ded6ab4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n.my_product-img[data-v-6ded6ab4] {\n  width: 15%;\n  aspect-ratio: 1/1;\n}\n.relative-index-bg[data-v-6ded6ab4] {\n  position: relative;\n  z-index: 111;\n}\n.custom-shape-edit-top[data-v-6ded6ab4] {\n  width: 100%;\n  height: 250px;\n  background-color: rgba(0, 123, 255, 0.2);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.custom-shape-divider-top-1669183005[data-v-6ded6ab4] {\n  position: absolute;\n  top: 250px;\n  left: 0;\n  width: 150%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-6ded6ab4] {\n  position: relative;\n  display: block;\n  width: calc(150% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-6ded6ab4] {\n  fill: rgba(0, 123, 255, 0.2);\n}\n.custom-shape-edit-bottom[data-v-6ded6ab4] {\n  width: 100%;\n  height: 250px;\n  background-color: #e4e7eb;\n  position: absolute;\n  bottom: 0;\n  left: 0;\n}\n.custom-shape-divider-bottom-1669183688[data-v-6ded6ab4] {\n  position: absolute;\n  bottom: 250px;\n  left: 0;\n  width: 150%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-6ded6ab4] {\n  position: relative;\n  display: block;\n  width: calc(150% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-6ded6ab4] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 768px) {\n.my_restaurant-img[data-v-6ded6ab4] {\n    width: 100%;\n    height: 40%;\n}\n.custom-shape-divider-top-1669183005[data-v-6ded6ab4] {\n    width: 100%;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-6ded6ab4] {\n    width: calc(100% + 1.3px);\n}\n.custom-shape-divider-bottom-1669183688[data-v-6ded6ab4] {\n    width: 100%;\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-6ded6ab4] {\n    width: calc(100% + 1.3px);\n}\n}", ""]);
+exports.push([module.i, "#order-section[data-v-6ded6ab4] {\n  background-color: #ffffff;\n  min-height: calc(100vh - 170px);\n}\n.my_restaurant-img[data-v-6ded6ab4] {\n  width: 80%;\n  height: 250px;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-6ded6ab4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n.my_product-img-title img[data-v-6ded6ab4] {\n  width: 15%;\n  aspect-ratio: 1/1;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n.relative-index-bg[data-v-6ded6ab4] {\n  position: relative;\n  z-index: 111;\n}\n.custom-shape-edit-top[data-v-6ded6ab4] {\n  width: 100%;\n  height: 250px;\n  background-color: rgba(0, 123, 255, 0.2);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.custom-shape-divider-top-1669183005[data-v-6ded6ab4] {\n  position: absolute;\n  top: 250px;\n  left: 0;\n  width: 150%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-6ded6ab4] {\n  position: relative;\n  display: block;\n  width: calc(150% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-6ded6ab4] {\n  fill: rgba(0, 123, 255, 0.2);\n}\n.custom-shape-edit-bottom[data-v-6ded6ab4] {\n  width: 100%;\n  height: 250px;\n  background-color: #e4e7eb;\n  position: absolute;\n  bottom: 0;\n  left: 0;\n}\n.custom-shape-divider-bottom-1669183688[data-v-6ded6ab4] {\n  position: absolute;\n  bottom: 250px;\n  left: 0;\n  width: 150%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-6ded6ab4] {\n  position: relative;\n  display: block;\n  width: calc(150% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-6ded6ab4] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 768px) {\n.my_restaurant-img[data-v-6ded6ab4] {\n    width: 100%;\n    height: 350px;\n}\n.custom-shape-divider-top-1669183005[data-v-6ded6ab4] {\n    width: 100%;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-6ded6ab4] {\n    width: calc(100% + 1.3px);\n}\n.custom-shape-divider-bottom-1669183688[data-v-6ded6ab4] {\n    width: 100%;\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-6ded6ab4] {\n    width: calc(100% + 1.3px);\n}\n}", ""]);
 
 // exports
 

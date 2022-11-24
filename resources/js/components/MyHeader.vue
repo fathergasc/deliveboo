@@ -21,10 +21,8 @@
                         <i @click="checkLiveCartEmpty(), $emit('linkPerEmptyLiveCart', linkPerEmptyLiveCart)" class="fa-solid fa-cart-shopping pointer"></i>
                     </div>
 
-                    <div v-if="isLiveCartEmpty && linkPerEmptyLiveCart" class="position-absolute">
-                        <div id="empty-cart-alert" class="alert alert-primary m-0" role="alert">
-                            Your cart is empty.
-                        </div>
+                    <div v-if="isLiveCartEmpty && linkPerEmptyLiveCart" id="empty-cart-alert" class="alert alert-primary position-absolute py-2 px-0 text-center">
+                        Your cart is empty.
                     </div>
                 </div>
             </nav>
@@ -46,8 +44,12 @@ export default {
     },
     methods: {
         checkLiveCartEmpty() {
-            if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-                this.isLiveCartEmpty = true;
+            if (JSON.parse(localStorage.getItem('myLiveCart')) == null ||JSON.parse(localStorage.getItem('myLiveCart')).length == 0) {
+                if (this.isLiveCartEmpty == false) {
+                    this.isLiveCartEmpty = true;
+                } else {
+                    this.isLiveCartEmpty = false;
+                }
             } else {
                 window.scroll({
                     top: window.innerHeight,
@@ -89,8 +91,10 @@ export default {
     }
 
     #empty-cart-alert {
-        right: -22px;
-        bottom: -64px;
+        width: 155px;
+
+        right: 34px;
+        top: -3px;
 
         z-index: 211;
     }

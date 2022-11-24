@@ -32,12 +32,12 @@
 
                         <ul class="list-group mb-4">
                             <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize p-0"
-                            v-for="(product, index) in restaurant.products" :key="index">
-                                <div v-if="product.displayed == 1" class="d-flex align-items-center overflow-hidden p-3">
-                                    <img class="my_product-img d-none d-sm-block rounded" :src="product.image == null ? '/assets/img/hand-drawn-food-doodle_edit.png' : '/storage/' + product.image" :alt="product.name">
+                            v-for="(product, index) in filteredProduct" :key="index">
+                                <div class="my_product-img-title d-flex align-items-center overflow-hidden p-3">
+                                    <img class="d-none d-sm-block rounded" :src="product.image == null ? '/assets/img/hand-drawn-food-doodle_edit.png' : '/storage/' + product.image" :alt="product.name">
                                     <div class="mx-2">{{product.name}}</div>
                                 </div>
-                                <div v-if="product.displayed == 1" class="d-flex align-items-center p-3">
+                                <div class="d-flex align-items-center p-3">
                                     <div>{{formatPrice(product.price)}}</div>
                                     <div class="btn-group ml-3" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-primary" @click="productDecrement(index)" :disabled="liveProductCounter[index].productCounter <= 0">-</button>
@@ -49,7 +49,7 @@
                             </li>
                         </ul>
 
-                        <h3 class="text-center text-md-left">Cart</h3>
+                        <h3 v-if="isOrderProcessing == false" class="text-center text-md-left">Cart</h3>
                         <div v-if="isOrderProcessing" class="d-flex justify-content-center">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="sr-only">Loading...</span>
@@ -294,6 +294,10 @@ export default {
         } else {
             this.isOrderConfirmed = JSON.parse(localStorage.getItem('orderConfirmed'));
         }
+    }, computed: {
+        filteredProduct: function () {
+            return this.restaurant.products.filter(i => i.displayed == 1);
+        }
     }
 }
 </script>
@@ -318,9 +322,13 @@ export default {
         }
     }
 
-    .my_product-img {
-        width: 15%;
-        aspect-ratio: 1 / 1;
+    .my_product-img-title {
+        img {
+            width: 15%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            object-position: center;
+        }
     }
 
     .relative-index-bg {
@@ -391,7 +399,7 @@ export default {
     @media all and (min-width: 768px) {
         .my_restaurant-img {
             width: 100%;
-            height: 40%;
+            height: 350px;
         }
 
         .custom-shape-divider-top-1669183005 {
