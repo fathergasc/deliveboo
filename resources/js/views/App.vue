@@ -1,7 +1,7 @@
 <template>
     <div>
-        <MyHeader />
-        <MyMain />
+        <MyHeader :linkPerEmptyLiveCart="isLiveCartEmpty" @linkPerEmptyLiveCart="reSetLiveCartEmpty" />
+        <MyMain @linkedLiveEmptyCart="setLiveCartEmpty" />
         <MyFooter />
     </div>
 </template>
@@ -17,6 +17,21 @@ export default {
         MyHeader,
         MyMain,
         MyFooter
+    },
+    data() {
+        return {
+            isLiveCartEmpty: true
+        }
+    },
+    methods: {
+        setLiveCartEmpty(getLiveCartEmpty) {
+            this.isLiveCartEmpty = getLiveCartEmpty;
+        },
+        reSetLiveCartEmpty(reGetLiveCartEmpty) {
+            if (reGetLiveCartEmpty == false) {
+                this.isLiveCartEmpty = true;
+            }
+        }
     }
 }
 </script>

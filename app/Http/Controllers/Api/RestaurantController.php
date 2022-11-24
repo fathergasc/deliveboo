@@ -74,9 +74,28 @@ class RestaurantController extends Controller
             $restaurant->image = asset('img/restaurant-picture-default.png');
         }
 
+        /// DEVE FUNZIONARE
+        /*$filter = true;
+        $outputB = array_filter($restaurant->products, function($var) use ($filter) {
+            return ($var['displayed'] == $filter);
+        }, ARRAY_FILTER_USE_BOTH);
+
+        ///ESEMPIO
+        /*$myarray = array(
+            array("name"=>"John", "email"=>"john@mydomain.com", "dept"=>"Finance"),
+            array("name"=>"Lilly", "email"=>"lilly@mydomain.com", "dept"=>"Sales"),
+            array("name"=>"Austin", "email"=>"austin@mydomain.com", "dept"=>"HR"),
+            array("name"=>"Whites", "email"=>"whites@mydomain.com", "dept"=>"Finance"),
+            array("name"=>"Milan", "email"=>"milan@mydomain.com", "dept"=>"Sales")
+        );
+        $filter = "Sales";
+        $new_array = array_filter($myarray, function($var) use ($filter){
+            return ($var['dept'] == $filter);
+        });*/
+
         return response()->json([
             'success' => true,
-            'results' => $restaurant,
+            'results' => $restaurant
         ]);
     }
 

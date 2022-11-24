@@ -1,12 +1,17 @@
 <template>
-    <div>
-        <router-view></router-view>
+    <div @touchstart="$emit('linkedLiveEmptyCart', isLiveCartEmpty)">
+        <router-view ></router-view>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'MyMain'
+    name: 'MyMain',
+    data() {
+        return {
+            isLiveCartEmpty: false
+        }
+    }
 }
 </script>
 

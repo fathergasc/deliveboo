@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="col-3 col-md mb-4" v-for="(cuisine, index) in cuisines" :key="index">
-                            <div class="my_search-card rounded">
+                            <div>
                                 <input type="checkbox" class="my_checkbox rounded pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()"
                                 :style="`background-image: url('/assets/img/cuisines/${cuisine.name}.jpg');`">
                                 <div class="text-capitalize text-center mt-2" :for="cuisine.id">{{cuisine.name}}</div>
@@ -61,10 +61,10 @@
                             <router-link @click.native="checkRestaurantHasCart()" :event="restaurant.cartActiveDetect == false ? 'click' : ''" :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
                             class="restaurant-card rounded text-dark d-flex align-items-center">
                                 <div class="my_restaurant-img rounded">
-                                    <img :src="restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
+                                    <img :src="restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/' + restaurant.image" :alt="restaurant.name">
                                 </div>
                                 <div class="ml-2">
-                                    <h5 class="mb-0 text-capitalize">{{restaurant.name}}</h5>
+                                    <h5 class="mb-0 text-capitalize font-weight-bold">{{restaurant.name}}</h5>
                                     <div class="text-capitalize" v-for="(cuisine, cuisineIndex) in restaurant.cuisines" :key="cuisineIndex">{{cuisine.name}}</div>
                                     <div class="text-capitalize">{{restaurant.address}}</div>
                                 </div>
@@ -75,14 +75,20 @@
             </section>
 
             <section v-if="isOrderConfirmed || liveCart.length > 0" id="cart-section" class="position-relative pt-4">
-                <div v-if="isOrderConfirmed" class="container-md d-flex justify-content-center">
-                    <div class="alert alert-success d-flex align-items-center" role="alert">
-                        <div class="alert alert-success">Order confirmed</div>
-                        <button type="button" class="btn btn-primary px-4" @click="confirmedHandle()">x</button>
+                <div class="d-flex justify-content-center">
+                    <div v-if="isOrderProcessing" class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
                     </div>
                 </div>
 
-                <div v-if="liveCart.length > 0" class="container-md text-dark">
+                <div v-if="isOrderConfirmed" class="container-md d-flex justify-content-center">
+                    <div class="alert alert-success d-flex align-items-center" role="alert">
+                        <div class="alert alert-success m-0">Order confirmed</div>
+                        <button type="button" class="btn btn-primary px-4 ml-2" @click="confirmedHandle()"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+
+                <div v-if="liveCart.length > 0 && isOrderProcessing == false" class="container-md text-dark">
                     <div class="d-flex align-items-center mb-2">
                         <h4 class="mb-0">Cart</h4>
                         <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary ml-4">Update order</router-link>
@@ -166,10 +172,25 @@
             </section>
 
             <section id="info-section">
-                <div class="container-md py-4">
+                <div class="container-md p-4 text-dark">
                     <div class="row">
-                        <div class="col-12">
-                            INSERISCI QUI LE 3 CARD INFO TIPO GLOVO
+                        <div class="col-12 col-md-4 my-4 my-md-2 px-md-4">
+                            <div class="info-section-card rounded text-center">
+                                <img class="rounded" src="/assets/img/funny-fries.jpg" alt="Funny Fries">
+                                <div class="my-2 mx-4">With a many variety of restaurants you can order your favorite meals.</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 my-4 my-md-2 px-md-4">
+                            <div class="info-section-card rounded text-center">
+                                <img class="rounded" src="/assets/img/funny-burger.jpg" alt="Funny Burger">
+                                <div class="my-2 mx-4">Speed is our pride. Order anything to your city and we'll pick it up and deliver it to you within minutes.</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 my-4 my-md-2 px-md-4">
+                            <div class="info-section-card rounded text-center">
+                                <img class="rounded" src="/assets/img/funny-pizza.jpg" alt="Funny Pizza">
+                                <div class="my-2 mx-4">Find your favourite meal, if it's in your city, we'll bring it to you.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -190,13 +211,13 @@ export default {
             restaurants: [],
             liveCart: [],
             liveCartRestaurant: "",
-            isLiveCartEmpty: false, ///////////////////check label advise
             hasRestaurantCart: false,
             userName: "",
             userAddress: "",
             userNumber: "",
             userEmail: "",
             totalAmount: 0,
+            isOrderProcessing: false,
             isOrderConfirmed: false
         }
     },
@@ -244,6 +265,9 @@ export default {
                 this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
             }
 
+            if (this.liveCart.length == 0) {
+                return;
+            }
             for (let i = 0; i < this.restaurants.length; i++) {
                 if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
                     this.liveCartRestaurant = this.restaurants[i];
@@ -262,6 +286,8 @@ export default {
         },
         orderHandle(event) {
             event.preventDefault();
+
+            this.isOrderProcessing = true;
 
             axios.post('/api/order', {
                 name: this.userName,
@@ -283,6 +309,8 @@ export default {
                     localStorage.setItem('orderConfirmed', JSON.stringify(this.isOrderConfirmed));
                 }
 
+                this.isOrderProcessing = false;
+
                 window.location.reload();
             });
         },
@@ -293,16 +321,6 @@ export default {
         },
         checkRestaurantHasCart() {
             this.hasRestaurantCart = true;
-        },
-        checkLiveCartEmpty() {
-            if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-                this.isLiveCartEmpty = true;
-            } else {
-                window.scroll({
-                    top: window.innerHeight,
-                    behavior: 'smooth'
-                });
-            }
         },
         getPartialAmount(index) {
             let partialAmount = 0;
@@ -352,11 +370,6 @@ export default {
         padding-top: 60px;
     }
 
-    .my_search-card {
-        //outline: 5px solid #007BFF;
-        //outline-offset: 5px;
-    }
-
     .my_checkbox {
         width: 100%;
         height: 70px;
@@ -401,6 +414,17 @@ export default {
 
     #info-section {
         background-color: #ffc107;
+
+        img {
+            width: 65%;
+        }
+    }
+
+    .info-section-card {
+        height: 100%;
+        background-color: #ffffff;
+        outline: 6px solid #ffffff;
+        outline-offset: 6px;
     }
 
     #special-section {
@@ -408,7 +432,7 @@ export default {
     }
 
     .my_main-slogan {
-        font-size: 22px;
+        font-size: 16px;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -424,14 +448,14 @@ export default {
         position: absolute;
         bottom: -50px;
         left: 0;
-        width: 100%;
+        width: 150%;
         overflow: hidden;
         line-height: 0;
     }
     .custom-shape-divider-top-1669183005 svg {
         position: relative;
         display: block;
-        width: calc(100% + 1.3px);
+        width: calc(150% + 1.3px);
         height: 50px;
     }
     .custom-shape-divider-top-1669183005 .shape-fill {
@@ -442,7 +466,7 @@ export default {
         position: absolute;
         top: -50px;
         left: 0;
-        width: 100%;
+        width: 150%;
         overflow: hidden;
         line-height: 0;
         transform: rotate(180deg);
@@ -450,7 +474,7 @@ export default {
     .custom-shape-divider-bottom-1669183688 svg {
         position: relative;
         display: block;
-        width: calc(100% + 1.3px);
+        width: calc(150% + 1.3px);
         height: 50px;
         transform: rotateY(180deg);
     }
@@ -460,6 +484,11 @@ export default {
 
     /////// MEDUA QUERY ///////
 
+    @media all and (min-width: 576px) {
+        .my_main-slogan {
+            font-size: 22px;
+        }
+    }
     @media all and (min-width: 768px) {
         #hero-section {
             background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);
@@ -469,6 +498,20 @@ export default {
         }
         .my_main-slogan {
             font-size: 16px;
+        }
+
+        .custom-shape-divider-top-1669183005 {
+            width: 100%;
+        }
+        .custom-shape-divider-top-1669183005 svg {
+            width: calc(100% + 1.3px);
+        }
+
+        .custom-shape-divider-bottom-1669183688 {
+            width: 100%;
+        }
+        .custom-shape-divider-bottom-1669183688 svg {
+            width: calc(100% + 1.3px);
         }
     }
     @media all and (min-width: 992px) {
