@@ -1,7 +1,7 @@
 <template>
     <div>
-        <footer class="text-light">
-            <div class="container-md py-4">
+        <footer>
+            <div class="container-md text-light py-4">
                 DeliveBoo | link social icone
             </div>
         </footer>

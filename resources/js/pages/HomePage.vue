@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="col-3 col-md mb-4" v-for="(cuisine, index) in cuisines" :key="index">
-                            <div class="my_search-card rounded">
+                            <div>
                                 <input type="checkbox" class="my_checkbox rounded pointer" :name="cuisine.name" :id="cuisine.id" :value="cuisine.id" v-model="selectedCuisines" @change="getFilteredRestaurants()"
                                 :style="`background-image: url('/assets/img/cuisines/${cuisine.name}.jpg');`">
                                 <div class="text-capitalize text-center mt-2" :for="cuisine.id">{{cuisine.name}}</div>
@@ -61,7 +61,7 @@
                             <router-link @click.native="checkRestaurantHasCart()" :event="restaurant.cartActiveDetect == false ? 'click' : ''" :to="{name: 'restaurant-menu', params: {slug: restaurant.slug}}"
                             class="restaurant-card rounded text-dark d-flex align-items-center">
                                 <div class="my_restaurant-img rounded">
-                                    <img :src="restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
+                                    <img :src="restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/' + restaurant.image" :alt="restaurant.name">
                                 </div>
                                 <div class="ml-2">
                                     <h5 class="mb-0 text-capitalize font-weight-bold">{{restaurant.name}}</h5>
@@ -172,7 +172,7 @@
             </section>
 
             <section id="info-section">
-                <div class="container-md py-4">
+                <div class="container-md py-4 text-dark">
                     <div class="row">
                         <div class="col-12">
                             INSERISCI QUI LE 3 CARD INFO TIPO GLOVO
@@ -350,11 +350,6 @@ export default {
     #cuisine-section {
         background-color: #ffffff;
         padding-top: 60px;
-    }
-
-    .my_search-card {
-        //outline: 5px solid #007BFF;
-        //outline-offset: 5px;
     }
 
     .my_checkbox {
