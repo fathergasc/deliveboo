@@ -2047,6 +2047,9 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
       }
+      if (this.liveCart.length == 0) {
+        return;
+      }
       for (var i = 0; i < this.restaurants.length; i++) {
         if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
           this.liveCartRestaurant = this.restaurants[i];
@@ -2194,6 +2197,9 @@ __webpack_require__.r(__webpack_exports__);
         return;
       } else {
         this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+        if (this.liveCart.length == 0) {
+          return;
+        }
         if (this.restaurant.id == this.liveCart[0].restaurant_id) {
           this.isCartEmpty = false;
           return;
@@ -2357,7 +2363,32 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("div", [_c("footer", [_c("div", {
     staticClass: "container-md text-light py-4"
-  }, [_vm._v("\n            DeliveBoo | link social icone\n        ")])])]);
+  }, [_c("div", {
+    staticClass: "text-center"
+  }, [_c("div", [_vm._v("\n                    DeliveBoo | by Boolean class 69 - Team 3\n                ")]), _vm._v(" "), _c("div", {
+    staticClass: "mt-2"
+  }, [_c("a", {
+    staticClass: "text-light",
+    attrs: {
+      href: "#"
+    }
+  }, [_c("i", {
+    staticClass: "fa-brands fa-square-facebook"
+  })]), _vm._v(" "), _c("a", {
+    staticClass: "text-light mx-2",
+    attrs: {
+      href: "#"
+    }
+  }, [_c("i", {
+    staticClass: "fa-brands fa-square-instagram"
+  })]), _vm._v(" "), _c("a", {
+    staticClass: "text-light",
+    attrs: {
+      href: "#"
+    }
+  }, [_c("i", {
+    staticClass: "fa-brands fa-square-twitter"
+  })])])])])])]);
 }];
 render._withStripped = true;
 
@@ -2915,12 +2946,46 @@ var staticRenderFns = [function () {
       id: "info-section"
     }
   }, [_c("div", {
-    staticClass: "container-md py-4 text-dark"
+    staticClass: "container-md p-4 text-dark"
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-12"
-  }, [_vm._v("\n                        INSERISCI QUI LE 3 CARD INFO TIPO GLOVO\n                    ")])])])]);
+    staticClass: "col-12 col-md-4 my-4 my-md-2 px-md-4"
+  }, [_c("div", {
+    staticClass: "info-section-card rounded text-center"
+  }, [_c("img", {
+    staticClass: "rounded",
+    attrs: {
+      src: "/assets/img/funny-fries.jpg",
+      alt: "Funny Fries"
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "my-2 mx-4"
+  }, [_vm._v("With a many variety of restaurants you can order your favorite meals.")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-12 col-md-4 my-4 my-md-2 px-md-4"
+  }, [_c("div", {
+    staticClass: "info-section-card rounded text-center"
+  }, [_c("img", {
+    staticClass: "rounded",
+    attrs: {
+      src: "/assets/img/funny-burger.jpg",
+      alt: "Funny Burger"
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "my-2 mx-4"
+  }, [_vm._v("Speed is our pride. Order anything to your city and we'll pick it up and deliver it to you within minutes.")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-12 col-md-4 my-4 my-md-2 px-md-4"
+  }, [_c("div", {
+    staticClass: "info-section-card rounded text-center"
+  }, [_c("img", {
+    staticClass: "rounded",
+    attrs: {
+      src: "/assets/img/funny-pizza.jpg",
+      alt: "Funny Pizza"
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "my-2 mx-4"
+  }, [_vm._v("Find your favourite meal, if it's in your city, we'll bring it to you.")])])])])])]);
 }];
 render._withStripped = true;
 
@@ -2970,11 +3035,28 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("section", {
+    staticClass: "position-relative",
     attrs: {
       id: "order-section"
     }
   }, [_c("div", {
-    staticClass: "container-md text-dark py-4"
+    staticClass: "custom-shape-edit-top"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "custom-shape-divider-top-1669183005"
+  }, [_c("svg", {
+    attrs: {
+      "data-name": "Layer 1",
+      xmlns: "http://www.w3.org/2000/svg",
+      viewBox: "0 0 1200 120",
+      preserveAspectRatio: "none"
+    }
+  }, [_c("path", {
+    staticClass: "shape-fill",
+    attrs: {
+      d: "M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "container-md text-dark py-4 relative-index-bg"
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
@@ -3010,13 +3092,16 @@ var render = function render() {
     return _c("li", {
       key: index,
       staticClass: "list-group-item d-flex justify-content-between align-items-center text-capitalize"
-    }, [_c("div", [_c("img", {
+    }, [_c("div", {
+      staticClass: "d-flex align-items-center"
+    }, [_c("img", {
+      staticClass: "my_product-img rounded",
       attrs: {
-        src: product.image == null ? "/assets/img/no_product_image_default.jpg" : "storage/" + product.image,
+        src: product.image == null ? "/assets/img/hand-drawn-food-doodle_edit.png" : "storage/" + product.image,
         alt: product.name
       }
     }), _vm._v(" "), _c("div", {
-      staticClass: "overflow-hidden"
+      staticClass: "mx-2 overflow-hidden"
     }, [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("div", {
       staticClass: "d-flex align-items-center"
     }, [_c("div", [_vm._v(_vm._s(_vm.formatPrice(product.price)))]), _vm._v(" "), _c("div", {
@@ -3121,6 +3206,10 @@ var render = function render() {
   }, [_c("div", [_c("div", {
     staticClass: "mb-2 text-center text-md-left"
   }, [_vm._v("Where to deliver?")]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12 col-md-8"
+  }, [_c("div", {
     staticClass: "form-group mb-2"
   }, [_c("input", {
     directives: [{
@@ -3226,7 +3315,7 @@ var render = function render() {
         _vm.userEmail = $event.target.value;
       }
     }
-  })])]), _vm._v(" "), _c("div", {
+  })])])])]), _vm._v(" "), _c("div", {
     staticClass: "text-center text-md-left"
   }, [_c("div", {
     staticClass: "mb-2"
@@ -3236,7 +3325,23 @@ var render = function render() {
       type: "submit",
       disabled: _vm.isCartEmpty
     }
-  }, [_vm._v("Order Now")])])]) : _vm._e()])])])])]);
+  }, [_vm._v("Order Now")])])]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+    staticClass: "custom-shape-divider-bottom-1669183688"
+  }, [_c("svg", {
+    attrs: {
+      "data-name": "Layer 1",
+      xmlns: "http://www.w3.org/2000/svg",
+      viewBox: "0 0 1200 120",
+      preserveAspectRatio: "none"
+    }
+  }, [_c("path", {
+    staticClass: "shape-fill",
+    attrs: {
+      d: "M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "custom-shape-edit-bottom"
+  })])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -3311,7 +3416,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "footer[data-v-e72d6f5c] {\n  background-color: #343a40;\n}", ""]);
+exports.push([module.i, "footer[data-v-e72d6f5c] {\n  background-color: #343a40;\n}\nfooter i[data-v-e72d6f5c] {\n  font-size: 30px;\n}", ""]);
 
 // exports
 
@@ -3349,7 +3454,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#hero-section[data-v-04c29797] {\n  background: #343a40;\n  background: linear-gradient(180deg, #343a40 100%);\n}\n#cuisine-section[data-v-04c29797] {\n  background-color: #ffffff;\n  padding-top: 60px;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  height: 70px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 3px solid #007BFF;\n  outline-offset: 3px;\n}\n#restaurant-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.restaurant-card[data-v-04c29797] {\n  width: 100%;\n  height: 100px;\n}\n.my_restaurant-img[data-v-04c29797] {\n  width: 30%;\n  height: 100%;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n#cart-section[data-v-04c29797] {\n  padding-bottom: 20px;\n  z-index: 111;\n}\n#info-section[data-v-04c29797] {\n  background-color: #ffc107;\n}\n#special-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.my_main-slogan[data-v-04c29797] {\n  font-size: 16px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n.custom-shape-divider-top-1669183005[data-v-04c29797] {\n  position: absolute;\n  bottom: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n  fill: #343a40;\n}\n.custom-shape-divider-bottom-1669183688[data-v-04c29797] {\n  position: absolute;\n  top: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-04c29797] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 576px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}\n@media all and (min-width: 768px) {\n#hero-section[data-v-04c29797] {\n    background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n    fill: #ffc107;\n}\n.my_main-slogan[data-v-04c29797] {\n    font-size: 16px;\n}\n}\n@media all and (min-width: 992px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}", ""]);
+exports.push([module.i, "#hero-section[data-v-04c29797] {\n  background: #343a40;\n  background: linear-gradient(180deg, #343a40 100%);\n}\n#cuisine-section[data-v-04c29797] {\n  background-color: #ffffff;\n  padding-top: 60px;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  height: 70px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 3px solid #007BFF;\n  outline-offset: 3px;\n}\n#restaurant-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.restaurant-card[data-v-04c29797] {\n  width: 100%;\n  height: 100px;\n}\n.my_restaurant-img[data-v-04c29797] {\n  width: 30%;\n  height: 100%;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n#cart-section[data-v-04c29797] {\n  padding-bottom: 20px;\n  z-index: 111;\n}\n#info-section[data-v-04c29797] {\n  background-color: #ffc107;\n}\n#info-section img[data-v-04c29797] {\n  width: 65%;\n}\n.info-section-card[data-v-04c29797] {\n  height: 100%;\n  background-color: #ffffff;\n  outline: 6px solid #ffffff;\n  outline-offset: 6px;\n}\n#special-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.my_main-slogan[data-v-04c29797] {\n  font-size: 16px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n.custom-shape-divider-top-1669183005[data-v-04c29797] {\n  position: absolute;\n  bottom: -50px;\n  left: 0;\n  width: 150%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(150% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n  fill: #343a40;\n}\n.custom-shape-divider-bottom-1669183688[data-v-04c29797] {\n  position: absolute;\n  top: -50px;\n  left: 0;\n  width: 150%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(150% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-04c29797] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 576px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}\n@media all and (min-width: 768px) {\n#hero-section[data-v-04c29797] {\n    background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n    fill: #ffc107;\n}\n.my_main-slogan[data-v-04c29797] {\n    font-size: 16px;\n}\n.custom-shape-divider-top-1669183005[data-v-04c29797] {\n    width: 100%;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-04c29797] {\n    width: calc(100% + 1.3px);\n}\n.custom-shape-divider-bottom-1669183688[data-v-04c29797] {\n    width: 100%;\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-04c29797] {\n    width: calc(100% + 1.3px);\n}\n}\n@media all and (min-width: 992px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}", ""]);
 
 // exports
 
@@ -3368,7 +3473,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#order-section[data-v-6ded6ab4] {\n  background: #343a40;\n  background: linear-gradient(180deg, #e4e7eb 87%, #ffffff 87%);\n}\n.my_restaurant-img[data-v-6ded6ab4] {\n  width: 80%;\n  height: 250px;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-6ded6ab4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n@media all and (min-width: 768px) {\n.my_restaurant-img[data-v-6ded6ab4] {\n    width: 100%;\n    height: 40%;\n}\n}", ""]);
+exports.push([module.i, "#order-section[data-v-6ded6ab4] {\n  background-color: #ffffff;\n}\n.my_restaurant-img[data-v-6ded6ab4] {\n  width: 80%;\n  height: 250px;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-6ded6ab4] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n.my_product-img[data-v-6ded6ab4] {\n  width: 15%;\n  aspect-ratio: 1/1;\n}\n.relative-index-bg[data-v-6ded6ab4] {\n  position: relative;\n  z-index: 111;\n}\n.custom-shape-edit-top[data-v-6ded6ab4] {\n  width: 100%;\n  height: 250px;\n  background-color: rgba(0, 123, 255, 0.2);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.custom-shape-divider-top-1669183005[data-v-6ded6ab4] {\n  position: absolute;\n  top: 250px;\n  left: 0;\n  width: 150%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-6ded6ab4] {\n  position: relative;\n  display: block;\n  width: calc(150% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-6ded6ab4] {\n  fill: rgba(0, 123, 255, 0.2);\n}\n.custom-shape-edit-bottom[data-v-6ded6ab4] {\n  width: 100%;\n  height: 250px;\n  background-color: #e4e7eb;\n  position: absolute;\n  bottom: 0;\n  left: 0;\n}\n.custom-shape-divider-bottom-1669183688[data-v-6ded6ab4] {\n  position: absolute;\n  bottom: 250px;\n  left: 0;\n  width: 150%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-6ded6ab4] {\n  position: relative;\n  display: block;\n  width: calc(150% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-6ded6ab4] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 768px) {\n.my_restaurant-img[data-v-6ded6ab4] {\n    width: 100%;\n    height: 40%;\n}\n.custom-shape-divider-top-1669183005[data-v-6ded6ab4] {\n    width: 100%;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-6ded6ab4] {\n    width: calc(100% + 1.3px);\n}\n.custom-shape-divider-bottom-1669183688[data-v-6ded6ab4] {\n    width: 100%;\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-6ded6ab4] {\n    width: calc(100% + 1.3px);\n}\n}", ""]);
 
 // exports
 

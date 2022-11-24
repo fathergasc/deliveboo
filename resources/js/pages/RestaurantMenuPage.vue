@@ -1,7 +1,15 @@
 <template>
     <div>
-        <section id="order-section">
-            <div class="container-md text-dark py-4">
+        <section id="order-section" class="position-relative">
+            <div class="custom-shape-edit-top"></div>
+            <div class="custom-shape-divider-top-1669183005">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div>
+
+
+            <div class="container-md text-dark py-4 relative-index-bg">
                 <div class="row">
                     <div class="col-12 col-md-4 d-flex flex-column align-items-center align-items-md-start">
                         <h2 class="text-center text-md-left">{{restaurant.name}}</h2>
@@ -25,9 +33,9 @@
                         <ul class="list-group mb-4">
                             <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                             v-for="(product, index) in restaurant.products" :key="index">
-                                <div>
-                                    <img :src="product.image == null ? '/assets/img/no_product_image_default.jpg' : 'storage/' + product.image" :alt="product.name">
-                                    <div class="overflow-hidden">{{product.name}}</div>
+                                <div class="d-flex align-items-center">
+                                    <img class="my_product-img rounded" :src="product.image == null ? '/assets/img/hand-drawn-food-doodle_edit.png' : 'storage/' + product.image" :alt="product.name">
+                                    <div class="mx-2 overflow-hidden">{{product.name}}</div>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div>{{formatPrice(product.price)}}</div>
@@ -74,21 +82,25 @@
                         <form @submit="orderHandle" v-if="isOrderProcessing == false && isOrderConfirmed == false">
                             <div>
                                 <div class="mb-2 text-center text-md-left">Where to deliver?</div>
-                                <div class="form-group mb-2">
-                                    <input type="text" class="form-control" id="inputName" placeholder="Name"
-                                    v-model="userName" required minlength="3" maxlength="50">
-                                </div>
-                                <div class="form-group mb-2">
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Address"
-                                    v-model="userAddress" required minlength="3" maxlength="50">
-                                </div>
-                                <div class="form-group mb-2">
-                                    <input type="text" class="form-control" id="inputNumber" placeholder="Phone"
-                                    v-model="userNumber" required minlength="5" maxlength="25">
-                                </div>
-                                <div class="form-group mb-2">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email"
-                                    v-model="userEmail" required>
+                                <div class="row">
+                                    <div class="col-12 col-md-8">
+                                        <div class="form-group mb-2">
+                                            <input type="text" class="form-control" id="inputName" placeholder="Name"
+                                            v-model="userName" required minlength="3" maxlength="50">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <input type="text" class="form-control" id="inputAddress" placeholder="Address"
+                                            v-model="userAddress" required minlength="3" maxlength="50">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <input type="text" class="form-control" id="inputNumber" placeholder="Phone"
+                                            v-model="userNumber" required minlength="5" maxlength="25">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email"
+                                            v-model="userEmail" required>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="text-center text-md-left">
@@ -99,6 +111,14 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="custom-shape-divider-bottom-1669183688">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div>
+            <div class="custom-shape-edit-bottom"></div>
         </section>
     </div>
 </template>
@@ -155,6 +175,9 @@ export default {
                 return;
             } else {
                 this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
+                if (this.liveCart.length == 0) {
+                    return;
+                }
                 if (this.restaurant.id == this.liveCart[0].restaurant_id) {
                     this.isCartEmpty = false;
                     return;
@@ -277,8 +300,7 @@ export default {
 
 <style scoped lang="scss">
     #order-section {
-        background: #343a40;
-        background: linear-gradient(180deg, #e4e7eb 87%, #ffffff 87%);
+        background-color: #ffffff;
     }
 
     .my_restaurant-img {
@@ -294,12 +316,94 @@ export default {
         }
     }
 
+    .my_product-img {
+        width: 15%;
+        aspect-ratio: 1 / 1;
+    }
+
+    .relative-index-bg {
+        position: relative;
+        z-index: 111;
+    }
+
+
+
+    .custom-shape-edit-top {
+        width: 100%;
+        height: 250px;
+        background-color: rgba(0, 123, 255, 0.2);
+
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .custom-shape-divider-top-1669183005 {
+        position: absolute;
+        top: 250px;
+        left: 0;
+        width: 150%;
+        overflow: hidden;
+        line-height: 0;
+    }
+    .custom-shape-divider-top-1669183005 svg {
+        position: relative;
+        display: block;
+        width: calc(150% + 1.3px);
+        height: 50px;
+    }
+    .custom-shape-divider-top-1669183005 .shape-fill {
+        fill: rgba(0, 123, 255, 0.2);
+    }
+
+    .custom-shape-edit-bottom {
+        width: 100%;
+        height: 250px;
+        background-color: #e4e7eb;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    .custom-shape-divider-bottom-1669183688 {
+        position: absolute;
+        bottom: 250px;
+        left: 0;
+        width: 150%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+    }
+    .custom-shape-divider-bottom-1669183688 svg {
+        position: relative;
+        display: block;
+        width: calc(150% + 1.3px);
+        height: 50px;
+        transform: rotateY(180deg);
+    }
+    .custom-shape-divider-bottom-1669183688 .shape-fill {
+        fill: #e4e7eb;
+    }
+
     /////// MEDUA QUERY ///////
 
     @media all and (min-width: 768px) {
         .my_restaurant-img {
             width: 100%;
             height: 40%;
+        }
+
+        .custom-shape-divider-top-1669183005 {
+            width: 100%;
+        }
+        .custom-shape-divider-top-1669183005 svg {
+            width: calc(100% + 1.3px);
+        }
+
+        .custom-shape-divider-bottom-1669183688 {
+            width: 100%;
+        }
+        .custom-shape-divider-bottom-1669183688 svg {
+            width: calc(100% + 1.3px);
         }
     }
 </style>

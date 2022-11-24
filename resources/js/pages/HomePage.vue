@@ -172,10 +172,25 @@
             </section>
 
             <section id="info-section">
-                <div class="container-md py-4 text-dark">
+                <div class="container-md p-4 text-dark">
                     <div class="row">
-                        <div class="col-12">
-                            INSERISCI QUI LE 3 CARD INFO TIPO GLOVO
+                        <div class="col-12 col-md-4 my-4 my-md-2 px-md-4">
+                            <div class="info-section-card rounded text-center">
+                                <img class="rounded" src="/assets/img/funny-fries.jpg" alt="Funny Fries">
+                                <div class="my-2 mx-4">With a many variety of restaurants you can order your favorite meals.</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 my-4 my-md-2 px-md-4">
+                            <div class="info-section-card rounded text-center">
+                                <img class="rounded" src="/assets/img/funny-burger.jpg" alt="Funny Burger">
+                                <div class="my-2 mx-4">Speed is our pride. Order anything to your city and we'll pick it up and deliver it to you within minutes.</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 my-4 my-md-2 px-md-4">
+                            <div class="info-section-card rounded text-center">
+                                <img class="rounded" src="/assets/img/funny-pizza.jpg" alt="Funny Pizza">
+                                <div class="my-2 mx-4">Find your favourite meal, if it's in your city, we'll bring it to you.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,6 +265,9 @@ export default {
                 this.liveCart = JSON.parse(localStorage.getItem('myLiveCart'));
             }
 
+            if (this.liveCart.length == 0) {
+                return;
+            }
             for (let i = 0; i < this.restaurants.length; i++) {
                 if (this.restaurants[i].id == this.liveCart[0].restaurant_id) {
                     this.liveCartRestaurant = this.restaurants[i];
@@ -396,6 +414,17 @@ export default {
 
     #info-section {
         background-color: #ffc107;
+
+        img {
+            width: 65%;
+        }
+    }
+
+    .info-section-card {
+        height: 100%;
+        background-color: #ffffff;
+        outline: 6px solid #ffffff;
+        outline-offset: 6px;
     }
 
     #special-section {
@@ -419,14 +448,14 @@ export default {
         position: absolute;
         bottom: -50px;
         left: 0;
-        width: 100%;
+        width: 150%;
         overflow: hidden;
         line-height: 0;
     }
     .custom-shape-divider-top-1669183005 svg {
         position: relative;
         display: block;
-        width: calc(100% + 1.3px);
+        width: calc(150% + 1.3px);
         height: 50px;
     }
     .custom-shape-divider-top-1669183005 .shape-fill {
@@ -437,7 +466,7 @@ export default {
         position: absolute;
         top: -50px;
         left: 0;
-        width: 100%;
+        width: 150%;
         overflow: hidden;
         line-height: 0;
         transform: rotate(180deg);
@@ -445,7 +474,7 @@ export default {
     .custom-shape-divider-bottom-1669183688 svg {
         position: relative;
         display: block;
-        width: calc(100% + 1.3px);
+        width: calc(150% + 1.3px);
         height: 50px;
         transform: rotateY(180deg);
     }
@@ -469,6 +498,20 @@ export default {
         }
         .my_main-slogan {
             font-size: 16px;
+        }
+
+        .custom-shape-divider-top-1669183005 {
+            width: 100%;
+        }
+        .custom-shape-divider-top-1669183005 svg {
+            width: calc(100% + 1.3px);
+        }
+
+        .custom-shape-divider-bottom-1669183688 {
+            width: 100%;
+        }
+        .custom-shape-divider-bottom-1669183688 svg {
+            width: calc(100% + 1.3px);
         }
     }
     @media all and (min-width: 992px) {

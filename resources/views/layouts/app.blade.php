@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>DeliveBoo</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/super-french-fries_edit-reverse.ico">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
