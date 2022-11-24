@@ -34,7 +34,7 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center text-capitalize"
                             v-for="(product, index) in restaurant.products" :key="index">
                                 <div class="d-flex align-items-center">
-                                    <img class="my_product-img rounded" :src="product.image == null ? '/assets/img/hand-drawn-food-doodle_edit.png' : 'storage/' + product.image" :alt="product.name">
+                                    <img class="my_product-img rounded" :src="product.image == null ? '/assets/img/hand-drawn-food-doodle_edit.png' : '/storage/' + product.image" :alt="product.name">
                                     <div class="mx-2 overflow-hidden">{{product.name}}</div>
                                 </div>
                                 <div class="d-flex align-items-center">
