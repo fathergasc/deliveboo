@@ -1925,10 +1925,29 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'MyHeader',
+  props: {
+    linkPerEmptyLiveCart: Boolean
+  },
   data: function data() {
     return {
-      isUserLogged: false
+      isUserLogged: false,
+      isLiveCartEmpty: false
     };
+  },
+  methods: {
+    checkLiveCartEmpty: function checkLiveCartEmpty() {
+      if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
+        this.isLiveCartEmpty = true;
+      } else {
+        window.scroll({
+          top: window.innerHeight,
+          behavior: 'smooth'
+        });
+      }
+    },
+    resetEmptyCartCheck: function resetEmptyCartCheck() {
+      this.isLiveCartEmpty = false;
+    }
   },
   created: function created() {
     var _this = this;
@@ -1950,7 +1969,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'MyMain'
+  name: 'MyMain',
+  data: function data() {
+    return {
+      isLiveCartEmpty: false
+    };
+  }
 });
 
 /***/ }),
@@ -1975,14 +1999,13 @@ __webpack_require__.r(__webpack_exports__);
       restaurants: [],
       liveCart: [],
       liveCartRestaurant: "",
-      isLiveCartEmpty: false,
-      ///////////////////check label advise
       hasRestaurantCart: false,
       userName: "",
       userAddress: "",
       userNumber: "",
       userEmail: "",
       totalAmount: 0,
+      isOrderProcessing: false,
       isOrderConfirmed: false
     };
   },
@@ -2041,6 +2064,7 @@ __webpack_require__.r(__webpack_exports__);
     orderHandle: function orderHandle(event) {
       var _this3 = this;
       event.preventDefault();
+      this.isOrderProcessing = true;
       axios.post('/api/order', {
         name: this.userName,
         phone: this.userNumber,
@@ -2057,6 +2081,7 @@ __webpack_require__.r(__webpack_exports__);
           _this3.isOrderConfirmed = true;
           localStorage.setItem('orderConfirmed', JSON.stringify(_this3.isOrderConfirmed));
         }
+        _this3.isOrderProcessing = false;
         window.location.reload();
       });
     },
@@ -2066,16 +2091,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     checkRestaurantHasCart: function checkRestaurantHasCart() {
       this.hasRestaurantCart = true;
-    },
-    checkLiveCartEmpty: function checkLiveCartEmpty() {
-      if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-        this.isLiveCartEmpty = true;
-      } else {
-        window.scroll({
-          top: window.innerHeight,
-          behavior: 'smooth'
-        });
-      }
     },
     getPartialAmount: function getPartialAmount(index) {
       var partialAmount = 0;
@@ -2298,6 +2313,21 @@ __webpack_require__.r(__webpack_exports__);
     MyHeader: _components_MyHeader_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     MyMain: _components_MyMain_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     MyFooter: _components_MyFooter_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      isLiveCartEmpty: true
+    };
+  },
+  methods: {
+    setLiveCartEmpty: function setLiveCartEmpty(getLiveCartEmpty) {
+      this.isLiveCartEmpty = getLiveCartEmpty;
+    },
+    reSetLiveCartEmpty: function reSetLiveCartEmpty(reGetLiveCartEmpty) {
+      if (reGetLiveCartEmpty == false) {
+        this.isLiveCartEmpty = true;
+      }
+    }
   }
 });
 
@@ -2347,7 +2377,13 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("header", [_c("nav", {
+  return _c("div", [_c("header", {
+    on: {
+      mouseleave: function mouseleave($event) {
+        return _vm.resetEmptyCartCheck();
+      }
+    }
+  }, [_c("nav", {
     staticClass: "container-md text-light navbar navbar-light d-flex align-items-center justify-content-between"
   }, [_c("router-link", {
     staticClass: "navbar-brand d-flex align-items-center",
@@ -2357,32 +2393,52 @@ var render = function render() {
       }
     }
   }, [_c("img", {
+    staticClass: "d-none d-sm-block",
     attrs: {
       src: "/assets/img/super-french-fries_edit.png",
       alt: "DeliveBoo"
     }
   }), _vm._v(" "), _c("h1", {
     staticClass: "mb-0 ml-2 text-white"
-  }, [_vm._v("DeliveBoo")])]), _vm._v(" "), !_vm.isUserLogged ? _c("div", {
+  }, [_vm._v("DeliveBoo")])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex align-items-center position-relative"
+  }, [!_vm.isUserLogged ? _c("div", {
     staticClass: "d-flex justify-content-center"
   }, [_c("a", {
     staticClass: "btn btn-light",
     attrs: {
       href: "/admin"
     }
-  }, [_vm._v("Log In")]), _vm._v(" "), _c("a", {
+  }, [_vm._v("Login")]), _vm._v(" "), _c("a", {
     staticClass: "btn btn-dark ml-2",
     attrs: {
       href: "/register"
     }
-  }, [_vm._v("Sign Up")])]) : _c("div", {
+  }, [_vm._v("Signup")])]) : _c("div", {
     staticClass: "d-flex justify-content-center"
   }, [_c("a", {
     staticClass: "btn btn-secondary",
     attrs: {
       href: "/admin"
     }
-  }, [_vm._v("My Dashboard")])])], 1)])]);
+  }, [_vm._v("My Dashboard")])]), _vm._v(" "), _c("div", {
+    staticClass: "ml-2"
+  }, [_c("i", {
+    staticClass: "fa-solid fa-cart-shopping pointer",
+    on: {
+      click: function click($event) {
+        _vm.checkLiveCartEmpty(), _vm.$emit("linkPerEmptyLiveCart", _vm.linkPerEmptyLiveCart);
+      }
+    }
+  })]), _vm._v(" "), _vm.isLiveCartEmpty && _vm.linkPerEmptyLiveCart ? _c("div", {
+    staticClass: "position-absolute"
+  }, [_c("div", {
+    staticClass: "alert alert-primary m-0",
+    attrs: {
+      id: "empty-cart-alert",
+      role: "alert"
+    }
+  }, [_vm._v("\n                        Your cart is empty.\n                    ")])]) : _vm._e()])], 1)])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2404,7 +2460,13 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("router-view")], 1);
+  return _c("div", {
+    on: {
+      touchstart: function touchstart($event) {
+        return _vm.$emit("linkedLiveEmptyCart", _vm.isLiveCartEmpty);
+      }
+    }
+  }, [_c("router-view")], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2566,7 +2628,7 @@ var render = function render() {
     })]), _vm._v(" "), _c("div", {
       staticClass: "ml-2"
     }, [_c("h5", {
-      staticClass: "mb-0 text-capitalize"
+      staticClass: "mb-0 text-capitalize font-weight-bold"
     }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _vm._l(restaurant.cuisines, function (cuisine, cuisineIndex) {
       return _c("div", {
         key: cuisineIndex,
@@ -2580,7 +2642,16 @@ var render = function render() {
     attrs: {
       id: "cart-section"
     }
-  }, [_vm.isOrderConfirmed ? _c("div", {
+  }, [_c("div", {
+    staticClass: "d-flex justify-content-center"
+  }, [_vm.isOrderProcessing ? _c("div", {
+    staticClass: "spinner-border text-primary",
+    attrs: {
+      role: "status"
+    }
+  }, [_c("span", {
+    staticClass: "sr-only"
+  }, [_vm._v("Loading...")])]) : _vm._e()]), _vm._v(" "), _vm.isOrderConfirmed ? _c("div", {
     staticClass: "container-md d-flex justify-content-center"
   }, [_c("div", {
     staticClass: "alert alert-success d-flex align-items-center",
@@ -2599,7 +2670,7 @@ var render = function render() {
         return _vm.confirmedHandle();
       }
     }
-  }, [_vm._v("x")])])]) : _vm._e(), _vm._v(" "), _vm.liveCart.length > 0 ? _c("div", {
+  }, [_vm._v("x")])])]) : _vm._e(), _vm._v(" "), _vm.liveCart.length > 0 && _vm.isOrderProcessing == false ? _c("div", {
     staticClass: "container-md text-dark"
   }, [_c("div", {
     staticClass: "d-flex align-items-center mb-2"
@@ -3170,7 +3241,18 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("MyHeader"), _vm._v(" "), _c("MyMain"), _vm._v(" "), _c("MyFooter")], 1);
+  return _c("div", [_c("MyHeader", {
+    attrs: {
+      linkPerEmptyLiveCart: _vm.isLiveCartEmpty
+    },
+    on: {
+      linkPerEmptyLiveCart: _vm.reSetLiveCartEmpty
+    }
+  }), _vm._v(" "), _c("MyMain", {
+    on: {
+      linkedLiveEmptyCart: _vm.setLiveCartEmpty
+    }
+  }), _vm._v(" "), _c("MyFooter")], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -3209,7 +3291,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "header[data-v-a4c8a778] {\n  background-color: #007bff;\n  height: 70px;\n}\nnav[data-v-a4c8a778] {\n  height: 100%;\n}\nimg[data-v-a4c8a778] {\n  height: 50px;\n}", ""]);
+exports.push([module.i, "header[data-v-a4c8a778] {\n  background-color: #007bff;\n  height: 70px;\n}\nnav[data-v-a4c8a778] {\n  height: 100%;\n}\nnav h1[data-v-a4c8a778] {\n  font-size: 26px;\n}\nnav img[data-v-a4c8a778] {\n  height: 50px;\n}\nnav i[data-v-a4c8a778] {\n  font-size: 26px;\n}\n#empty-cart-alert[data-v-a4c8a778] {\n  right: -22px;\n  bottom: -64px;\n  z-index: 211;\n}\n.pointer[data-v-a4c8a778] {\n  cursor: pointer;\n}\n@media all and (min-width: 576px) {\nnav h1[data-v-a4c8a778] {\n    font-size: 34px;\n}\n}", ""]);
 
 // exports
 
@@ -3228,7 +3310,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#hero-section[data-v-04c29797] {\n  background: #343a40;\n  background: linear-gradient(180deg, #343a40 100%);\n}\n#cuisine-section[data-v-04c29797] {\n  background-color: #ffffff;\n  padding-top: 60px;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  height: 70px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 3px solid #007BFF;\n  outline-offset: 3px;\n}\n#restaurant-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.restaurant-card[data-v-04c29797] {\n  width: 100%;\n  height: 100px;\n}\n.my_restaurant-img[data-v-04c29797] {\n  width: 30%;\n  height: 100%;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n#cart-section[data-v-04c29797] {\n  padding-bottom: 20px;\n  z-index: 111;\n}\n#info-section[data-v-04c29797] {\n  background-color: #ffc107;\n}\n#special-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.my_main-slogan[data-v-04c29797] {\n  font-size: 22px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n.custom-shape-divider-top-1669183005[data-v-04c29797] {\n  position: absolute;\n  bottom: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n  fill: #343a40;\n}\n.custom-shape-divider-bottom-1669183688[data-v-04c29797] {\n  position: absolute;\n  top: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-04c29797] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 768px) {\n#hero-section[data-v-04c29797] {\n    background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n    fill: #ffc107;\n}\n.my_main-slogan[data-v-04c29797] {\n    font-size: 16px;\n}\n}\n@media all and (min-width: 992px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}", ""]);
+exports.push([module.i, "#hero-section[data-v-04c29797] {\n  background: #343a40;\n  background: linear-gradient(180deg, #343a40 100%);\n}\n#cuisine-section[data-v-04c29797] {\n  background-color: #ffffff;\n  padding-top: 60px;\n}\n.my_checkbox[data-v-04c29797] {\n  width: 100%;\n  height: 70px;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.my_checkbox[data-v-04c29797]:checked {\n  outline: 3px solid #007BFF;\n  outline-offset: 3px;\n}\n#restaurant-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.restaurant-card[data-v-04c29797] {\n  width: 100%;\n  height: 100px;\n}\n.my_restaurant-img[data-v-04c29797] {\n  width: 30%;\n  height: 100%;\n  overflow: hidden;\n}\n.my_restaurant-img img[data-v-04c29797] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n#cart-section[data-v-04c29797] {\n  padding-bottom: 20px;\n  z-index: 111;\n}\n#info-section[data-v-04c29797] {\n  background-color: #ffc107;\n}\n#special-section[data-v-04c29797] {\n  background-color: #e4e7eb;\n}\n.my_main-slogan[data-v-04c29797] {\n  font-size: 16px;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.pointer[data-v-04c29797] {\n  cursor: pointer;\n}\n.custom-shape-divider-top-1669183005[data-v-04c29797] {\n  position: absolute;\n  bottom: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n}\n.custom-shape-divider-top-1669183005 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n  fill: #343a40;\n}\n.custom-shape-divider-bottom-1669183688[data-v-04c29797] {\n  position: absolute;\n  top: -50px;\n  left: 0;\n  width: 100%;\n  overflow: hidden;\n  line-height: 0;\n  transform: rotate(180deg);\n}\n.custom-shape-divider-bottom-1669183688 svg[data-v-04c29797] {\n  position: relative;\n  display: block;\n  width: calc(100% + 1.3px);\n  height: 50px;\n  transform: rotateY(180deg);\n}\n.custom-shape-divider-bottom-1669183688 .shape-fill[data-v-04c29797] {\n  fill: #e4e7eb;\n}\n@media all and (min-width: 576px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}\n@media all and (min-width: 768px) {\n#hero-section[data-v-04c29797] {\n    background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);\n}\n.custom-shape-divider-top-1669183005 .shape-fill[data-v-04c29797] {\n    fill: #ffc107;\n}\n.my_main-slogan[data-v-04c29797] {\n    font-size: 16px;\n}\n}\n@media all and (min-width: 992px) {\n.my_main-slogan[data-v-04c29797] {\n    font-size: 22px;\n}\n}", ""]);
 
 // exports
 

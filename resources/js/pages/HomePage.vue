@@ -64,7 +64,7 @@
                                     <img :src="restaurant.image == null ? '/assets/img/food-main-logo_edit.png' : 'storage/'+ restaurant.image" :alt="restaurant.name">
                                 </div>
                                 <div class="ml-2">
-                                    <h5 class="mb-0 text-capitalize">{{restaurant.name}}</h5>
+                                    <h5 class="mb-0 text-capitalize font-weight-bold">{{restaurant.name}}</h5>
                                     <div class="text-capitalize" v-for="(cuisine, cuisineIndex) in restaurant.cuisines" :key="cuisineIndex">{{cuisine.name}}</div>
                                     <div class="text-capitalize">{{restaurant.address}}</div>
                                 </div>
@@ -75,6 +75,12 @@
             </section>
 
             <section v-if="isOrderConfirmed || liveCart.length > 0" id="cart-section" class="position-relative pt-4">
+                <div class="d-flex justify-content-center">
+                    <div v-if="isOrderProcessing" class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+
                 <div v-if="isOrderConfirmed" class="container-md d-flex justify-content-center">
                     <div class="alert alert-success d-flex align-items-center" role="alert">
                         <div class="alert alert-success">Order confirmed</div>
@@ -82,7 +88,7 @@
                     </div>
                 </div>
 
-                <div v-if="liveCart.length > 0" class="container-md text-dark">
+                <div v-if="liveCart.length > 0 && isOrderProcessing == false" class="container-md text-dark">
                     <div class="d-flex align-items-center mb-2">
                         <h4 class="mb-0">Cart</h4>
                         <router-link :to="{name: 'restaurant-menu', params: {slug: liveCartRestaurant.slug}}" class="btn btn-primary ml-4">Update order</router-link>
@@ -190,13 +196,13 @@ export default {
             restaurants: [],
             liveCart: [],
             liveCartRestaurant: "",
-            isLiveCartEmpty: false, ///////////////////check label advise
             hasRestaurantCart: false,
             userName: "",
             userAddress: "",
             userNumber: "",
             userEmail: "",
             totalAmount: 0,
+            isOrderProcessing: false,
             isOrderConfirmed: false
         }
     },
@@ -263,6 +269,8 @@ export default {
         orderHandle(event) {
             event.preventDefault();
 
+            this.isOrderProcessing = true;
+
             axios.post('/api/order', {
                 name: this.userName,
                 phone: this.userNumber,
@@ -283,6 +291,8 @@ export default {
                     localStorage.setItem('orderConfirmed', JSON.stringify(this.isOrderConfirmed));
                 }
 
+                this.isOrderProcessing = false;
+
                 window.location.reload();
             });
         },
@@ -293,16 +303,6 @@ export default {
         },
         checkRestaurantHasCart() {
             this.hasRestaurantCart = true;
-        },
-        checkLiveCartEmpty() {
-            if (JSON.parse(localStorage.getItem('myLiveCart')) == null) {
-                this.isLiveCartEmpty = true;
-            } else {
-                window.scroll({
-                    top: window.innerHeight,
-                    behavior: 'smooth'
-                });
-            }
         },
         getPartialAmount(index) {
             let partialAmount = 0;
@@ -408,7 +408,7 @@ export default {
     }
 
     .my_main-slogan {
-        font-size: 22px;
+        font-size: 16px;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -460,6 +460,11 @@ export default {
 
     /////// MEDUA QUERY ///////
 
+    @media all and (min-width: 576px) {
+        .my_main-slogan {
+            font-size: 22px;
+        }
+    }
     @media all and (min-width: 768px) {
         #hero-section {
             background: linear-gradient(180deg, #343a40 87%, #ffc107 87%);
